@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/Log_In"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/ctnr"
+    tools:context=".Log_In">
+
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="179dp"
+        android:layout_height="144dp"
+        android:layout_marginStart="117dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="115dp"
+        android:layout_marginBottom="37dp"
+        app:layout_constraintBottom_toTopOf="@+id/Sign"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/Sign"
+        android:layout_width="349dp"
+        android:layout_height="384dp"
+        android:layout_marginStart="68dp"
+        android:layout_marginTop="37dp"
+        android:layout_marginEnd="68dp"
+        android:layout_marginBottom="140dp"
+        android:background="@drawable/shape"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.506"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/icon">
+
+        <TextView
+            android:id="@+id/SignUptxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="147dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="145dp"
+            android:text="Login"
+            android:textColor="@android:color/holo_red_light"
+            android:textSize="30sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/PhoneNumber"
+            android:layout_width="314dp"
+            android:layout_height="39dp"
+            android:layout_marginStart="17dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="180dp"
+            android:ems="10"
+            android:inputType="phone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/PhoneNumberTxt"
+            android:layout_width="168dp"
+            android:layout_height="27dp"
+            android:layout_marginStart="17dp"
+            android:layout_marginTop="66dp"
+            android:layout_marginEnd="164dp"
+            android:text="Phone number"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/PhoneNumber"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/SignUptxt" />
+
+        <ImageView
+            android:id="@+id/Logbtn"
+            android:layout_width="84dp"
+            android:layout_height="73dp"
+            android:layout_marginStart="249dp"
+            android:layout_marginTop="81dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="26dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/PhoneNumber"
+            app:srcCompat="@drawable/button" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/txt1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="164dp"
+        android:layout_marginEnd="163dp"
+        android:layout_marginBottom="26dp"
+        android:text="LivZa"
+        android:textColor="@color/white"
+        android:textSize="36sp"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toTopOf="@+id/Sign"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/icon" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="192dp"
+        android:layout_height="31dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="51dp"
+        android:layout_marginBottom="32dp"
+        android:text="Dont have an account?"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Sign" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="64dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="53dp"
+        android:layout_marginEnd="88dp"
+        android:layout_marginBottom="35dp"
+        android:text="Sign up"
+        android:textColor="@color/white"
+        android:textIsSelectable="false"
+        android:textSize="18sp"
+        android:textStyle="normal|bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/textView4"
+        app:layout_constraintTop_toBottomOf="@+id/Sign"
+        app:layout_constraintVertical_bias="1.0" />
+</androidx.constraintlayout.widget.ConstraintLayout>
