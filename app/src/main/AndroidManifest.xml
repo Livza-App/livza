@@ -3,12 +3,12 @@
     package="com.example.livza">
 
     <application
-        android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launch"
+        android:roundIcon="@mipmap/ic_launch"
         android:supportsRtl="true"
-        android:theme="@style/Theme.LivZa">
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+        >
         <activity android:name=".Sign_Up"></activity>
         <activity android:name=".Log_In" />
         <activity android:name=".MainActivity">

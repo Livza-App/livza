@@ -10,21 +10,21 @@
 
     <ImageView
         android:id="@+id/icon"
-        android:layout_width="179dp"
-        android:layout_height="144dp"
+        android:layout_width="129dp"
+        android:layout_height="109dp"
         android:layout_marginStart="117dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="115dp"
         android:layout_marginBottom="37dp"
-        app:layout_constraintBottom_toTopOf="@+id/Sign"
+        app:layout_constraintBottom_toTopOf="@+id/SignUp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.48"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/logo" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/Sign"
+        android:id="@+id/SignUp"
         android:layout_width="349dp"
         android:layout_height="384dp"
         android:layout_marginStart="68dp"
@@ -39,7 +39,7 @@
         app:layout_constraintTop_toBottomOf="@+id/icon">
 
         <TextView
-            android:id="@+id/SignUptxt"
+            android:id="@+id/loginUptxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="147dp"
@@ -79,39 +79,39 @@
             app:layout_constraintBottom_toTopOf="@+id/PhoneNumber"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/SignUptxt" />
+            app:layout_constraintTop_toBottomOf="@+id/loginUptxt" />
 
         <ImageView
-            android:id="@+id/Logbtn"
-            android:layout_width="84dp"
-            android:layout_height="73dp"
-            android:layout_marginStart="249dp"
-            android:layout_marginTop="81dp"
+            android:id="@+id/LoginBtn"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:layout_marginStart="261dp"
+            android:layout_marginTop="92dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginBottom="26dp"
+            android:layout_marginBottom="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/PhoneNumber"
-            app:srcCompat="@drawable/button" />
+            app:srcCompat="@mipmap/ic_logbtn_foreground" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
         android:id="@+id/txt1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="99dp"
+        android:layout_height="48dp"
         android:layout_marginStart="164dp"
         android:layout_marginEnd="163dp"
-        android:layout_marginBottom="26dp"
+        android:layout_marginBottom="24dp"
         android:text="LivZa"
         android:textColor="@color/white"
         android:textSize="36sp"
         android:textStyle="italic"
-        app:layout_constraintBottom_toTopOf="@+id/Sign"
+        app:layout_constraintBottom_toTopOf="@+id/SignUp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/icon" />
+        app:layout_constraintHorizontal_bias="0.533"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textView4"
@@ -125,10 +125,10 @@
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Sign" />
+        app:layout_constraintTop_toBottomOf="@+id/SignUp" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/Signup"
         android:layout_width="64dp"
         android:layout_height="30dp"
         android:layout_marginTop="53dp"
@@ -141,8 +141,8 @@
         android:textStyle="normal|bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/textView4"
-        app:layout_constraintTop_toBottomOf="@+id/Sign"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/SignUp"
+        app:layout_constraintVertical_bias="0.555" />
 </androidx.constraintlayout.widget.ConstraintLayout>
