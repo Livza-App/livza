@@ -3,10 +3,12 @@ package com.example.livza;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class Sign_Up extends AppCompatActivity {
@@ -36,6 +38,17 @@ public class Sign_Up extends AppCompatActivity {
                 }
             }
         });
+
+        //logIn Btn
+        TextView Login=findViewById(R.id.LoginTxt);
+        Login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent pass=new Intent(Sign_Up.this,Log_In.class);
+                startActivity(pass);
+            }
+        });
+
 
     }
 }
