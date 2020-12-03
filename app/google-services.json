@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "898582619809",
+    "project_id": "livza-84168",
+    "storage_bucket": "livza-84168.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:898582619809:android:ff5cd7a768fcc05c89f2e0",
+        "android_client_info": {
+          "package_name": "com.example.livza"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "898582619809-acbvjfdkj4rc5jeh9211erhuc1l2v6n9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-WpEcZmHlkyGmW_IxU9TgSMa430yPmJ8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "898582619809-acbvjfdkj4rc5jeh9211erhuc1l2v6n9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
