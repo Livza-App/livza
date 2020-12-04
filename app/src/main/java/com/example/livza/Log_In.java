@@ -3,7 +3,10 @@ package com.example.livza;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Layout;
@@ -28,18 +31,18 @@ public class Log_In extends AppCompatActivity  {
         EditText Ph=findViewById(R.id.PhoneNumber);
         String Phone_Number=Ph.getText().toString();
 
-        Logbtn.setOnClickListener(new View.OnClickListener() {
+        if (Phone_Number!=null){
+            Logbtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (Phone_Number==null){
-                        Toast toast = Toast.makeText(Log_In.this, "Enter your phone number !", Toast.LENGTH_SHORT);
-                        toast.show();
-                    }else {
-                        //Ghanou hna trfed PhoneNumber tba3to l fire base
-                        ShowDialog();
-                    }
+                    ShowDialog();
+                    //Ghanou hna trfed PhoneNumber tba3to l fire base
                 }
             });
+        }else{
+                Toast toast = Toast.makeText(Log_In.this, "Enter your phone number !", Toast.LENGTH_SHORT);
+                toast.show();
+        }
 
 
         //To move to the signe_up layout and  Create a new account
@@ -55,18 +58,14 @@ public class Log_In extends AppCompatActivity  {
 
     //This function to show the Dialog of the Confirmation Code to
     public void ShowDialog(){
-        AlertDialog.Builder Alert;
-        Alert=new AlertDialog.Builder(this);
-
-        LayoutInflater inflater=getLayoutInflater();
-        View view=inflater.inflate(R.layout.custom_confirmation_code_dialog,null);
-
-        Alert.setView(view);
-        Alert.setCancelable(false);
+        Dialog DialOg=new Dialog(this);
+        DialOg.setContentView(R.layout.custom_confirmation_code_dialog);
+        DialOg.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        DialOg.show();
 
         //To get the code from the dialog Text and compar it with the code sende by the fierbase manager
-        EditText CodeEdit=view.findViewById(R.id.confimation_code);
-        TextView Confirme=view.findViewById(R.id.Confirme);
+        EditText CodeEdit=DialOg.findViewById(R.id.confimation_code);
+        TextView Confirme=DialOg.findViewById(R.id.Confirme);
         Confirme.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -76,16 +75,13 @@ public class Log_In extends AppCompatActivity  {
             }
         });
 
-        AlertDialog dialog=Alert.create();
-        dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-        dialog.show();
-
         //To resend the COnfirmation Code
-        TextView Resend=view.findViewById(R.id.Resend);
+        TextView Resend=DialOg.findViewById(R.id.Resend);
         Resend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialog.hide();
+                DialOg.hide();
+                //"Here to send Reqest tho the firebase manger and resend the code
             }
         });
     }

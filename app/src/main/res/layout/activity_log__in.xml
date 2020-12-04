@@ -10,27 +10,27 @@
 
     <ImageView
         android:id="@+id/icon"
-        android:layout_width="112dp"
-        android:layout_height="88dp"
-        android:layout_marginStart="117dp"
+        android:layout_width="166dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="98dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="115dp"
+        android:layout_marginEnd="96dp"
+        app:layout_constraintBottom_toTopOf="@+id/txt1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/logo" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/SignUp"
-        android:layout_width="333dp"
-        android:layout_height="335dp"
+        android:layout_width="327dp"
+        android:layout_height="355dp"
         android:layout_marginStart="68dp"
         android:layout_marginEnd="68dp"
-        android:layout_marginBottom="136dp"
         android:background="@drawable/shape"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.477"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt1">
 
@@ -39,13 +39,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="147dp"
-            android:layout_marginTop="28dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="145dp"
             android:text="Login"
             android:textColor="@android:color/holo_red_light"
             android:textSize="30sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.545"
+            app:layout_constraintHorizontal_bias="0.6"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -106,15 +106,16 @@
         android:textColor="@color/white"
         android:textSize="30sp"
         android:textStyle="italic"
+        app:layout_constraintBottom_toTopOf="@+id/SignUp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.513"
+        app:layout_constraintHorizontal_bias="0.486"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/icon" />
 
     <TextView
         android:id="@+id/textView4"
-        android:layout_width="192dp"
-        android:layout_height="31dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="64dp"
         android:layout_marginTop="51dp"
         android:layout_marginBottom="32dp"
@@ -129,7 +130,7 @@
         android:id="@+id/Signup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="52dp"
+        android:layout_marginEnd="51dp"
         android:text="Sign up"
         android:textColor="@color/white"
         android:textIsSelectable="false"
@@ -140,5 +141,5 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/textView4"
         app:layout_constraintTop_toBottomOf="@+id/SignUp"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.556" />
 </androidx.constraintlayout.widget.ConstraintLayout>
