@@ -14,8 +14,8 @@ import androidx.annotation.NonNull;
 import java.util.ArrayList;
 
 public class MenuitemAdapter extends ArrayAdapter<Fooditem> {
-    private final Activity context;
-    private final ArrayList<Fooditem> food;
+    private  Activity context;
+    private  ArrayList<Fooditem> food;
 
 
     public MenuitemAdapter(Activity context, ArrayList<Fooditem> food) {
