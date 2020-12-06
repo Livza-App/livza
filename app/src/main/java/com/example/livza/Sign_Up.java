@@ -38,13 +38,14 @@ public class Sign_Up extends AppCompatActivity {
                     user.putExtra("user_name",User_Name.toString());
                     user.putExtra("phone_number",Phone_Number.toString());
 
-                    //GHanou hna tedi user name w phone number l firebase
+                    //GHanou hna tedi user name w phone number l firebasee
 
                 }
             }
         });
 
-        //logIn Btn
+
+        //logIn Btnn
         TextView Login=findViewById(R.id.LoginTxt);
         Login.setOnClickListener(new View.OnClickListener() {
             @Override

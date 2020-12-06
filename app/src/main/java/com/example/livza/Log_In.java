@@ -45,7 +45,7 @@ public class Log_In extends AppCompatActivity  {
         }
 
 
-        //To move to the signe_up layout and  Create a new account
+        //To move to the signe_up layout and  Create a new accountt
         TextView Sign_up=findViewById(R.id.Signup);
         Sign_up.setOnClickListener(new View.OnClickListener() {
             @Override
