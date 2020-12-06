@@ -1,18 +1,13 @@
 package com.example.livza;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
 import android.os.Bundle;
-import android.text.Layout;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -31,7 +26,7 @@ public class Log_In extends AppCompatActivity  {
         EditText Ph=findViewById(R.id.PhoneNumber);
         String Phone_Number=Ph.getText().toString();
 
-        if (Phone_Number.isEmpty()){
+        if (Phone_Number!=null){
             Logbtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -40,8 +35,8 @@ public class Log_In extends AppCompatActivity  {
                 }
             });
         }else{
-                Toast toast = Toast.makeText(Log_In.this, "Enter your phone number !", Toast.LENGTH_SHORT);
-                toast.show();
+            Toast toast = Toast.makeText(Log_In.this, "Enter your phone number !", Toast.LENGTH_SHORT);
+            toast.show();
         }
 
 
@@ -52,16 +47,6 @@ public class Log_In extends AppCompatActivity  {
             public void onClick(View view) {
                 Intent pass=new Intent(Log_In.this,Sign_Up.class);
                 startActivity(pass);
-            }
-        });
-
-        //testTest
-        ImageView logo=findViewById(R.id.icon);
-        logo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent o=new Intent(Log_In.this,Menu.class);
-                startActivity(o);
             }
         });
     }
@@ -86,7 +71,7 @@ public class Log_In extends AppCompatActivity  {
         });
 
         //To resend the COnfirmation Code
-        TextView Resend=DialOg.findViewById(R.id.Resend);
+        TextView Resend=DialOg.findViewById(R.id.cancel);
         Resend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -95,5 +80,8 @@ public class Log_In extends AppCompatActivity  {
             }
         });
     }
+
+
+
 
 }
