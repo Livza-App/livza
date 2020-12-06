@@ -5,7 +5,7 @@
     android:id="@+id/Log_In"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/ctnr"
+    android:background="@drawable/frame_1"
     tools:context=".Log_In">
 
     <ImageView
@@ -28,7 +28,7 @@
         android:layout_height="355dp"
         android:layout_marginStart="68dp"
         android:layout_marginEnd="68dp"
-        android:background="@drawable/shape"
+        android:background="@drawable/shape_3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"

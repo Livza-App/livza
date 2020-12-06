@@ -9,13 +9,15 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/l1"
         android:layout_width="0dp"
-        android:layout_height="218dp"
+        android:layout_height="180dp"
         android:layout_marginBottom="513dp"
         android:background="@drawable/header"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.333"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
         <TextView
             android:id="@+id/textView5"
@@ -27,11 +29,37 @@
             android:layout_marginBottom="117dp"
             android:text="My profil"
             android:textColor="@color/white"
-            android:textSize="30sp"
+            android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/Edit_profile"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginBottom="130dp"
+            android:background="@drawable/edit_profile"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.92"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.8" />
+
+        <Button
+            android:id="@+id/back_btn"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/back_btn"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/Edit_profile"
+            app:layout_constraintHorizontal_bias="0.058"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.106" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
@@ -41,28 +69,26 @@
         android:layout_marginStart="147dp"
         android:layout_marginTop="17dp"
         android:layout_marginEnd="147dp"
-        android:layout_marginBottom="13dp"
         android:text="Abd Ou"
         android:textColor="#03041D"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/phone_number"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.49"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/User" />
 
     <TextView
-        android:id="@+id/phone_number"
+        android:id="@+id/num"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="121dp"
-        android:layout_marginTop="13dp"
-        android:layout_marginEnd="121dp"
-        android:text="06 73 70 91 90"
+        android:layout_marginTop="132dp"
+        android:text="Details"
         android:textColor="#03041D"
-        android:textSize="18sp"
+        android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.145"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/user_name" />
+        app:layout_constraintTop_toBottomOf="@+id/l1" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/User"
@@ -74,7 +100,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/l1"
-        app:layout_constraintVertical_bias="0.25">
+        app:layout_constraintVertical_bias="0.19">
 
         <ImageView
             android:id="@+id/profile_img"
@@ -82,5 +108,104 @@
             android:layout_height="match_parent"
             tools:srcCompat="@tools:sample/avatars" />
     </androidx.cardview.widget.CardView>
+
+    <Button
+        android:id="@+id/phone_icn"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="28dp"
+        android:background="@drawable/phone_icn"
+        app:layout_constraintBottom_toTopOf="@+id/position_icn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/num" />
+
+    <TextView
+        android:id="@+id/phone_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="06 60 98 56 95"
+        android:textColor="#03041D"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.088"
+        app:layout_constraintStart_toEndOf="@+id/phone_icn"
+        app:layout_constraintTop_toBottomOf="@+id/num" />
+
+    <Button
+        android:id="@+id/position_icn"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="17dp"
+        android:background="@drawable/position_icn"
+        app:layout_constraintEnd_toStartOf="@+id/textView10"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/phone_icn" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="44dp"
+        android:layout_marginEnd="136dp"
+        android:layout_marginBottom="42dp"
+        android:text="96-Reu-Hasiba.ben"
+        android:textColor="#03041D"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toTopOf="@+id/help"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/phone_num" />
+
+    <Button
+        android:id="@+id/help_icn"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="17dp"
+        android:background="@drawable/help_icn"
+        app:layout_constraintEnd_toStartOf="@+id/help"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/position_icn" />
+
+    <TextView
+        android:id="@+id/help"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="162dp"
+        android:text="Help & feedback"
+        android:textColor="#03041D"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/help_icn"
+        app:layout_constraintTop_toBottomOf="@+id/textView10" />
+
+    <Button
+        android:id="@+id/contact_us_icn"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/contact_us_icn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/help_icn" />
+
+    <TextView
+        android:id="@+id/contact_us"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Contact us"
+        android:textColor="#03041D"
+        android:textSize="22sp"
+        tools:layout_editor_absoluteX="93dp"
+        tools:layout_editor_absoluteY="580dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

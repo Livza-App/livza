@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
 
         mHandler.postDelayed(new Runnable() {
             public void run() {
-                Intent intent = new Intent(MainActivity.this, Log_In.class);
+                Intent intent = new Intent(MainActivity.this, Frame_2.class);
                 startActivity(intent);
             }
         }, 2000); // 2 seconds

@@ -2,12 +2,10 @@ package com.example.livza;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-public class Profile_User extends AppCompatActivity {
+public class Profile_User extends AppCompatActivity  {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +23,7 @@ public class Profile_User extends AppCompatActivity {
 
         //Phone_Number
         User.setPhone_number(bundle.get("phone_number").toString());
-        TextView Phone_number=findViewById(R.id.phone_number);
+        TextView Phone_number=findViewById(R.id.num);
         Phone_number.setText(User.getPhone_number());
 
         //Profile_img
