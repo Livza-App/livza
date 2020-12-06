@@ -35,17 +35,17 @@ public class CatitemAdapter extends RecyclerView.Adapter<CatitemAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-            if(position == Menu.cat_pos){
-                holder.imageholder.setBackground(context.getResources().getDrawable(R.drawable.solidcircle_white));
-                holder.main.setBackground(context.getResources().getDrawable(R.drawable.cat_rounded_vector_pink));
-                holder.categorie.setTextColor(context.getResources().getColor(R.color.white));
-            }else{
-                holder.imageholder.setBackground(context.getResources().getDrawable(R.drawable.solidcircle));
-                holder.main.setBackground(context.getResources().getDrawable(R.drawable.cat_rounded_vector));
-                holder.categorie.setTextColor(context.getResources().getColor(R.color.black));
-            }
-            holder.catimage.setImageResource(cat.get(position).getImageid());
-            holder.categorie.setText(cat.get(position).getCategorie());
+        if(position == Menu.cat_pos){
+            holder.imageholder.setBackground(context.getResources().getDrawable(R.drawable.solidcircle_white));
+            holder.main.setBackground(context.getResources().getDrawable(R.drawable.cat_rounded_vector_pink));
+            holder.categorie.setTextColor(context.getResources().getColor(R.color.white));
+        }else{
+            holder.imageholder.setBackground(context.getResources().getDrawable(R.drawable.solidcircle));
+            holder.main.setBackground(context.getResources().getDrawable(R.drawable.cat_rounded_vector));
+            holder.categorie.setTextColor(context.getResources().getColor(R.color.black));
+        }
+        holder.catimage.setImageResource(cat.get(position).getImageid());
+        holder.categorie.setText(cat.get(position).getCategorie());
     }
 
     @Override
@@ -76,6 +76,6 @@ public class CatitemAdapter extends RecyclerView.Adapter<CatitemAdapter.ViewHold
 
 
     public interface Oncategorielistner{
-         void oncategorieitemlistner(int position);
+        void oncategorieitemlistner(int position);
     }
 }

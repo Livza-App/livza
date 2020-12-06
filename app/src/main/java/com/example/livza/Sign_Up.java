@@ -22,18 +22,23 @@ public class Sign_Up extends AppCompatActivity {
         EditText Phone_Number=findViewById(R.id.PhoneNumber);
         ImageView SignUpBtn=findViewById(R.id.SigneUpBtn);
 
+        //SignUp
         SignUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Context context=getBaseContext();
-                if (User_Name.getText()==null){
+                if ((User_Name.toString()).isEmpty()){
                     Toast EmptyUserName= Toast.makeText(context,"please enter your Name",Toast.LENGTH_SHORT);
                     EmptyUserName.show();
-                }else if (Phone_Number.getText()==null){
+                }else if ((Phone_Number.toString()).isEmpty()){
                     Toast EmptyPhoneNumber= Toast.makeText(context,"please enter your Phone Number",Toast.LENGTH_SHORT);
                     EmptyPhoneNumber.show();
                 }else {
+                    Intent user=new Intent(Sign_Up.this,Profile_User.class);
+                    user.putExtra("user_name",User_Name.toString());
+                    user.putExtra("phone_number",Phone_Number.toString());
 
+                    //GHanou hna tedi user name w phone number l firebase
 
                 }
             }

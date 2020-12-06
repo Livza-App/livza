@@ -31,7 +31,7 @@ public class Log_In extends AppCompatActivity  {
         EditText Ph=findViewById(R.id.PhoneNumber);
         String Phone_Number=Ph.getText().toString();
 
-        if (Phone_Number!=null){
+        if (Phone_Number.isEmpty()){
             Logbtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -52,6 +52,16 @@ public class Log_In extends AppCompatActivity  {
             public void onClick(View view) {
                 Intent pass=new Intent(Log_In.this,Sign_Up.class);
                 startActivity(pass);
+            }
+        });
+
+        //testTest
+        ImageView logo=findViewById(R.id.icon);
+        logo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent o=new Intent(Log_In.this,Menu.class);
+                startActivity(o);
             }
         });
     }
@@ -85,8 +95,5 @@ public class Log_In extends AppCompatActivity  {
             }
         });
     }
-
-
-
 
 }

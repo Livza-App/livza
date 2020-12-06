@@ -42,7 +42,7 @@ public class Menu extends AppCompatActivity implements CatitemAdapter.Oncategori
         foods=new ArrayList<>();
         foods=hamburger;
         //putting arraylist inside the adapter and configure the adapter to the listview
-         adapter=new MenuitemAdapter(this,foods);
+        adapter=new MenuitemAdapter(this,foods);
         menu.setAdapter(adapter);
 
 
@@ -61,25 +61,25 @@ public class Menu extends AppCompatActivity implements CatitemAdapter.Oncategori
         categories.add(cat3);
     }
     public void initmenuitems(){
-         hamburger1=new Fooditem(R.drawable.burger1,"20min-30min","100DA","Simple Burger","description","4.0");
-         hamburger2=new Fooditem(R.drawable.burger2,"10min-20min","50DA","cheese Burger","desc","3.0");
-         hamburger3=new Fooditem(R.drawable.burger3,"00min-10min","45DA","chott Burger","L3 SIQ","5.0");
+        hamburger1=new Fooditem(R.drawable.burger1,"20min-30min","100DA","Simple Burger","description","4.0");
+        hamburger2=new Fooditem(R.drawable.burger2,"10min-20min","50DA","cheese Burger","desc","3.0");
+        hamburger3=new Fooditem(R.drawable.burger3,"00min-10min","45DA","chott Burger","L3 SIQ","5.0");
         hamburger=new ArrayList<>();
         hamburger.add(hamburger1);
         hamburger.add(hamburger2);
         hamburger.add(hamburger3);
 
-         pizza1=new Fooditem(R.drawable.pizzasimple,"20min-30min","200DA","pizza simple","description","4.0");
-         pizza2=new Fooditem(R.drawable.pizzafrites,"30min-40min","250DA","pizza frites","frites","4.2");
-         pizza3=new Fooditem(R.drawable.megapizza,"30min-50min","1200DA","mega pizza","simple","5.0");
+        pizza1=new Fooditem(R.drawable.pizzasimple,"20min-30min","200DA","pizza simple","description","4.0");
+        pizza2=new Fooditem(R.drawable.pizzafrites,"30min-40min","250DA","pizza frites","frites","4.2");
+        pizza3=new Fooditem(R.drawable.megapizza,"30min-50min","1200DA","mega pizza","simple","5.0");
         pizza=new ArrayList<>();
         pizza.add(pizza1);
         pizza.add(pizza2);
         pizza.add(pizza3);
 
-         hotdog1=new Fooditem(R.drawable.hotdogsimple,"10min-15min","200DA","hotdog simple","description","4.0");
-         hotdog2=new Fooditem(R.drawable.chicagostylehotdog,"30min-40min","450DA","chicago hotdog","usa","4.2");
-         hotdog3=new Fooditem(R.drawable.corndog,"00min-05min","50DA","cornsdog","Corn","5.0");
+        hotdog1=new Fooditem(R.drawable.hotdogsimple,"10min-15min","200DA","hotdog simple","description","4.0");
+        hotdog2=new Fooditem(R.drawable.chicagostylehotdog,"30min-40min","450DA","chicago hotdog","usa","4.2");
+        hotdog3=new Fooditem(R.drawable.corndog,"00min-05min","50DA","cornsdog","Corn","5.0");
         hotdog=new ArrayList<>();
         hotdog.add(hotdog1);
         hotdog.add(hotdog2);
