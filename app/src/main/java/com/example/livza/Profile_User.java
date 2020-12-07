@@ -83,7 +83,7 @@ public class Profile_User extends AppCompatActivity {
         Edit_Profile_Dialog.show();
 
         //Save the modifications
-       /* TextView Save_btn = findViewById(R.id.Save);
+      TextView Save_btn = findViewById(R.id.Save);
         Save_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -121,11 +121,11 @@ public class Profile_User extends AppCompatActivity {
             public void onClick(View view) {
                 Edit_Profile_Dialog.hide();
             }
-        });*/
+        });
 
     }
 
-   /* @Override
+   @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PICK_IMAGE && resultCode == RESULT_OK && data != null) {
@@ -150,5 +150,5 @@ public class Profile_User extends AppCompatActivity {
                 }
             }
         }
-    }*/
+    }
 }

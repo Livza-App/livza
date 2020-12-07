@@ -121,7 +121,7 @@
         app:layout_constraintVertical_bias="0.503" >
 
         <ImageView
-            android:id="@+id/profile_img"
+            android:id="@+id/profile_img2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:srcCompat="@tools:sample/avatars" />
