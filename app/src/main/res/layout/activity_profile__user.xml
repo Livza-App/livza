@@ -75,7 +75,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.49"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/User" />
+        app:layout_constraintTop_toBottomOf="@+id/User1" />
 
     <TextView
         android:id="@+id/num"
@@ -91,7 +91,7 @@
         app:layout_constraintTop_toBottomOf="@+id/l1" />
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/User"
+        android:id="@+id/User1"
         android:layout_width="139dp"
         android:layout_height="137dp"
         app:cardCornerRadius="500dp"

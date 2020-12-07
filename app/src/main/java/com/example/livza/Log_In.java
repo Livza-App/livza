@@ -18,6 +18,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class Log_In extends AppCompatActivity  {
 
 
@@ -55,15 +57,17 @@ public class Log_In extends AppCompatActivity  {
             }
         });
 
-        //testTest
+        //testTest intent tesssstttt brk
         ImageView logo=findViewById(R.id.icon);
         logo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent o=new Intent(Log_In.this,Menu.class);
                 startActivity(o);
+
             }
         });
+
     }
 
     //This function to show the Dialog of the Confirmation Code to

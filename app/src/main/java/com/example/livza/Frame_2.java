@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class Frame_2 extends AppCompatActivity {
@@ -25,6 +26,7 @@ public class Frame_2 extends AppCompatActivity {
         });
 
 
+
         TextView Sign_Up=findViewById(R.id.sign_up);
         Sign_Up.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -33,5 +35,15 @@ public class Frame_2 extends AppCompatActivity {
             }
         });
 
+
+        //TESTTTTTTTT brkk
+        ImageView logo=findViewById(R.id.logo);
+        logo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               Intent p=new Intent(Frame_2.this,Profile_User.class);
+               startActivity(p);
+            }
+        });
     }
 }
