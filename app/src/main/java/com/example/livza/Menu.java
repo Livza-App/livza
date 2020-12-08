@@ -86,7 +86,7 @@ public class Menu extends AppCompatActivity implements CatitemAdapter.Oncategori
         hotdog.add(hotdog3);
 
     }
-
+    //here we called the listener we have created at CatitemAdapter class(adapter)
     @Override
     public void oncategorieitemlistner(int position) {
         cat_pos=position;
@@ -125,16 +125,10 @@ public class Menu extends AppCompatActivity implements CatitemAdapter.Oncategori
                 adapter.notifyDataSetChanged();
                 break;
             default:
-                /*adapter.clear();
-                adapter=new MenuitemAdapter(this,foods);
-                menu.setAdapter(adapter);*/
 
                 break;
         }
 
         catadapter.notifyDataSetChanged();
-
-
-
     }
 }

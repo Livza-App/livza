@@ -14,12 +14,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-
+//this class is adapter for categories Recyclerview of activity_menu.xml + we are creating a listener<itemlistener> for this adapter
 public class CatitemAdapter extends RecyclerView.Adapter<CatitemAdapter.ViewHolder>  {
     private Context context;
     private ArrayList<Categorieitem> cat;
     private Oncategorielistner moncategorielistner;
-
+    //constructor
     public CatitemAdapter(Context context, ArrayList<Categorieitem> cat,Oncategorielistner oncategorielistner) {
         this.context =context;
         this.cat = cat;
@@ -32,7 +32,7 @@ public class CatitemAdapter extends RecyclerView.Adapter<CatitemAdapter.ViewHold
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.categorie_item, parent, false);
         return new ViewHolder(view,moncategorielistner);
     }
-
+    //this method is responsable of displaying data into screen
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         if(position == Menu.cat_pos){
@@ -52,7 +52,7 @@ public class CatitemAdapter extends RecyclerView.Adapter<CatitemAdapter.ViewHold
     public int getItemCount() {
         return cat.size();
     }
-
+    //this class describe each column of our recyclerview
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         LinearLayout main,imageholder;
         ImageView catimage;
@@ -67,14 +67,14 @@ public class CatitemAdapter extends RecyclerView.Adapter<CatitemAdapter.ViewHold
             imageholder=itemView.findViewById(R.id.circle);
             itemView.setOnClickListener(this);
         }
-
+        //here we are configuring the oncategorieitemlistner
         @Override
         public void onClick(View v) {
             oncategorielistner.oncategorieitemlistner(getAdapterPosition());
         }
     }
 
-
+    //interface of listner containing itemlistener
     public interface Oncategorielistner{
         void oncategorieitemlistner(int position);
     }

@@ -83,7 +83,7 @@ public class Profile_User extends AppCompatActivity {
         Edit_Profile_Dialog.show();
 
         //Save the modifications
-      TextView Save_btn = findViewById(R.id.Save);
+      TextView Save_btn = Edit_Profile_Dialog.findViewById(R.id.Save);
         Save_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -103,7 +103,7 @@ public class Profile_User extends AppCompatActivity {
             }
         });
 
-        CardView ProfileChange_btn = findViewById(R.id.User1);
+        CardView ProfileChange_btn = Edit_Profile_Dialog.findViewById(R.id.User1);
         ProfileChange_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -115,7 +115,7 @@ public class Profile_User extends AppCompatActivity {
         });
 
         //Dont save the modifications
-        TextView Cancel_btn = findViewById(R.id.Cancel);
+        TextView Cancel_btn = Edit_Profile_Dialog.findViewById(R.id.Cancel);
         Cancel_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
