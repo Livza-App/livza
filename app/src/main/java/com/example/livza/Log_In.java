@@ -90,7 +90,7 @@ public class Log_In extends AppCompatActivity  {
         });
 
         //To resend the COnfirmation Code
-        TextView Resend=DialOg.findViewById(R.id.Resend);
+        TextView Resend=DialOg.findViewById(R.id.cancel);
         Resend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
