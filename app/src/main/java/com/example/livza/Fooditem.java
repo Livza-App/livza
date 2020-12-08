@@ -1,5 +1,5 @@
 package com.example.livza;
-
+//this class reference the child(menu_item.xml) of menuitems listview of activity_menu.xml
 public class Fooditem {
     private int imgid;
     private String time,price,title,subtitle,rating;
