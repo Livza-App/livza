@@ -163,7 +163,7 @@ public class Sign_Up extends AppCompatActivity {
                             saveData();
                             Intent intent=new Intent(Sign_Up.this,Log_In.class);
                             startActivity(intent);
-                            finish();
+                            //finish();
 
                         } else {
                             Log.i("sign_up","onComplite else");
@@ -190,9 +190,10 @@ public class Sign_Up extends AppCompatActivity {
                     PhoneAuthOptions.newBuilder(mAuth)
                             .setPhoneNumber(phoneNumber)       // Phone number to verify
                             .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit
-                            .setActivity(getParent())                 // Activity (for callback binding)
+                            .setActivity(this)                 // Activity (for callback binding)
                             .setCallbacks(mCallbacks)          // OnVerificationStateChangedCallbacks
                             .build();
+            Log.i("sign_up","nume:"+phoneNumber);
             PhoneAuthProvider.verifyPhoneNumber(options);
         }
         else{
@@ -204,6 +205,7 @@ public class Sign_Up extends AppCompatActivity {
                     this,               // Activity (for callback binding)
                     mCallbacks          // OnVerificationStateChangedCallbacks
             );
+            Log.i("sign_up","nume:"+"+213"+Phone_Number.getText().toString().substring(1));
         }
     }
 }
