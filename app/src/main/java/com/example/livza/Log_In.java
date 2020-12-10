@@ -7,6 +7,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Icon;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Layout;
@@ -21,41 +22,24 @@ import android.widget.Toast;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Log_In extends AppCompatActivity  {
-
+    private ImageView Logbtn;
+    private EditText Ph;
+    private TextView Sign_up;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log__in);
-
+        //init all objects
+        initobjects();
         // LogIn
-        ImageView Logbtn=findViewById(R.id.LoginBtn);
-        EditText Ph=findViewById(R.id.PhoneNumber);
-        String Phone_Number=Ph.getText().toString();
-
-        if (Phone_Number.isEmpty()){
-            Logbtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    ShowDialog();
-                    //Ghanou hna trfed PhoneNumber tba3to l fire base
-                }
-            });
-        }else{
-                Toast toast = Toast.makeText(Log_In.this, "Enter your phone number !", Toast.LENGTH_SHORT);
-                toast.show();
-        }
+        login();
 
 
-        //To move to the signe_up layout and  Create a new account
-        TextView Sign_up=findViewById(R.id.Signup);
-        Sign_up.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent pass=new Intent(Log_In.this,Sign_Up.class);
-                startActivity(pass);
-            }
-        });
+
+        //To move to the sign_up layout and  Create a new account
+
+        signup();
 
         //testTest intent tesssstttt brk
         ImageView logo=findViewById(R.id.icon);
@@ -65,6 +49,41 @@ public class Log_In extends AppCompatActivity  {
                 Intent o=new Intent(Log_In.this,Menu.class);
                 startActivity(o);
 
+            }
+        });
+
+    }
+
+    public void initobjects(){
+        Logbtn=findViewById(R.id.LoginBtn);
+        Ph=findViewById(R.id.PhoneNumber);
+        Sign_up=findViewById(R.id.Signup);
+    }
+
+    private void signup() {
+        Sign_up.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent pass=new Intent(Log_In.this,Sign_Up.class);
+                startActivity(pass);
+            }
+        });
+    }
+
+    public void login(){
+
+        Logbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String Phone_Number=Ph.getText().toString();
+                if (Phone_Number.isEmpty()){
+                    Toast toast = Toast.makeText(Log_In.this, "Enter your phone number !", Toast.LENGTH_SHORT);
+                    toast.show();
+                }else{
+                    ShowDialog();
+                }
+
+                //Ghanou hna trfed PhoneNumber tba3to l fire base
             }
         });
 
@@ -83,19 +102,20 @@ public class Log_In extends AppCompatActivity  {
         Confirme.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String Code=CodeEdit.getText().toString();
+                //String Code=CodeEdit.getText().toString();
+                startActivity(new Intent(Log_In.this,Menu.class));
                 //GHanou hna u took this Code varible and you Compare with the Code that we have send it to the user -____*____-
 
             }
         });
 
-        //To resend the COnfirmation Code
-        TextView Resend=DialOg.findViewById(R.id.Resend);
-        Resend.setOnClickListener(new View.OnClickListener() {
+        //To resend the confirmation Code...
+        //cancel dialog
+        TextView Cancel=DialOg.findViewById(R.id.cancel);
+        Cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DialOg.hide();
-                //"Here to send Reqest tho the firebase manger and resend the code
+                DialOg.dismiss();
             }
         });
     }
