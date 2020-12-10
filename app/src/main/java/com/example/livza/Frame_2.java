@@ -32,6 +32,7 @@ public class Frame_2 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent Sign_up=new Intent(Frame_2.this,Sign_Up.class);
+                startActivity(Sign_up);
             }
         });
 
