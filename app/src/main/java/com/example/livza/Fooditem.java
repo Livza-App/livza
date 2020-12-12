@@ -1,10 +1,11 @@
 package com.example.livza;
 //this class reference the child(menu_item.xml) of menuitems listview of activity_menu.xml
 public class Fooditem {
-    private int imgid;
-    private String time,price,title,subtitle,rating;
+    private String imgid,ingredients;
+    private String time,title,subtitle;
+    private float price,rating;
 
-    public Fooditem(int imgid, String time, String price, String title, String subtitle, String rating) {
+    public Fooditem(String imgid, String time, float price, String title, String subtitle, float rating) {
         this.imgid = imgid;
         this.time = time;
         this.price = price;
@@ -13,11 +14,11 @@ public class Fooditem {
         this.rating = rating;
     }
 
-    public int getImgid() {
+    public String getImgid() {
         return imgid;
     }
 
-    public void setImgid(int imgid) {
+    public void setImgid(String imgid) {
         this.imgid = imgid;
     }
 
@@ -29,12 +30,20 @@ public class Fooditem {
         this.time = time;
     }
 
-    public String getPrice() {
+    public float getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(float price) {
         this.price = price;
+    }
+
+    public String getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(String ingredients) {
+        this.ingredients = ingredients;
     }
 
     public String getTitle() {
@@ -53,11 +62,11 @@ public class Fooditem {
         this.subtitle = subtitle;
     }
 
-    public String getRating() {
+    public float getRating() {
         return rating;
     }
 
-    public void setRating(String rating) {
+    public void setRating(float rating) {
         this.rating = rating;
     }
 }
