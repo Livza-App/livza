@@ -49,7 +49,7 @@
             app:layout_constraintVertical_bias="0.8" />
 
         <Button
-            android:id="@+id/back_btn"
+            android:id="@+id/btn_back"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:background="@drawable/back_btn"
@@ -109,7 +109,7 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/l2"
+        android:id="@+id/card_layout"
         android:layout_width="0dp"
         android:layout_height="285dp"
         app:layout_constraintEnd_toEndOf="parent"

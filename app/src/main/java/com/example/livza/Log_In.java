@@ -57,16 +57,6 @@ public class Log_In extends AppCompatActivity  {
             }
         });
 
-        //testTest intent tesssstttt brk
-        ImageView logo=findViewById(R.id.icon);
-        logo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent o=new Intent(Log_In.this,Menu.class);
-                startActivity(o);
-
-            }
-        });
 
     }
 

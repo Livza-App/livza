@@ -75,6 +75,18 @@ public class Sign_Up extends AppCompatActivity {
                 startActivity(pass);
             }
         });
+
+
+        //testTest intent tesssstttt brk
+        ImageView logo=findViewById(R.id.icon2);
+        logo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent o=new Intent(Sign_Up.this,Profile_User.class);
+                startActivity(o);
+
+            }
+        });
     }
 
     private void init() {

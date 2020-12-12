@@ -20,13 +20,10 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
-
-import org.w3c.dom.Text;
 
 import java.io.IOException;
 
@@ -64,7 +61,7 @@ public class Profile_User extends AppCompatActivity {
         });
 
         //Back btn
-        Button back = findViewById(R.id.back_btn);
+        Button back = findViewById(R.id.btn_back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
