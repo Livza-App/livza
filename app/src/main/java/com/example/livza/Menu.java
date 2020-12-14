@@ -27,6 +27,8 @@ public class Menu extends AppCompatActivity implements CatitemAdapter.Oncategori
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+        getWindow().setStatusBarColor(getResources().getColor(R.color.white));
+
         initcomponents();
         //Design horizontal layout
         LinearLayoutManager layoutManager=new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);

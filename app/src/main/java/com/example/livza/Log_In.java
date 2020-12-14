@@ -13,6 +13,7 @@ import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -27,6 +28,7 @@ public class Log_In extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log__in);
+        getWindow().setStatusBarColor(getResources().getColor(R.color.pink));
 
         // LogIn
         ImageView Logbtn=findViewById(R.id.LoginBtn);
@@ -57,6 +59,15 @@ public class Log_In extends AppCompatActivity  {
             }
         });
 
+        //just fooor testttttt
+        TextView p=findViewById(R.id.textView4);
+        p.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i=new Intent(Log_In.this,Carte_order.class);
+                startActivity(i);
+            }
+        });
 
     }
 

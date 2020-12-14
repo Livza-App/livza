@@ -15,6 +15,7 @@ public class Frame_2 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_frame_2);
+        getWindow().setStatusBarColor(getResources().getColor(R.color.pink));
 
         Button log_in=findViewById(R.id.login_btn);
         log_in.setOnClickListener(new View.OnClickListener() {

@@ -14,6 +14,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+
+
+
 //this class is adapter for categories Recyclerview of activity_menu.xml + we are creating a listener<itemlistener> for this adapter
 public class CatitemAdapter extends RecyclerView.Adapter<CatitemAdapter.ViewHolder>  {
     private Context context;
@@ -52,6 +55,7 @@ public class CatitemAdapter extends RecyclerView.Adapter<CatitemAdapter.ViewHold
     public int getItemCount() {
         return cat.size();
     }
+
     //this class describe each column of our recyclerview
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         LinearLayout main,imageholder;

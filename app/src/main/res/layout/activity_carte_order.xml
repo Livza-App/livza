@@ -10,8 +10,9 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/card_layout"
-        android:layout_width="match_parent"
-        android:layout_height="590dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="100dp"
         android:background="@drawable/carte_layout"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,8 +23,8 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
-            android:layout_width="350dp"
-            android:layout_height="400dp"
+            android:layout_width="352dp"
+            android:layout_height="461dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.491"
@@ -41,10 +42,10 @@
             android:textIsSelectable="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/recyclerView"
-            app:layout_constraintVertical_bias="0.859" />
+            app:layout_constraintVertical_bias="0.784" />
 
         <TextView
             android:id="@+id/total_txt"
@@ -55,24 +56,25 @@
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.087"
+            app:layout_constraintHorizontal_bias="0.101"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/recyclerView"
-            app:layout_constraintVertical_bias="0.1" />
+            app:layout_constraintVertical_bias="0.239" />
 
         <TextView
             android:id="@+id/total_num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="2500 DA"
-            android:textColor="#B5000000"
+            android:textColor="#E8000000"
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.903"
+            app:layout_constraintHorizontal_bias="0.887"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/recyclerView"
-            app:layout_constraintVertical_bias="0.1" />
+            app:layout_constraintVertical_bias="0.239" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button
@@ -82,10 +84,10 @@
         android:background="@drawable/back_btn"
         app:layout_constraintBottom_toTopOf="@+id/card_layout"
         app:layout_constraintEnd_toStartOf="@+id/title_card"
-        app:layout_constraintHorizontal_bias="0.262"
+        app:layout_constraintHorizontal_bias="0.155"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.196" />
+        app:layout_constraintVertical_bias="0.228" />
 
     <Button
         android:id="@+id/trush_btn"
@@ -94,10 +96,10 @@
         android:background="@drawable/trush"
         app:layout_constraintBottom_toTopOf="@+id/card_layout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.72"
+        app:layout_constraintHorizontal_bias="0.827"
         app:layout_constraintStart_toEndOf="@+id/title_card"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.213" />
+        app:layout_constraintVertical_bias="0.266" />
 
     <TextView
         android:id="@+id/title_card"
@@ -110,5 +112,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.422" />
+        app:layout_constraintVertical_bias="0.632" />
 </androidx.constraintlayout.widget.ConstraintLayout>

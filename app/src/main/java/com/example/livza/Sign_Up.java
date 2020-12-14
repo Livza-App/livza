@@ -52,6 +52,8 @@ public class Sign_Up extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign__up);
+        getWindow().setStatusBarColor(getResources().getColor(R.color.pink));
+
         init();
         //SignUp Btn
         SignUpBtn.setOnClickListener(new View.OnClickListener() {
