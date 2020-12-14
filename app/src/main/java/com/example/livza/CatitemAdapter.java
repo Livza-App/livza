@@ -44,7 +44,7 @@ public class CatitemAdapter extends RecyclerView.Adapter<CatitemAdapter.ViewHold
             holder.main.setBackground(context.getResources().getDrawable(R.drawable.cat_rounded_vector));
             holder.categorie.setTextColor(context.getResources().getColor(R.color.black));
         }
-        holder.catimage.setImageResource(cat.get(position).getImageid());
+        holder.catimage.setImageResource(Integer.parseInt(cat.get(position).getImageid()));
         holder.categorie.setText(cat.get(position).getCategorie());
     }
 
