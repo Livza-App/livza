@@ -24,9 +24,13 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 public class Sign_Up extends AppCompatActivity {
@@ -59,12 +63,7 @@ public class Sign_Up extends AppCompatActivity {
         SignUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Context context=getBaseContext();
-                if (Check_the_data()){
-                    UserName=User_Name.getText().toString();
-                    PhoneNumber=Phone_Number.getText().toString();
-                    sendCode(PhoneNumber);
-                }
+                Check_the_data();
             }
         });
 
@@ -175,9 +174,9 @@ public class Sign_Up extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             Log.i("sign_up","onComplite");
                             saveData();
-                            Intent intent=new Intent(Sign_Up.this,Log_In.class);
+                            Intent intent=new Intent(Sign_Up.this,Menu.class);
                             startActivity(intent);
-                            //finish();
+                            finish();
 
                         } else {
                             Log.i("sign_up","onComplite else");
@@ -186,6 +185,7 @@ public class Sign_Up extends AppCompatActivity {
                 });
     }
 
+    //save data in RealTime_Database
     private void saveData() {
         Log.i("sign_up","savedata");
         mReference.child("Users").child(mAuth.getCurrentUser().getUid()).child("username").setValue(UserName);
@@ -193,34 +193,59 @@ public class Sign_Up extends AppCompatActivity {
 
     }
 
-    private Boolean Check_the_data(){
-        return true;
+    //verifai the number if he is valide
+    private void Check_the_data(){
+        Log.i("sign_up","Check_the_data");
+        final CountDownLatch done=new CountDownLatch(1);
+        PhoneNumber=Phone_Number.getText().toString();
+        Log.i("sign_up","Check_the_data phone:"+PhoneNumber);
+        if(!Character.toString(PhoneNumber.charAt(0)).equals("+")){
+            PhoneNumber="+213"+PhoneNumber.substring(1);
+            Log.i("sign_up","Check_the_data phone 2:"+PhoneNumber);
+        }
+        if(!isValidPhone(PhoneNumber)) {
+            Toast.makeText(getApplicationContext(),"this phone is envalide",Toast.LENGTH_SHORT).show();
+            Log.i("sign_up","Check_the_data phone: invalide");
+        }
+        Log.i("sign_up","Check_the_data phone: valide");
+        mReference.child("Users").orderByChild("phone").equalTo(PhoneNumber).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+                    Log.i("sign_up","Check_the_data phone: exist");
+                    Toast.makeText(getApplicationContext(),"this phone is used",Toast.LENGTH_SHORT).show();
+                }else{
+                    Log.i("sign_up","Check_the_data phone: not exist");
+                    UserName=User_Name.getText().toString();
+                    sendCode();
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getApplicationContext(),"Eroor",Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
-    private void sendCode(String phoneNumber) {
-        if(Character.toString(phoneNumber.charAt(0)).equals("+")){
-            Log.i("sign_up","nume:"+phoneNumber);
-            PhoneAuthOptions options =
-                    PhoneAuthOptions.newBuilder(mAuth)
-                            .setPhoneNumber(phoneNumber)       // Phone number to verify
-                            .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit
-                            .setActivity(this)                 // Activity (for callback binding)
-                            .setCallbacks(mCallbacks)          // OnVerificationStateChangedCallbacks
-                            .build();
-            Log.i("sign_up","nume:"+phoneNumber);
-            PhoneAuthProvider.verifyPhoneNumber(options);
-        }
-        else{
-            Log.i("sign_up","nume:"+"+213"+Phone_Number.getText().toString().substring(1));
-            PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                    "+213"+Phone_Number.getText().toString().substring(1),        // Phone number to verify
-                    60,                 // Timeout duration
-                    TimeUnit.SECONDS,   // Unit of timeout
-                    this,               // Activity (for callback binding)
-                    mCallbacks          // OnVerificationStateChangedCallbacks
-            );
-            Log.i("sign_up","nume:"+"+213"+Phone_Number.getText().toString().substring(1));
-        }
+    private void sendCode() {
+        Log.i("sign_up","nume:"+PhoneNumber);
+        PhoneAuthOptions options =
+                PhoneAuthOptions.newBuilder(mAuth)
+                        .setPhoneNumber(PhoneNumber)       // Phone number to verify
+                        .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit
+                        .setActivity(this)                 // Activity (for callback binding)
+                        .setCallbacks(mCallbacks)          // OnVerificationStateChangedCallbacks
+                        .build();
+        PhoneAuthProvider.verifyPhoneNumber(options);
+
+
+    }
+
+    private boolean isValidPhone(String phone) {
+        //TODO: isValidPhone
+
+        return true;
     }
 }
 
