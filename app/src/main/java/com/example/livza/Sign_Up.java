@@ -243,7 +243,7 @@ public class Sign_Up extends AppCompatActivity {
     }
 
     private boolean isValidPhone(String phone) {
-        //TODO: isValidPhone
+        //TODO: isValidPhone nkamalha
 
         return true;
     }
