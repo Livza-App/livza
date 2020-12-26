@@ -2,10 +2,13 @@ package com.example.livza;
 
 import android.app.Activity;
 import android.content.Context;
+import android.net.sip.SipSession;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -53,12 +56,16 @@ public class Carte_itemAdapter extends RecyclerView.Adapter<Carte_itemAdapter.Vi
         return Cart_items.size();
     }
 
+    public void setOnItemClickListener( OncartItemlistner listener) {
+        oncartItemlistner = listener;
+    }
+
     //this class describe each row of our recyclerview
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         ConstraintLayout item_layout;
         CardView item_carde;
-        TextView item_name,item_price,item_qte;
+        TextView item_name,item_price,item_qte,add_qte,minos_qte;
         ImageView item_icn;
         OncartItemlistner OncartItemlistner;
         public ViewHolder(@NonNull View itemView,OncartItemlistner OncartItemlistner) {
@@ -70,7 +77,36 @@ public class Carte_itemAdapter extends RecyclerView.Adapter<Carte_itemAdapter.Vi
             item_price=itemView.findViewById(R.id.item_price);
             item_qte=itemView.findViewById(R.id.item_qte);
             item_icn=itemView.findViewById(R.id.img_itm);
+            add_qte=itemView.findViewById(R.id.plus_qte);
+            minos_qte=itemView.findViewById(R.id.minos_qte);
             itemView.setOnClickListener(this);
+
+            //to add an qte to an item_Card
+            add_qte.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if ( OncartItemlistner!=null){
+                        int position=getAdapterPosition();
+                        if (position!=RecyclerView.NO_POSITION){
+                            OncartItemlistner.onAdd_Qte_toItemCarte(position);
+                        }
+                    }
+                }
+            });
+            // minos an qte to an item_Card
+            minos_qte.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if ( OncartItemlistner!=null){
+                        int position=getAdapterPosition();
+                        if (position!=RecyclerView.NO_POSITION){
+                            OncartItemlistner.onMinos_Qte_toItemCarte(position);
+
+                        }
+
+                    }
+                }
+            });
 
         }
 
@@ -83,9 +119,15 @@ public class Carte_itemAdapter extends RecyclerView.Adapter<Carte_itemAdapter.Vi
 
 
 
+
     //interface of listner containing itemlistener
     public interface OncartItemlistner{
         void OncartItemlistner(int position);
+        //to add an qte to an item_Card
+        void onAdd_Qte_toItemCarte(int posistion);
+        // minos an qte to an item_Card
+        void onMinos_Qte_toItemCarte(int position);
     }
+
 }
 
