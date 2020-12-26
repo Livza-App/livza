@@ -3,9 +3,9 @@ package com.example.livza;
 public class Fooditem {
     private String imgid,ingredients;
     private String time,title,subtitle;
-    private float price,rating;
+    private String price,rating;
 
-    public Fooditem(String imgid, String time, float price, String title, String subtitle, float rating) {
+    public Fooditem(String imgid, String time, String price, String title, String subtitle, String rating) {
         this.imgid = imgid;
         this.time = time;
         this.price = price;
@@ -30,11 +30,11 @@ public class Fooditem {
         this.time = time;
     }
 
-    public float getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 
@@ -62,11 +62,11 @@ public class Fooditem {
         this.subtitle = subtitle;
     }
 
-    public float getRating() {
+    public String getRating() {
         return rating;
     }
 
-    public void setRating(float rating) {
+    public void setRating(String rating) {
         this.rating = rating;
     }
 }
