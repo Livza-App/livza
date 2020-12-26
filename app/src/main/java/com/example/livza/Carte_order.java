@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -45,6 +46,7 @@ public class Carte_order extends AppCompatActivity implements Carte_itemAdapter.
         Cart.setAdapter(carte_itemAdapter);
 
 
+
         //Trush
         Button trush_btn=findViewById(R.id.trush_btn);
         trush_btn.setOnClickListener(new View.OnClickListener() {
@@ -55,6 +57,30 @@ public class Carte_order extends AppCompatActivity implements Carte_itemAdapter.
             }
         });
 
+
+        carte_itemAdapter.setOnItemClickListener(new Carte_itemAdapter.OncartItemlistner() {
+            @Override
+            public void OncartItemlistner(int position) {
+
+            }
+
+            @Override
+            public void onAdd_Qte_toItemCarte(int position) {
+
+                int n=Integer.parseInt(carte_items.get(position).getItm_qte());
+                n=n+1;
+                carte_items.get(position).setItm_qte(String.valueOf(n));
+                carte_itemAdapter.notifyItemChanged(position);
+            }
+
+            @Override
+            public void onMinos_Qte_toItemCarte(int position) {
+                int n=Integer.parseInt(carte_items.get(position).getItm_qte());
+                n=n-1;
+                carte_items.get(position).setItm_qte(String.valueOf(n));
+                carte_itemAdapter.notifyItemChanged(position);
+            }
+        });
 
     }
 
@@ -75,46 +101,7 @@ public class Carte_order extends AppCompatActivity implements Carte_itemAdapter.
         //hna amine dir getExtras wla teaa intent w jibli les donnes mlhdak lyout
 
         //hna kol ma t'ajouter item tajouter l price ta3o l total_sum
-        Calcule_TotalSum(carte_items);
-    }
-
-
-
-    @Override
-    public void OncartItemlistner(int position) {
-
-    }
-
-    @Override
-    public void onAdd_Qte_toItemCarte(int posistion) {
-        if (carte_items.get(posistion) !=null) {
-            //Add_Qte
-            TextView add_Qte = findViewById(R.id.plus_qte);
-            add_Qte.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    TextView Qte = findViewById(R.id.item_qte);
-                    int n = Integer.parseInt(Qte.getText().toString());
-                    Qte.setText(n++);
-                }
-            });
-        }
-    }
-
-    @Override
-    public void onMinos_Qte_toItemCarte(int position) {
-        //Minos_Qte
-        if (carte_items.get(position) !=null) {
-            TextView minos_Qte = findViewById(R.id.minos_qte);
-            minos_Qte.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    TextView Qte = findViewById(R.id.item_qte);
-                    int n = Integer.parseInt(Qte.getText().toString());
-                    Qte.setText(n--);
-                }
-            });
-        }
+        //Calcule_TotalSum();
     }
 
     //Swipe on an item to delete
@@ -133,14 +120,39 @@ public class Carte_order extends AppCompatActivity implements Carte_itemAdapter.
 
 
     //Total sum
-    public void Calcule_TotalSum(ArrayList<Carte_item> carte_items){
-
-
-
+    public void Calcule_TotalSum(ArrayList<Carte_item> carte_items, int pos){
+        while(!(carte_items.isEmpty())){
+            int Total= 0;
+            int item_price=Integer.parseInt(carte_items.get(pos).getItem_price());
+            Total=Total+item_price;
+            TextView Total_num=findViewById(R.id.total_num);
+            Total_num.setText(Total+"DA");
+        }
     }
 
     //this function to remove the "DA" frome items price
     public void Delet_DA(String price){
         price=price.replace("DA","");
     }
+
+
+
+
+    @Override
+    public void OncartItemlistner(int position) {
+
+    }
+
+    @Override
+    public void onAdd_Qte_toItemCarte(int position) {
+
+    }
+
+    @Override
+    public void onMinos_Qte_toItemCarte(int position) {
+
+    }
+
+
+
 }

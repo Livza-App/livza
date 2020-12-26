@@ -6,6 +6,7 @@ import android.net.sip.SipSession;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -53,6 +54,10 @@ public class Carte_itemAdapter extends RecyclerView.Adapter<Carte_itemAdapter.Vi
     @Override
     public int getItemCount() {
         return Cart_items.size();
+    }
+
+    public void setOnItemClickListener( OncartItemlistner listener) {
+        oncartItemlistner = listener;
     }
 
     //this class describe each row of our recyclerview
@@ -114,6 +119,7 @@ public class Carte_itemAdapter extends RecyclerView.Adapter<Carte_itemAdapter.Vi
 
 
 
+
     //interface of listner containing itemlistener
     public interface OncartItemlistner{
         void OncartItemlistner(int position);
@@ -122,5 +128,6 @@ public class Carte_itemAdapter extends RecyclerView.Adapter<Carte_itemAdapter.Vi
         // minos an qte to an item_Card
         void onMinos_Qte_toItemCarte(int position);
     }
+
 }
 
