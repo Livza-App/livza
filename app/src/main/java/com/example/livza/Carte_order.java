@@ -54,10 +54,13 @@ public class Carte_order extends AppCompatActivity implements Carte_itemAdapter.
             public void onClick(View view) {
                 carte_items.clear();
                 carte_itemAdapter.notifyDataSetChanged();
+                TextView Total_num=findViewById(R.id.total_num);
+                Total_num.setText(" 0 DA");
             }
         });
 
 
+        //add&dell_item_Qte
         carte_itemAdapter.setOnItemClickListener(new Carte_itemAdapter.OncartItemlistner() {
             @Override
             public void OncartItemlistner(int position) {
@@ -81,6 +84,9 @@ public class Carte_order extends AppCompatActivity implements Carte_itemAdapter.
                 carte_itemAdapter.notifyItemChanged(position);
             }
         });
+
+        //Total_summ
+        Calcule_TotalSum(carte_items,cart_pos);
 
     }
 
@@ -120,13 +126,17 @@ public class Carte_order extends AppCompatActivity implements Carte_itemAdapter.
 
 
     //Total sum
-    public void Calcule_TotalSum(ArrayList<Carte_item> carte_items, int pos){
-        while(!(carte_items.isEmpty())){
-            int Total= 0;
-            int item_price=Integer.parseInt(carte_items.get(pos).getItem_price());
-            Total=Total+item_price;
-            TextView Total_num=findViewById(R.id.total_num);
-            Total_num.setText(Total+"DA");
+    public void Calcule_TotalSum(ArrayList<Carte_item> carte_items,int cart_pos){
+        int Total= 0;
+        TextView Total_num=findViewById(R.id.total_num);
+        if (carte_items.isEmpty()){
+            Total_num.setText(" 0 DA");
+        }else{
+            for (cart_pos=0;cart_pos<(carte_items.size());cart_pos++){
+                int item_price=Integer.parseInt(carte_items.get(cart_pos).getItem_price());
+                Total=Total+item_price;
+            }
+            Total_num.setText(Total+" DA");
         }
     }
 
