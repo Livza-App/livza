@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item android:id="@+id/profile_setings"
+              android:title="Profile Setings"
+            android:icon="@drawable/user_2"
+            />
+        <item android:id="@+id/Languge"
+              android:title="Languages"
+              android:icon="@drawable/translation_1"/>
+
+        <item android:id="@+id/contact_us"
+              android:title="Contact Us"
+            android:icon="@drawable/contact"/>
+        <item android:id="@+id/help"
+              android:title="Helpe and feedback"
+            android:icon="@drawable/help"/>
+
+    </group>
+    <group android:checkableBehavior="single">
+    <item android:id="@+id/logout"
+          android:title="Logout"/>
+
+    </group>
+
+
+</menu>

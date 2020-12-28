@@ -47,5 +47,15 @@ public class Frame_2 extends AppCompatActivity {
                startActivity(p);
             }
         });
+
+        //testtt
+        TextView r=findViewById(R.id.textView7);
+        r.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent u=new Intent(Frame_2.this,Menu.class);
+                startActivity(u);
+            }
+        });
     }
 }

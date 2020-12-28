@@ -2,15 +2,22 @@ package com.example.livza;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Toolbar;
 
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -35,6 +42,11 @@ public class Menu extends AppCompatActivity implements CatitemAdapter.Oncategori
     private MenuitemAdapter adapter;
     private CountDownLatch cat_done=new CountDownLatch(1),food_done=new CountDownLatch(0);
     private boolean firstTime=true;
+    private Button btn_menu_drawer,go_card_btn;
+    private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
+    private Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,7 +67,29 @@ public class Menu extends AppCompatActivity implements CatitemAdapter.Oncategori
 
         //putting arraylist inside the adapter and configure the adapter to the listview
 
+        //show Drawer Menu
+        btn_menu_drawer=findViewById(R.id.menu_drawer_btn);
+        button_drawer_menu();
 
+        go_card_btn=findViewById(R.id.card_btn);
+
+        //intent to the card Actyvity
+        go_card_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent card=new Intent(Menu.this,Carte_order.class);
+                startActivity(card);
+            }
+        });
+    }
+
+    public void button_drawer_menu(){
+        btn_menu_drawer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                drawerLayout.openDrawer(GravityCompat.START);
+            }
+        });
 
     }
 

@@ -11,8 +11,8 @@
         android:id="@+id/item_txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Menu items"
-        android:textColor="@color/black"
+        android:text="Menu "
+        android:textColor="#03041D"
         android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -36,5 +36,27 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/categories" />
+
+    <Button
+        android:id="@+id/menu_drawer_btn"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@drawable/toolbar"
+        app:layout_constraintBottom_toTopOf="@+id/categories"
+        app:layout_constraintEnd_toStartOf="@+id/item_txt"
+        app:layout_constraintHorizontal_bias="0.16"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/card_btn"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@drawable/sela"
+        app:layout_constraintBottom_toTopOf="@+id/categories"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.86"
+        app:layout_constraintStart_toEndOf="@+id/item_txt"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
