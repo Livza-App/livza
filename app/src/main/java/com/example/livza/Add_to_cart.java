@@ -18,6 +18,7 @@ public class Add_to_cart extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_to_cart);
         imageView=findViewById(R.id.imageview1999);
+        getWindow().setStatusBarColor(getResources().getColor(R.color.pink));
 
         imageView.setShapeAppearanceModel(imageView.getShapeAppearanceModel()
                 .toBuilder()

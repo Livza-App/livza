@@ -17,11 +17,5 @@
             android:icon="@drawable/help"/>
 
     </group>
-    <group android:checkableBehavior="single">
-    <item android:id="@+id/logout"
-          android:title="Logout"/>
-
-    </group>
-
 
 </menu>

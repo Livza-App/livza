@@ -44,8 +44,8 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="307dp"
+        android:layout_height="333dp"
         android:layout_marginTop="200dp"
         android:layout_weight="1"
         app:cardCornerRadius="45dp"
@@ -55,8 +55,8 @@
 
         <LinearLayout
             android:id="@+id/holder"
-            android:layout_width="250dp"
-            android:layout_height="300dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:orientation="vertical"
             android:padding="15dp">
 
@@ -149,7 +149,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:rotation="45"
+            android:rotation="30"
             android:text="1200 da"
             android:textAllCaps="true"
             android:textColor="@color/white"
