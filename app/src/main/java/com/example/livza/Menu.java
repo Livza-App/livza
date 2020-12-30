@@ -232,6 +232,7 @@ public class Menu extends AppCompatActivity implements CatitemAdapter.Oncategori
         //Arraylist
         foods=new ArrayList<>();
         categories=new ArrayList<>();
+
         //categorie
         catadapter=new CatitemAdapter(this,categories,this);
         cat.setAdapter(catadapter);
