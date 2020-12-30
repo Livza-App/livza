@@ -1,6 +1,7 @@
 package com.example.livza;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
@@ -23,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toolbar;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -41,9 +43,10 @@ public class Menu extends AppCompatActivity implements CatitemAdapter.Oncategori
     private ArrayList<Categorieitem> categories;
     private Fooditem hamburger1,hamburger2,hamburger3,pizza1,pizza2,pizza3,hotdog1,hotdog2,hotdog3;
     private DatabaseReference mReference;
-    public static int cat_pos=0;
+    public static int cat_pos=0,cat_num=0;
     private CatitemAdapter catadapter;
-    private ValueEventListener categorieEvent,foodEvent;
+    private ValueEventListener categorieEvent,firstTimeEvent;
+    private ChildEventListener foodEvent;
     private MenuitemAdapter adapter;
     private CountDownLatch cat_done=new CountDownLatch(1),food_done=new CountDownLatch(0);
     private boolean firstTime=true;
@@ -110,7 +113,7 @@ public class Menu extends AppCompatActivity implements CatitemAdapter.Oncategori
 
     private void initFirebase(){
         mReference= FirebaseDatabase.getInstance().getReference();
-        categorieEvent=new ValueEventListener() {
+        firstTimeEvent=new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 categories.clear();
@@ -121,14 +124,8 @@ public class Menu extends AppCompatActivity implements CatitemAdapter.Oncategori
                     categories.add(new Categorieitem(imageid,categorie));
                 }
                 catadapter.notifyDataSetChanged();
-                for(DataSnapshot ds:snapshot.child(categories.get(cat_pos).getCategorie()).getChildren()){
-                    Log.i("cat",categories.get(cat_pos).getCategorie());
-                    if(!ds.getKey().equals("imageid")){
-                        foods.add(ds.getValue(Fooditem.class));
-                    }
-                }
-                adapter.notifyDataSetChanged();
-                //cat_done.countDown();
+
+                addUpdatesEvent();
             }
 
             @Override
@@ -137,11 +134,95 @@ public class Menu extends AppCompatActivity implements CatitemAdapter.Oncategori
 
             }
         };
+        mReference.child("categorie").addListenerForSingleValueEvent(firstTimeEvent);
+
+    }
+
+
+    private void addUpdatesEvent(){
+        //foodEvent
+        foodEvent=new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                if(!snapshot.getKey().equals("imageid")){
+                    foods.add(snapshot.getValue(Fooditem.class));
+                    adapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                if(!snapshot.getKey().equals("imageid")){
+                    Fooditem fooditem=snapshot.getValue(Fooditem.class);
+                    for(Fooditem food:foods){
+                        if(food.equals(fooditem)){
+                            foods.remove(food);
+                            break;
+                        }
+                    }
+                    foods.add(fooditem);
+                    adapter.notifyDataSetChanged();
+                }else{
+                    categories.get(cat_pos).setImageid(snapshot.getValue(String.class));
+                    catadapter.notifyDataSetChanged();
+                }
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+                Fooditem fooditem=snapshot.getValue(Fooditem.class);
+                for(Fooditem food:foods){
+                    if(food.equals(fooditem)){
+                        foods.remove(food);
+                        break;
+                    }
+                }
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        };
+        mReference.child("categorie").child(categories.get(cat_pos).getCategorie()).addChildEventListener(foodEvent);
+
+        //categorieEvent
+        categorieEvent=new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                int cat_number=0;
+                for(DataSnapshot ds:snapshot.getChildren()){
+                    cat_number++;
+                }
+                if(cat_number!=cat_num){
+                    categories.clear();
+                    for (DataSnapshot ds:snapshot.getChildren()){
+                        String imageid=ds.child("imageid").getValue(String.class);
+                        String categorie=ds.getKey();
+                        categories.add(new Categorieitem(imageid,categorie));
+                    }
+                    catadapter.notifyDataSetChanged();
+                    cat_num=cat_number;
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        };
         mReference.child("categorie").addValueEventListener(categorieEvent);
 
     }
 
-    public void init(){
+    private void init(){
         //view
         cat=findViewById(R.id.categories);
         menu=findViewById(R.id.menuitems);
@@ -173,9 +254,14 @@ public class Menu extends AppCompatActivity implements CatitemAdapter.Oncategori
 
     @Override
     public void oncategorieitemlistner(int position) {
+        //remove old listner
+        mReference.child("categorie").child(categories.get(cat_pos).getCategorie()).removeEventListener(foodEvent);
+        foods.clear();
+
+        //add new listner
         cat_pos=position;
-        mReference.child("categorie").child(categories.get(0).getCategorie()).child("imageid").setValue(categories.get(0).getImageid());
-        cat_pos=position;
+        mReference.child("categorie").child(categories.get(cat_pos).getCategorie()).addChildEventListener(foodEvent);
+
         catadapter.notifyDataSetChanged();
     }
 

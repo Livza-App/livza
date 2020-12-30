@@ -1,4 +1,7 @@
 package com.example.livza;
+
+import java.util.Objects;
+
 //this class reference the child(menu_item.xml) of menuitems listview of activity_menu.xml
 public class Fooditem {
     private String imgid,ingredients;
@@ -75,4 +78,22 @@ public class Fooditem {
         this.rating = rating;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Fooditem)) return false;
+        Fooditem fooditem = (Fooditem) o;
+        return Objects.equals(imgid, fooditem.imgid) &&
+                Objects.equals(ingredients, fooditem.ingredients) &&
+                Objects.equals(time, fooditem.time) &&
+                Objects.equals(title, fooditem.title) &&
+                Objects.equals(subtitle, fooditem.subtitle) &&
+                Objects.equals(price, fooditem.price) &&
+                Objects.equals(rating, fooditem.rating);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(imgid, ingredients, time, title, subtitle, price, rating);
+    }
 }

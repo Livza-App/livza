@@ -1,4 +1,7 @@
 package com.example.livza;
+
+import java.util.Objects;
+
 //this class reference the child(categorie_item.xml) of categories Recyclerview of activity_menu.xml
 public class Categorieitem {
     private String imageid;
@@ -23,5 +26,19 @@ public class Categorieitem {
 
     public void setCategorie(String categorie) {
         this.categorie = categorie;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Categorieitem)) return false;
+        Categorieitem that = (Categorieitem) o;
+        return Objects.equals(imageid, that.imageid) &&
+                Objects.equals(categorie, that.categorie);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(imageid, categorie);
     }
 }
