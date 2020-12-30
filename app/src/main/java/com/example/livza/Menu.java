@@ -76,9 +76,9 @@ public class Menu extends AppCompatActivity implements CatitemAdapter.Oncategori
 
         //show Drawer Menu
 
-        button_drawer_menu();
+        //button_drawer_menu();
         //for the drawer menu listner
-        change_menu();
+        //change_menu();
 
 
         //intent to the card Actyvity
@@ -159,7 +159,7 @@ public class Menu extends AppCompatActivity implements CatitemAdapter.Oncategori
         menu.setAdapter(adapter);
 
         //Drawer_Menu
-        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+       /* drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         drawerLayout.setStatusBarBackground(R.color.white);
         if (drawerLayout.isDrawerOpen(GravityCompat.START)){
             btn_menu_drawer.setVisibility(View.GONE);
@@ -168,7 +168,7 @@ public class Menu extends AppCompatActivity implements CatitemAdapter.Oncategori
             getWindow().setStatusBarColor(getResources().getColor(R.color.status));
 
         }
-        navigationView.setItemIconTintList(null);
+        navigationView.setItemIconTintList(null);*/
     }
 
     @Override
