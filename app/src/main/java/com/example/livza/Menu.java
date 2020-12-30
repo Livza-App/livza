@@ -11,12 +11,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toolbar;
 
 import com.google.android.material.navigation.NavigationView;
@@ -54,6 +56,7 @@ public class Menu extends AppCompatActivity implements CatitemAdapter.Oncategori
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+        getWindow().setStatusBarColor(getResources().getColor(R.color.menu_status_color));
         init();
         //initFirebase();
         //Design horizontal layout
@@ -71,7 +74,7 @@ public class Menu extends AppCompatActivity implements CatitemAdapter.Oncategori
         //putting arraylist inside the adapter and configure the adapter to the listview
 
         //show Drawer Menu
-        btn_menu_drawer=findViewById(R.id.menu_drawer_btn);
+
         button_drawer_menu();
         //for the drawer menu listner
         change_menu();
@@ -89,12 +92,14 @@ public class Menu extends AppCompatActivity implements CatitemAdapter.Oncategori
     }
 
     public void button_drawer_menu(){
+        btn_menu_drawer=findViewById(R.id.menu_drawer_btn);
         btn_menu_drawer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 drawerLayout.openDrawer(GravityCompat.START);
             }
         });
+
 
     }
 
@@ -150,9 +155,17 @@ public class Menu extends AppCompatActivity implements CatitemAdapter.Oncategori
 
         //Drawer_Menu
         drawerLayout=findViewById(R.id.drawer_Layout);
+        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+        drawerLayout.setStatusBarBackground(R.color.white);
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)){
+            btn_menu_drawer.setVisibility(View.GONE);
+            TextView Title=findViewById(R.id.item_txt);
+            Title.setVisibility(View.GONE);
+            getWindow().setStatusBarColor(getResources().getColor(R.color.status));
+
+        }
         navigationView=findViewById(R.id.nav_view);
         navigationView.setItemIconTintList(null);
-        nav_menu = (Menu) navigationView.getMenu(); //l castttttt manich sur mais ca marche
     }
 
     @Override
@@ -194,7 +207,12 @@ public class Menu extends AppCompatActivity implements CatitemAdapter.Oncategori
         } else {
             super.onBackPressed();
         }
+
+
     }
+
+
+
 
     public void change_menu(){
 

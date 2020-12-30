@@ -206,7 +206,7 @@
             android:id="@+id/profile_img"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            tools:srcCompat="@drawable/burger2" />
+            tools:srcCompat="@drawable/photo_user" />
     </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

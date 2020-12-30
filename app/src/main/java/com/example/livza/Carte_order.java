@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -88,6 +89,14 @@ public class Carte_order extends AppCompatActivity implements Carte_itemAdapter.
         //Total_summ
         Calcule_TotalSum(carte_items,cart_pos);
 
+        //testtt
+        Button f=findViewById(R.id.send_order);
+        f.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Carte_order.this,Menu.class));
+            }
+        });
     }
 
     public void initcomponents(){
