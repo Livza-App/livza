@@ -2,6 +2,8 @@ package com.example.livza;
 
 import android.app.Activity;
 import android.content.Context;
+import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,12 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
@@ -38,6 +46,7 @@ public class CatitemAdapter extends RecyclerView.Adapter<CatitemAdapter.ViewHold
     //this method is responsable of displaying data into screen
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+
         if(position == Menu.cat_pos){
             holder.imageholder.setBackground(context.getResources().getDrawable(R.drawable.solidcircle_white));
             holder.main.setBackground(context.getResources().getDrawable(R.drawable.cat_rounded_vector_pink));
@@ -47,7 +56,25 @@ public class CatitemAdapter extends RecyclerView.Adapter<CatitemAdapter.ViewHold
             holder.main.setBackground(context.getResources().getDrawable(R.drawable.cat_rounded_vector));
             holder.categorie.setTextColor(context.getResources().getColor(R.color.black));
         }
-        holder.catimage.setImageResource(Integer.parseInt(cat.get(position).getImageid()));
+        String imgPath = cat.get(position).getImageid();
+        FirebaseStorage mStorage = FirebaseStorage.getInstance();
+        StorageReference storageRef = mStorage.getReference().child("/"+imgPath);
+        storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Glide.with(context)
+                        .load(uri)
+                        .into(holder.catimage);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle any errors
+                Glide.with(context)
+                        .load(R.drawable.addtocart_cochetrue)
+                        .into(holder.catimage);
+            }
+        });
         holder.categorie.setText(cat.get(position).getCategorie());
     }
 

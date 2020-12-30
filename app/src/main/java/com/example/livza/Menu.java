@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -58,7 +59,7 @@ public class Menu extends AppCompatActivity implements CatitemAdapter.Oncategori
         setContentView(R.layout.activity_menu);
         getWindow().setStatusBarColor(getResources().getColor(R.color.menu_status_color));
         init();
-        //initFirebase();
+        initFirebase();
         //Design horizontal layout
         LinearLayoutManager layoutManager=new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
         cat.setLayoutManager(layoutManager);
@@ -103,15 +104,7 @@ public class Menu extends AppCompatActivity implements CatitemAdapter.Oncategori
 
     }
 
-    private void reloadData(){
-        mReference.child("categorie").addValueEventListener(categorieEvent);
-        try {
-            cat_done.await();
-
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        oncategorieitemlistner(0);
+    private void loadFood(String categorie){
 
     }
 
@@ -121,27 +114,39 @@ public class Menu extends AppCompatActivity implements CatitemAdapter.Oncategori
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 categories.clear();
+                foods.clear();
                 for (DataSnapshot ds:snapshot.getChildren()){
                     String imageid=ds.child("imageid").getValue(String.class);
                     String categorie=ds.getKey();
                     categories.add(new Categorieitem(imageid,categorie));
                 }
                 catadapter.notifyDataSetChanged();
-                cat_done.countDown();
+                for(DataSnapshot ds:snapshot.child(categories.get(cat_pos).getCategorie()).getChildren()){
+                    Log.i("cat",categories.get(cat_pos).getCategorie());
+                    if(!ds.getKey().equals("imageid")){
+                        foods.add(ds.getValue(Fooditem.class));
+                    }
+                }
+                adapter.notifyDataSetChanged();
+                //cat_done.countDown();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                cat_done.countDown();
+                //cat_done.countDown();
 
             }
         };
+        mReference.child("categorie").addValueEventListener(categorieEvent);
+
     }
 
     public void init(){
         //view
         cat=findViewById(R.id.categories);
         menu=findViewById(R.id.menuitems);
+        drawerLayout=findViewById(R.id.drawer_Layout);
+        navigationView=findViewById(R.id.nav_view);
 
         //Arraylist
         foods=new ArrayList<>();
@@ -154,7 +159,6 @@ public class Menu extends AppCompatActivity implements CatitemAdapter.Oncategori
         menu.setAdapter(adapter);
 
         //Drawer_Menu
-        drawerLayout=findViewById(R.id.drawer_Layout);
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         drawerLayout.setStatusBarBackground(R.color.white);
         if (drawerLayout.isDrawerOpen(GravityCompat.START)){
@@ -164,40 +168,15 @@ public class Menu extends AppCompatActivity implements CatitemAdapter.Oncategori
             getWindow().setStatusBarColor(getResources().getColor(R.color.status));
 
         }
-        navigationView=findViewById(R.id.nav_view);
         navigationView.setItemIconTintList(null);
     }
 
     @Override
     public void oncategorieitemlistner(int position) {
-        if(firstTime){
-            firstTime=false;
-        }
-        else{
-            mReference.child("categorie").child(categories.get(cat_pos).getCategorie()).removeEventListener(foodEvent);
-        }
-        foodEvent=new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                foods.clear();
-                Fooditem fooditem;
-                for(DataSnapshot ds:snapshot.getChildren()){
-                    if(!ds.getKey().equals("imageid")){
-                        fooditem=ds.getValue(Fooditem.class);
-                        foods.add(fooditem);
-                    }
-                }
-                adapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        };
-        mReference.child("categorie").child(categories.get(position).getCategorie()).addValueEventListener(foodEvent);
-        catadapter.notifyDataSetChanged();
         cat_pos=position;
+        mReference.child("categorie").child(categories.get(0).getCategorie()).child("imageid").setValue(categories.get(0).getImageid());
+        cat_pos=position;
+        catadapter.notifyDataSetChanged();
     }
 
     @Override

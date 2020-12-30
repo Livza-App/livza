@@ -12,18 +12,19 @@
         android:roundIcon="@mipmap/ic_launch_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"/>
+
+        <activity android:name=".Carte_order" />
+        <activity android:name=".Frame_2" />
+        <activity android:name=".Sign_Up" />
+        <activity android:name=".Log_In" />
+        <activity android:name=".Menu" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Carte_order" />
-        <activity android:name=".Frame_2" />
-        <activity android:name=".Sign_Up" />
-        <activity android:name=".Log_In" />
-        <activity android:name=".Menu" />
         <activity android:name=".Profile_User" />
         <activity android:name=".Add_to_cart">
 

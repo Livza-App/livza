@@ -5,13 +5,18 @@ public class Fooditem {
     private String time,title,subtitle;
     private String price,rating;
 
-    public Fooditem(String imgid, String time, String price, String title, String subtitle, String rating) {
+    public Fooditem(){
+
+    }
+
+    public Fooditem(String imgid, String ingredients, String time, String price, String title, String subtitle, String rating) {
         this.imgid = imgid;
         this.time = time;
         this.price = price;
         this.title = title;
         this.subtitle = subtitle;
         this.rating = rating;
+        this.ingredients=ingredients;
     }
 
     public String getImgid() {
@@ -69,4 +74,5 @@ public class Fooditem {
     public void setRating(String rating) {
         this.rating = rating;
     }
+
 }
