@@ -41,7 +41,7 @@ public class Menu extends AppCompatActivity implements CatitemAdapter.Oncategori
     private RecyclerView cat;
     private ArrayList<Fooditem> foods,hamburger,pizza,hotdog;
     private ArrayList<Categorieitem> categories;
-    private Fooditem hamburger1,hamburger2,hamburger3,pizza1,pizza2,pizza3,hotdog1,hotdog2,hotdog3;
+    private ArrayList<String> food_key;
     private DatabaseReference mReference;
     public static int cat_pos=0,cat_num=0;
     private CatitemAdapter catadapter;
@@ -116,8 +116,6 @@ public class Menu extends AppCompatActivity implements CatitemAdapter.Oncategori
         firstTimeEvent=new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                categories.clear();
-                foods.clear();
                 for (DataSnapshot ds:snapshot.getChildren()){
                     String imageid=ds.child("imageid").getValue(String.class);
                     String categorie=ds.getKey();
@@ -146,6 +144,7 @@ public class Menu extends AppCompatActivity implements CatitemAdapter.Oncategori
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 if(!snapshot.getKey().equals("imageid")){
                     foods.add(snapshot.getValue(Fooditem.class));
+                    food_key.add(snapshot.getKey());
                     adapter.notifyDataSetChanged();
                 }
             }
@@ -154,13 +153,9 @@ public class Menu extends AppCompatActivity implements CatitemAdapter.Oncategori
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 if(!snapshot.getKey().equals("imageid")){
                     Fooditem fooditem=snapshot.getValue(Fooditem.class);
-                    for(Fooditem food:foods){
-                        if(food.equals(fooditem)){
-                            foods.remove(food);
-                            break;
-                        }
-                    }
-                    foods.add(fooditem);
+                    int pos=food_key.indexOf(snapshot.getKey());
+                    foods.remove(pos);
+                    foods.add(pos,fooditem);
                     adapter.notifyDataSetChanged();
                 }else{
                     categories.get(cat_pos).setImageid(snapshot.getValue(String.class));
@@ -171,13 +166,9 @@ public class Menu extends AppCompatActivity implements CatitemAdapter.Oncategori
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-                Fooditem fooditem=snapshot.getValue(Fooditem.class);
-                for(Fooditem food:foods){
-                    if(food.equals(fooditem)){
-                        foods.remove(food);
-                        break;
-                    }
-                }
+                int pos=food_key.indexOf(snapshot.getKey());
+                foods.remove(pos);
+                food_key.remove(pos);
                 adapter.notifyDataSetChanged();
             }
 
@@ -226,12 +217,13 @@ public class Menu extends AppCompatActivity implements CatitemAdapter.Oncategori
         //view
         cat=findViewById(R.id.categories);
         menu=findViewById(R.id.menuitems);
-        drawerLayout=findViewById(R.id.drawer_Layout);
-        navigationView=findViewById(R.id.nav_view);
+        /*drawerLayout=findViewById(R.id.drawer_Layout);
+        navigationView=findViewById(R.id.nav_view);*/
 
         //Arraylist
         foods=new ArrayList<>();
         categories=new ArrayList<>();
+        food_key=new ArrayList<>();
 
         //categorie
         catadapter=new CatitemAdapter(this,categories,this);
