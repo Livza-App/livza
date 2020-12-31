@@ -6,10 +6,12 @@ import java.util.Objects;
 public class Categorieitem {
     private String imageid;
     private String categorie;
+    private String Key;
 
-    public Categorieitem(String imageid, String categorie) {
+    public Categorieitem(String imageid, String categorie,String Key) {
         this.imageid = imageid;
         this.categorie = categorie;
+        this.Key=Key;
     }
 
     public String getImageid() {
@@ -40,5 +42,13 @@ public class Categorieitem {
     @Override
     public int hashCode() {
         return Objects.hash(imageid, categorie);
+    }
+
+    public String getKey() {
+        return Key;
+    }
+
+    public void setKey(String key) {
+        Key = key;
     }
 }

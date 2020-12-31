@@ -43,7 +43,7 @@ public class Menu extends AppCompatActivity implements CatitemAdapter.Oncategori
     private ArrayList<Categorieitem> categories;
     private ArrayList<String> food_key;
     private DatabaseReference mReference;
-    public static int cat_pos=0,cat_num=0;
+    public static int cat_pos=0;
     private CatitemAdapter catadapter;
     private ValueEventListener categorieEvent,firstTimeEvent;
     private ChildEventListener foodEvent;
@@ -112,14 +112,15 @@ public class Menu extends AppCompatActivity implements CatitemAdapter.Oncategori
     }
 
     private void initFirebase(){
-        mReference= FirebaseDatabase.getInstance().getReference();
+
         firstTimeEvent=new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot ds:snapshot.getChildren()){
-                    String imageid=ds.child("imageid").getValue(String.class);
-                    String categorie=ds.getKey();
-                    categories.add(new Categorieitem(imageid,categorie));
+                    String imageid=ds.child("zzzzzzzzzz").getValue(String.class);
+                    String categorie=ds.child("categorie").getValue(String.class);
+                    String Key=ds.getKey();
+                    categories.add(new Categorieitem(imageid,categorie,Key));
                 }
                 catadapter.notifyDataSetChanged();
 
@@ -142,22 +143,23 @@ public class Menu extends AppCompatActivity implements CatitemAdapter.Oncategori
         foodEvent=new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                if(!snapshot.getKey().equals("imageid")){
+                if(!(snapshot.getKey().equals("zzzzzzzzzz") || snapshot.getKey().equals("categorie"))){
                     foods.add(snapshot.getValue(Fooditem.class));
                     food_key.add(snapshot.getKey());
+                }else{
                     adapter.notifyDataSetChanged();
                 }
             }
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                if(!snapshot.getKey().equals("imageid")){
+                if(!(snapshot.getKey().equals("zzzzzzzzzz") || snapshot.getKey().equals("categorie"))){
                     Fooditem fooditem=snapshot.getValue(Fooditem.class);
                     int pos=food_key.indexOf(snapshot.getKey());
                     foods.remove(pos);
                     foods.add(pos,fooditem);
                     adapter.notifyDataSetChanged();
-                }else{
+                }else if(snapshot.getKey().equals("zzzzzzzzzz")){
                     categories.get(cat_pos).setImageid(snapshot.getValue(String.class));
                     catadapter.notifyDataSetChanged();
                 }
@@ -182,7 +184,7 @@ public class Menu extends AppCompatActivity implements CatitemAdapter.Oncategori
 
             }
         };
-        mReference.child("categorie").child(categories.get(cat_pos).getCategorie()).addChildEventListener(foodEvent);
+        mReference.child("categorie").child(categories.get(cat_pos).getKey()).addChildEventListener(foodEvent);
 
         //categorieEvent
         categorieEvent=new ValueEventListener() {
@@ -192,15 +194,15 @@ public class Menu extends AppCompatActivity implements CatitemAdapter.Oncategori
                 for(DataSnapshot ds:snapshot.getChildren()){
                     cat_number++;
                 }
-                if(cat_number!=cat_num){
+                if(cat_number!=categories.size()){
                     categories.clear();
                     for (DataSnapshot ds:snapshot.getChildren()){
-                        String imageid=ds.child("imageid").getValue(String.class);
-                        String categorie=ds.getKey();
-                        categories.add(new Categorieitem(imageid,categorie));
+                        String imageid=ds.child("zzzzzzzzzz").getValue(String.class);
+                        String categorie=ds.child("categorie").getValue(String.class);
+                        String Key=ds.getKey();
+                        categories.add(new Categorieitem(imageid,categorie,Key));
                     }
                     catadapter.notifyDataSetChanged();
-                    cat_num=cat_number;
                 }
             }
 
@@ -232,6 +234,8 @@ public class Menu extends AppCompatActivity implements CatitemAdapter.Oncategori
         adapter=new MenuitemAdapter(this,foods);
         menu.setAdapter(adapter);
 
+        //Firebase
+        mReference= FirebaseDatabase.getInstance().getReference();
         //Drawer_Menu
        /* drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         drawerLayout.setStatusBarBackground(R.color.white);
@@ -248,12 +252,12 @@ public class Menu extends AppCompatActivity implements CatitemAdapter.Oncategori
     @Override
     public void oncategorieitemlistner(int position) {
         //remove old listner
-        mReference.child("categorie").child(categories.get(cat_pos).getCategorie()).removeEventListener(foodEvent);
+        mReference.child("categorie").child(categories.get(cat_pos).getKey()).removeEventListener(foodEvent);
         foods.clear();
 
         //add new listner
         cat_pos=position;
-        mReference.child("categorie").child(categories.get(cat_pos).getCategorie()).addChildEventListener(foodEvent);
+        mReference.child("categorie").child(categories.get(cat_pos).getKey()).addChildEventListener(foodEvent);
 
         catadapter.notifyDataSetChanged();
     }
