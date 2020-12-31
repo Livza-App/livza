@@ -1,5 +1,7 @@
 package com.example.livza;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Objects;
 
 //this class reference the child(menu_item.xml) of menuitems listview of activity_menu.xml
@@ -95,5 +97,9 @@ public class Fooditem {
     @Override
     public int hashCode() {
         return Objects.hash(imgid, ingredients, time, title, subtitle, price, rating);
+    }
+
+    public ArrayList<String> ingredientsArray(){
+        return new ArrayList<String>(Arrays.asList(ingredients.split("-")));
     }
 }
