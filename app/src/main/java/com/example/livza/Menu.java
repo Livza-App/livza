@@ -39,17 +39,17 @@ import java.util.concurrent.CountDownLatch;
 public class Menu extends AppCompatActivity implements CatitemAdapter.Oncategorielistner{
     private ListView menu;
     private RecyclerView cat;
-    private ArrayList<Fooditem> foods,hamburger,pizza,hotdog;
+    private ArrayList<Fooditem> foods;
     private ArrayList<Categorieitem> categories;
     private ArrayList<String> food_key;
     private DatabaseReference mReference;
     public static int cat_pos=0;
+    private Long firstCatNumber;
     private CatitemAdapter catadapter;
-    private ValueEventListener categorieEvent,firstTimeEvent;
-    private ChildEventListener foodEvent;
+    private ValueEventListener firstTimeEvent;
+    private ChildEventListener foodEvent,categorieEvent;
     private MenuitemAdapter adapter;
     private CountDownLatch cat_done=new CountDownLatch(1),food_done=new CountDownLatch(0);
-    private boolean firstTime=true;
     private Button btn_menu_drawer,go_card_btn;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
@@ -107,9 +107,6 @@ public class Menu extends AppCompatActivity implements CatitemAdapter.Oncategori
 
     }
 
-    private void loadFood(String categorie){
-
-    }
 
     private void initFirebase(){
 
@@ -123,7 +120,8 @@ public class Menu extends AppCompatActivity implements CatitemAdapter.Oncategori
                     categories.add(new Categorieitem(imageid,categorie,Key));
                 }
                 catadapter.notifyDataSetChanged();
-
+                Log.i("addeve","count= "+snapshot.getChildrenCount());
+                firstCatNumber=snapshot.getChildrenCount();
                 addUpdatesEvent();
             }
 
@@ -146,7 +144,7 @@ public class Menu extends AppCompatActivity implements CatitemAdapter.Oncategori
                 if(!(snapshot.getKey().equals("zzzzzzzzzz") || snapshot.getKey().equals("categorie"))){
                     foods.add(snapshot.getValue(Fooditem.class));
                     food_key.add(snapshot.getKey());
-                }else{
+                }else if(snapshot.getKey().equals("zzzzzzzzzz")){
                     adapter.notifyDataSetChanged();
                 }
             }
@@ -159,9 +157,6 @@ public class Menu extends AppCompatActivity implements CatitemAdapter.Oncategori
                     foods.remove(pos);
                     foods.add(pos,fooditem);
                     adapter.notifyDataSetChanged();
-                }else if(snapshot.getKey().equals("zzzzzzzzzz")){
-                    categories.get(cat_pos).setImageid(snapshot.getValue(String.class));
-                    catadapter.notifyDataSetChanged();
                 }
 
             }
@@ -187,12 +182,17 @@ public class Menu extends AppCompatActivity implements CatitemAdapter.Oncategori
         mReference.child("categorie").child(categories.get(cat_pos).getKey()).addChildEventListener(foodEvent);
 
         //categorieEvent
-        categorieEvent=new ValueEventListener() {
+        /*categorieEvent=new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 int cat_number=0;
+                Categorieitem categorieitem;
                 for(DataSnapshot ds:snapshot.getChildren()){
                     cat_number++;
+                    String imageid=ds.child("zzzzzzzzzz").getValue(String.class);
+                    String categorie=ds.child("categorie").getValue(String.class);
+                    String Key=ds.getKey();
+                    categorieitem=new Categorieitem(imageid,categorie,Key);
                 }
                 if(cat_number!=categories.size()){
                     categories.clear();
@@ -210,8 +210,61 @@ public class Menu extends AppCompatActivity implements CatitemAdapter.Oncategori
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
+        };*/
+        categorieEvent= new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                Log.i("addeve","Data: "+snapshot.getKey());
+                if(firstCatNumber==Long.parseLong("0")){
+                    String imageid=snapshot.child("zzzzzzzzzz").getValue(String.class);
+                    String categorie=snapshot.child("categorie").getValue(String.class);
+                    String Key=snapshot.getKey();
+                    categories.add(new Categorieitem(imageid,categorie,Key));
+                    catadapter.notifyDataSetChanged();
+                }else{
+                    firstCatNumber--;
+                }
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                String imageid=snapshot.child("zzzzzzzzzz").getValue(String.class);
+                String categorie=snapshot.child("categorie").getValue(String.class);
+                String Key=snapshot.getKey();
+                for(int i=0;i<categories.size();i++){
+                    if(categories.get(i).getKey().equals(Key)){
+                        categories.get(i).setImageid(imageid);
+                        categories.get(i).setCategorie(categorie);
+                        catadapter.notifyDataSetChanged();
+                        break;
+                    }
+                }
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+                Log.i("addeve","count= "+snapshot.getKey());
+                String Key=snapshot.getKey();
+                for(int i=0;i<categories.size();i++){
+                    if(categories.get(i).getKey().equals(Key)){
+                        categories.remove(i);
+                        catadapter.notifyDataSetChanged();
+                        break;
+                    }
+                }
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
         };
-        mReference.child("categorie").addValueEventListener(categorieEvent);
+        mReference.child("categorie").addChildEventListener(categorieEvent);
 
     }
 
