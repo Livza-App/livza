@@ -60,13 +60,14 @@ public class Menu extends AppCompatActivity implements CatitemAdapter.Oncategori
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
-        getWindow().setStatusBarColor(getResources().getColor(R.color.menu_status_color));
+        //getWindow().setStatusBarColor(getResources().getColor(R.color.pink));
         init();
         initFirebase();
         //Design horizontal layout
         LinearLayoutManager layoutManager=new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
         cat.setLayoutManager(layoutManager);
         cat.setItemAnimator(new DefaultItemAnimator());
+
         //creating items and put them into arraylist for "categories_recycleview"
         //initcategories();
        // reloadData();
@@ -78,8 +79,8 @@ public class Menu extends AppCompatActivity implements CatitemAdapter.Oncategori
         //putting arraylist inside the adapter and configure the adapter to the listview
 
         //show Drawer Menu
+        button_drawer_menu();
 
-        //button_drawer_menu();
         //for the drawer menu listner
         //change_menu();
 
@@ -95,6 +96,7 @@ public class Menu extends AppCompatActivity implements CatitemAdapter.Oncategori
         });
     }
 
+    //To show drawer
     public void button_drawer_menu(){
         btn_menu_drawer=findViewById(R.id.menu_drawer_btn);
         btn_menu_drawer.setOnClickListener(new View.OnClickListener() {
@@ -104,9 +106,37 @@ public class Menu extends AppCompatActivity implements CatitemAdapter.Oncategori
             }
         });
 
-
     }
 
+    private void init(){
+        //view
+        cat=findViewById(R.id.categories);
+        menu=findViewById(R.id.menuitems);
+
+
+        //Arraylist
+        foods=new ArrayList<>();
+        categories=new ArrayList<>();
+        food_key=new ArrayList<>();
+
+        //categorie
+        catadapter=new CatitemAdapter(this,categories,this);
+        cat.setAdapter(catadapter);
+        //food
+        adapter=new MenuitemAdapter(this,foods);
+        menu.setAdapter(adapter);
+
+        //Firebase
+        mReference= FirebaseDatabase.getInstance().getReference();
+
+        //Drawer_Menu
+        drawerLayout=findViewById(R.id.drawer);
+        navigationView=findViewById(R.id.nav_view);
+        navigationView.setItemIconTintList(null);
+        //nav_menu=(Menu) navigationView.getMenu();
+       //drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+
+    }
 
     private void initFirebase(){
 
@@ -134,7 +164,6 @@ public class Menu extends AppCompatActivity implements CatitemAdapter.Oncategori
         mReference.child("categorie").addListenerForSingleValueEvent(firstTimeEvent);
 
     }
-
 
     private void addUpdatesEvent(){
         //foodEvent
@@ -268,39 +297,6 @@ public class Menu extends AppCompatActivity implements CatitemAdapter.Oncategori
 
     }
 
-    private void init(){
-        //view
-        cat=findViewById(R.id.categories);
-        menu=findViewById(R.id.menuitems);
-        /*drawerLayout=findViewById(R.id.drawer_Layout);
-        navigationView=findViewById(R.id.nav_view);*/
-
-        //Arraylist
-        foods=new ArrayList<>();
-        categories=new ArrayList<>();
-        food_key=new ArrayList<>();
-
-        //categorie
-        catadapter=new CatitemAdapter(this,categories,this);
-        cat.setAdapter(catadapter);
-        //food
-        adapter=new MenuitemAdapter(this,foods);
-        menu.setAdapter(adapter);
-
-        //Firebase
-        mReference= FirebaseDatabase.getInstance().getReference();
-        //Drawer_Menu
-       /* drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-        drawerLayout.setStatusBarBackground(R.color.white);
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)){
-            btn_menu_drawer.setVisibility(View.GONE);
-            TextView Title=findViewById(R.id.item_txt);
-            Title.setVisibility(View.GONE);
-            getWindow().setStatusBarColor(getResources().getColor(R.color.status));
-
-        }
-        navigationView.setItemIconTintList(null);*/
-    }
 
     @Override
     public void oncategorieitemlistner(int position) {
@@ -317,16 +313,13 @@ public class Menu extends AppCompatActivity implements CatitemAdapter.Oncategori
 
     @Override
     public void onBackPressed() {
+        drawerLayout=findViewById(R.id.drawer);
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
         }
-
-
     }
-
-
 
 
     public void change_menu(){
