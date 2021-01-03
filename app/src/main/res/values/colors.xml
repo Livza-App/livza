@@ -10,4 +10,5 @@
     <color name="pink">#FE483D</color>
     <color name="menu_status_color">#B9F2F2F4</color>
     <color name="status">#FA3253</color>
+    <color name="navigation_color">#808080</color>
 </resources>

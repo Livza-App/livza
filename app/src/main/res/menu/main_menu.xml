@@ -5,17 +5,26 @@
               android:title="Profile Setings"
             android:icon="@drawable/user_2"
             />
+    </group>
+    <group android:checkableBehavior="single">
         <item android:id="@+id/Languge"
               android:title="Languages"
               android:icon="@drawable/translation_1"/>
+    </group>
 
+    <group android:checkableBehavior="single">
         <item android:id="@+id/contact_us"
               android:title="Contact Us"
             android:icon="@drawable/contact"/>
+    </group>
+
+    <group android:checkableBehavior="single">
         <item android:id="@+id/help"
               android:title="Helpe and feedback"
             android:icon="@drawable/help"/>
-
     </group>
+
+
+
 
 </menu>

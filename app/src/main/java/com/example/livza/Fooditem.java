@@ -100,6 +100,6 @@ public class Fooditem {
     }
 
     public ArrayList<String> ingredientsArray(){
-        return new ArrayList<String>(Arrays.asList(ingredients.split("-")));
+        return new ArrayList<String>(Arrays.asList(ingredients.split("\\s*-\\s*")));
     }
 }

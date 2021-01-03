@@ -63,25 +63,18 @@ public class Menu extends AppCompatActivity implements CatitemAdapter.Oncategori
         getWindow().setStatusBarColor(getResources().getColor(R.color.menu_status_color));
         init();
         initFirebase();
+        menuclick();
         //Design horizontal layout
         LinearLayoutManager layoutManager=new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
         cat.setLayoutManager(layoutManager);
         cat.setItemAnimator(new DefaultItemAnimator());
-        //creating items and put them into arraylist for "categories_recycleview"
-        //initcategories();
-       // reloadData();
-        //putting arraylist inside the adapter and configure the adapter to the recycleview
 
-        //creating items and put them into arraylist for "menuitems_listview"
-        //initmenuitems();
-
-        //putting arraylist inside the adapter and configure the adapter to the listview
 
         //show Drawer Menu
 
-        //button_drawer_menu();
+        button_drawer_menu();
         //for the drawer menu listner
-        //change_menu();
+       // change_menu();
 
 
         //intent to the card Actyvity
@@ -144,6 +137,7 @@ public class Menu extends AppCompatActivity implements CatitemAdapter.Oncategori
                 if(!(snapshot.getKey().equals("zzzzzzzzzz") || snapshot.getKey().equals("categorie"))){
                     foods.add(snapshot.getValue(Fooditem.class));
                     food_key.add(snapshot.getKey());
+
                 }else if(snapshot.getKey().equals("zzzzzzzzzz")){
                     adapter.notifyDataSetChanged();
                 }
@@ -205,10 +199,8 @@ public class Menu extends AppCompatActivity implements CatitemAdapter.Oncategori
                     catadapter.notifyDataSetChanged();
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         };*/
         categorieEvent= new ChildEventListener() {
@@ -272,8 +264,8 @@ public class Menu extends AppCompatActivity implements CatitemAdapter.Oncategori
         //view
         cat=findViewById(R.id.categories);
         menu=findViewById(R.id.menuitems);
-        /*drawerLayout=findViewById(R.id.drawer_Layout);
-        navigationView=findViewById(R.id.nav_view);*/
+        drawerLayout=findViewById(R.id.drawer_layout);
+        navigationView=findViewById(R.id.nav_view);
 
         //Arraylist
         foods=new ArrayList<>();
@@ -290,14 +282,13 @@ public class Menu extends AppCompatActivity implements CatitemAdapter.Oncategori
         //Firebase
         mReference= FirebaseDatabase.getInstance().getReference();
         //Drawer_Menu
-       /* drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+        /*drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         drawerLayout.setStatusBarBackground(R.color.white);
         if (drawerLayout.isDrawerOpen(GravityCompat.START)){
             btn_menu_drawer.setVisibility(View.GONE);
             TextView Title=findViewById(R.id.item_txt);
             Title.setVisibility(View.GONE);
             getWindow().setStatusBarColor(getResources().getColor(R.color.status));
-
         }
         navigationView.setItemIconTintList(null);*/
     }
@@ -331,8 +322,6 @@ public class Menu extends AppCompatActivity implements CatitemAdapter.Oncategori
 
     public void change_menu(){
 
-        navigationView.getMenu().clear();
-        navigationView.inflateMenu(R.menu.main_menu);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -357,6 +346,21 @@ public class Menu extends AppCompatActivity implements CatitemAdapter.Oncategori
         });
 
     }
-
+public void menuclick(){
+        menu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent= new Intent(getApplicationContext(),Add_to_cart.class);
+                ArrayList<String> ingredient;
+                ingredient=foods.get(position).ingredientsArray();
+                intent.putExtra("ingredients",ingredient);
+                intent.putExtra("image",foods.get(position).getImgid());
+                intent.putExtra("price",foods.get(position).getPrice());
+                intent.putExtra("title",foods.get(position).getTitle());
+                intent.putExtra("time",foods.get(position).getTime());
+                startActivity(intent);
+            }
+        });
+}
 
 }
