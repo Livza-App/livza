@@ -195,7 +195,10 @@ public class Add_to_cart extends AppCompatActivity {
                 //title,price,quantity,ingredient,imgid;
                 String ingredient=getingredients();
                 String qnt=quantity.getText().toString();
-                Carte_item item=new Carte_item(imgPath, title, price, qnt, ingredient);
+                String basic_price=price.substring(0, price.length()-2).trim();
+                float qntxprice= Float.parseFloat(qnt)*Float.parseFloat(basic_price);
+                String totalprice=(int)qntxprice+" DA";
+                Carte_item item=new Carte_item(imgPath, title, totalprice, qnt, ingredient,basic_price);
                 Menu.cart.add(item);
 
                 //Toast toast=Toast.makeText(getApplicationContext(),ingredient,Toast.LENGTH_SHORT);

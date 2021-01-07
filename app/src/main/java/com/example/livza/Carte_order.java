@@ -71,15 +71,21 @@ public class Carte_order extends AppCompatActivity implements Carte_itemAdapter.
             @Override
             public void onAdd_Qte_toItemCarte(int position) {
 
-                int n=Integer.parseInt(Menu.cart.get(position).getItm_qte());
+                float n=Float.parseFloat(Menu.cart.get(position).getItm_qte());
                 n=n+1;
-                Menu.cart.get(position).setItm_qte(String.valueOf(n));
+                int i=(int) n;
+                Menu.cart.get(position).setItm_qte(String.valueOf(i));
+                float baseprice= Float.parseFloat(Menu.cart.get(position).getItem_base_price());
+                float itemprice=baseprice*n;
+                Menu.cart.get(position).setItem_price(String.valueOf((int) itemprice)+" DA");
                 carte_itemAdapter.notifyItemChanged(position);
+                Calcule_TotalSum(Menu.cart,cart_pos);
+
             }
 
             @Override
             public void onMinos_Qte_toItemCarte(int position) {
-                int n=Integer.parseInt(Menu.cart.get(position).getItm_qte());
+                float n=Float.parseFloat(Menu.cart.get(position).getItm_qte());
                 n=n-1;
                 if(n<=0){
                     Menu.cart.get(position).setItm_qte("1");
@@ -87,16 +93,22 @@ public class Carte_order extends AppCompatActivity implements Carte_itemAdapter.
                     toast.show();
                     Toast swipe=Toast.makeText(getApplicationContext(),"if you want to delete this item swipe it left or right!",Toast.LENGTH_SHORT);
                     swipe.show();
+                    Menu.cart.get(position).setItem_price(Menu.cart.get(position).getItem_base_price()+" DA");
                     carte_itemAdapter.notifyItemChanged(position);
                 }else {
-                    Menu.cart.get(position).setItm_qte(String.valueOf(n));
+                    int i=(int) n;
+                    Menu.cart.get(position).setItm_qte(String.valueOf(i));
+                    float baseprice= Float.parseFloat(Menu.cart.get(position).getItem_base_price());
+                    float itemprice=baseprice*n;
+                    Menu.cart.get(position).setItem_price(String.valueOf((int) itemprice)+" DA");
                     carte_itemAdapter.notifyItemChanged(position);
                 }
+                Calcule_TotalSum(Menu.cart,cart_pos);
             }
         });
 
         //Total_summ
-//        Calcule_TotalSum(Menu.cart,cart_pos);
+        Calcule_TotalSum(Menu.cart,cart_pos);
 
         //testtt
         Button f=findViewById(R.id.send_order);
@@ -131,22 +143,24 @@ public class Carte_order extends AppCompatActivity implements Carte_itemAdapter.
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
             Menu.cart.remove(viewHolder.getAdapterPosition());
             carte_itemAdapter.notifyDataSetChanged();
+            Calcule_TotalSum(Menu.cart,cart_pos);
+
         }
     };
 
 
     //Total sum
     public void Calcule_TotalSum(ArrayList<Carte_item> carte_items,int cart_pos){
-        int Total= 0;
+        float Total= 0;
         TextView Total_num=findViewById(R.id.total_num);
         if (carte_items.isEmpty()){
             Total_num.setText(" 0 DA");
         }else{
             for (cart_pos=0;cart_pos<(carte_items.size());cart_pos++){
-                int item_price=Integer.parseInt(carte_items.get(cart_pos).getItem_price());
+                float item_price=carte_items.get(cart_pos).get_price_value();
                 Total=Total+item_price;
             }
-            Total_num.setText(Total+" DA");
+            Total_num.setText((int) Total+" DA");
         }
     }
 
