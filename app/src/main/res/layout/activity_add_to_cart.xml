@@ -7,205 +7,189 @@
     tools:context=".Add_to_cart">
 
 
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/addtocart_foodimage"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/burger1" />
 
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/addtocart_foodimage"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView4"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/addtocart_foodimage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.98"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.02">
+
+        <Button
+            android:id="@+id/addtocart_gotocart"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="center"
+            android:background="@drawable/shopping_cart" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView5"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/addtocart_foodimage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.02"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.02">
+
+        <Button
+            android:id="@+id/addtocart_backbtn"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="center"
+            android:background="@drawable/back" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView3"
+        android:layout_width="315dp"
+        android:layout_height="350dp"
+        android:layout_marginTop="200dp"
+        android:layout_weight="1"
+        app:cardCornerRadius="45dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:id="@+id/holder"
             android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:scaleType="fitXY"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
-            app:srcCompat="@drawable/burger1" />
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="15dp">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardView4"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            app:cardCornerRadius="20dp"
-            app:layout_constraintBottom_toBottomOf="@+id/addtocart_foodimage"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.98"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.02">
+            <TextView
+                android:id="@+id/addtocart_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:text="Adelitoz Burger"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
-            <Button
-                android:id="@+id/addtocart_gotocart"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_gravity="center"
-                android:background="@drawable/shopping_cart" />
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardView5"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            app:cardCornerRadius="20dp"
-            app:layout_constraintBottom_toBottomOf="@+id/addtocart_foodimage"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.02"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.02">
-
-            <Button
-                android:id="@+id/addtocart_backbtn"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_gravity="center"
-                android:background="@drawable/back" />
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardView3"
-            android:layout_width="307dp"
-            android:layout_height="333dp"
-            android:layout_marginTop="200dp"
-            android:layout_weight="1"
-            app:cardCornerRadius="45dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            <TextView
+                android:id="@+id/addtocart_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:text="20-30 min"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
 
             <LinearLayout
-                android:id="@+id/holder"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:padding="15dp">
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_margin="2dp"
+                android:background="@drawable/addtocart_button"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="10dp"
+                android:weightSum="100">
+
+                <ImageView
+                    android:id="@+id/addtocart_minusbutton"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="0dp"
+                    android:layout_weight="25"
+                    android:scaleType="centerInside"
+                    app:srcCompat="@drawable/addtocart_moinsbtn" />
 
                 <TextView
-                    android:id="@+id/addtocart_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="2dp"
-                    android:text="Adelitoz Burger"
+                    android:id="@+id/addtocart_quantity"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="50"
+                    android:text="2"
                     android:textAlignment="center"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
+                    android:textColor="@color/white"
+                    android:textSize="25sp"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/addtocart_time"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="2dp"
-                    android:text="20-30 min"
-                    android:textAlignment="center"
-                    android:textColor="@color/black"
-                    android:textSize="12sp" />
-
-                <LinearLayout
-                    android:layout_width="150dp"
-                    android:layout_height="50dp"
-                    android:layout_gravity="center"
-                    android:layout_margin="2dp"
-                    android:background="@drawable/addtocart_button"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:padding="5dp">
-
-                    <ImageView
-                        android:id="@+id/addtocart_minusbutton"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_marginStart="10dp"
-                        android:layout_weight="1"
-                        android:scaleType="fitXY"
-                        app:srcCompat="@drawable/addtocart_moinsbtn" />
-
-                    <TextView
-                        android:id="@+id/addtocart_quantity"
-                        android:layout_width="75dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="2"
-                        android:textAlignment="center"
-                        android:textColor="@color/white"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
-
-                    <ImageView
-                        android:id="@+id/addtocart_plusbutton"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_weight="1"
-                        android:scaleType="fitXY"
-                        app:srcCompat="@drawable/addtocart_plusbtn" />
-                </LinearLayout>
-
-                <ListView
-                    android:id="@+id/ing_listview"
-                    android:layout_width="match_parent"
+                <ImageView
+                    android:id="@+id/addtocart_plusbutton"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_margin="2dp" />
+                    android:layout_weight="25"
+                    android:scaleType="centerInside"
+                    app:srcCompat="@drawable/addtocart_plusbtn" />
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
 
-        <LinearLayout
-            android:id="@+id/imageView4"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
-            android:background="@drawable/price_vector"
-            android:elevation="6dp"
-            android:orientation="horizontal"
-            android:padding="5dp"
-            app:layout_constraintBottom_toBottomOf="@+id/addtocart_foodimage"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.95"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.95">
-
-            <TextView
-                android:id="@+id/addtocart_price"
-                android:layout_width="0dp"
+            <ListView
+                android:id="@+id/ing_listview"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:rotation="30"
-                android:text="1200 da"
-                android:textAllCaps="true"
-                android:textColor="@color/white"
-                android:textSize="14sp" />
-
+                android:layout_margin="2dp" />
         </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
-        <LinearLayout
-            android:id="@+id/addtocart_btn"
-            android:layout_width="150dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="50dp"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/addtocart_button"
+    <LinearLayout
+        android:id="@+id/imageView4"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:background="@drawable/price_vector"
+        android:elevation="6dp"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/addtocart_foodimage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.95">
+
+        <TextView
+            android:id="@+id/addtocart_price"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
             android:gravity="center"
-            android:orientation="horizontal"
-            android:padding="10dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cardView3">
+            android:rotation="30"
+            android:text="1200 da"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
 
-            <TextView
-                android:id="@+id/textView12"
-                android:layout_width="wrap_content"
-                android:layout_height="25dp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="Add To Cart"
-                android:textColor="@color/white"
-                android:textSize="18sp" />
+    </LinearLayout>
 
-            <ImageView
-                android:id="@+id/imageView7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/addtocart_button_icon" />
-        </LinearLayout>
+    <Button
+        android:id="@+id/addtocart_btn"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:background="@drawable/addtocart_button"
+        android:drawableEnd="@drawable/addtocart_button_icon"
+        android:paddingStart="25dp"
+        android:paddingEnd="25dp"
+        android:text="Add To Cart"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView3" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

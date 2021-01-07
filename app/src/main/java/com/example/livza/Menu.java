@@ -53,9 +53,8 @@ public class Menu extends AppCompatActivity implements CatitemAdapter.Oncategori
     private Button btn_menu_drawer,go_card_btn;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
-    private Menu nav_menu ;
     private Toolbar toolbar;
-
+    public static ArrayList<Carte_item> cart;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,10 +70,9 @@ public class Menu extends AppCompatActivity implements CatitemAdapter.Oncategori
 
 
         //show Drawer Menu
-
         button_drawer_menu();
         //for the drawer menu listner
-       // change_menu();
+       drawer_item_click();
 
 
         //intent to the card Actyvity
@@ -175,34 +173,6 @@ public class Menu extends AppCompatActivity implements CatitemAdapter.Oncategori
         };
         mReference.child("categorie").child(categories.get(cat_pos).getKey()).addChildEventListener(foodEvent);
 
-        //categorieEvent
-        /*categorieEvent=new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                int cat_number=0;
-                Categorieitem categorieitem;
-                for(DataSnapshot ds:snapshot.getChildren()){
-                    cat_number++;
-                    String imageid=ds.child("zzzzzzzzzz").getValue(String.class);
-                    String categorie=ds.child("categorie").getValue(String.class);
-                    String Key=ds.getKey();
-                    categorieitem=new Categorieitem(imageid,categorie,Key);
-                }
-                if(cat_number!=categories.size()){
-                    categories.clear();
-                    for (DataSnapshot ds:snapshot.getChildren()){
-                        String imageid=ds.child("zzzzzzzzzz").getValue(String.class);
-                        String categorie=ds.child("categorie").getValue(String.class);
-                        String Key=ds.getKey();
-                        categories.add(new Categorieitem(imageid,categorie,Key));
-                    }
-                    catadapter.notifyDataSetChanged();
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
-        };*/
         categorieEvent= new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
@@ -271,6 +241,7 @@ public class Menu extends AppCompatActivity implements CatitemAdapter.Oncategori
         foods=new ArrayList<>();
         categories=new ArrayList<>();
         food_key=new ArrayList<>();
+        cart=new ArrayList<>();
 
         //categorie
         catadapter=new CatitemAdapter(this,categories,this);
@@ -282,6 +253,8 @@ public class Menu extends AppCompatActivity implements CatitemAdapter.Oncategori
         //Firebase
         mReference= FirebaseDatabase.getInstance().getReference();
         //Drawer_Menu
+        navigationView.setItemIconTintList(null);
+
         /*drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         drawerLayout.setStatusBarBackground(R.color.white);
         if (drawerLayout.isDrawerOpen(GravityCompat.START)){
@@ -320,7 +293,7 @@ public class Menu extends AppCompatActivity implements CatitemAdapter.Oncategori
 
 
 
-    public void change_menu(){
+    public void drawer_item_click(){
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override

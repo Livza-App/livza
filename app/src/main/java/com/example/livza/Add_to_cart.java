@@ -32,7 +32,7 @@ public class Add_to_cart extends AppCompatActivity {
     private String imgPath,price,title,time;
     private ArrayList<String> ingredients;
     private TextView tprice,ttitle,ttime,quantity;
-    private Button gotocart,goback;
+    private Button gotocart,goback,add;
     private ImageView minusbtn,plusbtn;
 
     @Override
@@ -48,6 +48,7 @@ public class Add_to_cart extends AppCompatActivity {
         minusclick();
         back();
         opencartactivity();
+        addclick();
 
     }
 
@@ -80,6 +81,7 @@ public class Add_to_cart extends AppCompatActivity {
         plusbtn=findViewById(R.id.addtocart_plusbutton);
         gotocart=findViewById(R.id.addtocart_gotocart);
         goback=findViewById(R.id.addtocart_backbtn);
+        add=findViewById(R.id.addtocart_btn);
 
     }
     public void load_image(){
@@ -185,5 +187,39 @@ public class Add_to_cart extends AppCompatActivity {
             }
         });
 
+    }
+    public void addclick(){
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //title,price,quantity,ingredient,imgid;
+                String ingredient=getingredients();
+                String qnt=quantity.getText().toString();
+                Carte_item item=new Carte_item(imgPath, title, price, qnt, ingredient);
+                Menu.cart.add(item);
+
+                //Toast toast=Toast.makeText(getApplicationContext(),ingredient,Toast.LENGTH_SHORT);
+                //toast.show();
+            }
+        });
+    }
+
+    public String getingredients(){
+        String ingredient="nothing";
+        for(int i=0; i<ingredient_items.size();i++){
+            if(ingredient_items.get(i).getCheckbox() == R.drawable.addtocart_cochetrue){
+                if(ingredient.equals("nothing")){
+                    ingredient = ingredient_items.get(i).getName();
+                }else {
+                    ingredient = ingredient + "-" + ingredient_items.get(i).getName();
+                }
+
+            }
+        }
+        if(ingredient.equals("nothing")){
+            return "";
+        }else{
+            return ingredient;
+        }
     }
 }

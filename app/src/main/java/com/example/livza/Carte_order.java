@@ -14,13 +14,14 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 public class Carte_order extends AppCompatActivity implements Carte_itemAdapter.OncartItemlistner {
 
     private RecyclerView Cart;
-    private ArrayList<Carte_item> carte_items;
+
     public static int cart_pos=0;
     public static int add=0,delete=0;
     private Carte_itemAdapter carte_itemAdapter;
@@ -32,7 +33,6 @@ public class Carte_order extends AppCompatActivity implements Carte_itemAdapter.
 
         initcomponents();
 
-
         LinearLayoutManager Lm=new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
         Cart.setLayoutManager(Lm);
         Cart.setItemAnimator(new DefaultItemAnimator());
@@ -42,7 +42,7 @@ public class Carte_order extends AppCompatActivity implements Carte_itemAdapter.
         To_Add_Cart_Item();
 
         //putting arraylist inside the adapter and configure the adapter to the recycleview
-        carte_itemAdapter=new Carte_itemAdapter(this,carte_items,this);
+        carte_itemAdapter=new Carte_itemAdapter(this,Menu.cart,this);
         new ItemTouchHelper(itemTouchelperCallbak).attachToRecyclerView(Cart);
         Cart.setAdapter(carte_itemAdapter);
 
@@ -53,7 +53,7 @@ public class Carte_order extends AppCompatActivity implements Carte_itemAdapter.
         trush_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                carte_items.clear();
+                Menu.cart.clear();
                 carte_itemAdapter.notifyDataSetChanged();
                 TextView Total_num=findViewById(R.id.total_num);
                 Total_num.setText(" 0 DA");
@@ -71,23 +71,32 @@ public class Carte_order extends AppCompatActivity implements Carte_itemAdapter.
             @Override
             public void onAdd_Qte_toItemCarte(int position) {
 
-                int n=Integer.parseInt(carte_items.get(position).getItm_qte());
+                int n=Integer.parseInt(Menu.cart.get(position).getItm_qte());
                 n=n+1;
-                carte_items.get(position).setItm_qte(String.valueOf(n));
+                Menu.cart.get(position).setItm_qte(String.valueOf(n));
                 carte_itemAdapter.notifyItemChanged(position);
             }
 
             @Override
             public void onMinos_Qte_toItemCarte(int position) {
-                int n=Integer.parseInt(carte_items.get(position).getItm_qte());
+                int n=Integer.parseInt(Menu.cart.get(position).getItm_qte());
                 n=n-1;
-                carte_items.get(position).setItm_qte(String.valueOf(n));
-                carte_itemAdapter.notifyItemChanged(position);
+                if(n<=0){
+                    Menu.cart.get(position).setItm_qte("1");
+                    Toast toast=Toast.makeText(getApplicationContext(),"you can't set quantity to zero value",Toast.LENGTH_SHORT);
+                    toast.show();
+                    Toast swipe=Toast.makeText(getApplicationContext(),"if you want to delete this item swipe it left or right!",Toast.LENGTH_SHORT);
+                    swipe.show();
+                    carte_itemAdapter.notifyItemChanged(position);
+                }else {
+                    Menu.cart.get(position).setItm_qte(String.valueOf(n));
+                    carte_itemAdapter.notifyItemChanged(position);
+                }
             }
         });
 
         //Total_summ
-        Calcule_TotalSum(carte_items,cart_pos);
+//        Calcule_TotalSum(Menu.cart,cart_pos);
 
         //testtt
         Button f=findViewById(R.id.send_order);
@@ -105,14 +114,6 @@ public class Carte_order extends AppCompatActivity implements Carte_itemAdapter.
 
     // here we add the item to or card from the layout of categories "Amine hna kol ma y3abezzz Add to card tb3atli name,photo,pric,w angraidiants"
     public void To_Add_Cart_Item(){
-        Carte_item itm1=new Carte_item(R.drawable.cat_burger,"Bob burger","700","2");
-        Carte_item itm2=new Carte_item(R.drawable.cat_pizza,"Pizza","300","1");
-        Carte_item itm3=new Carte_item(R.drawable.cat_hotdog,"Hotdog","250","1");
-        carte_items=new ArrayList<>();
-        carte_items.add(itm1);
-        carte_items.add(itm2);
-        carte_items.add(itm3);
-
         //hna amine dir getExtras wla teaa intent w jibli les donnes mlhdak lyout
 
         //hna kol ma t'ajouter item tajouter l price ta3o l total_sum
@@ -128,7 +129,7 @@ public class Carte_order extends AppCompatActivity implements Carte_itemAdapter.
 
         @Override
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-            carte_items.remove(viewHolder.getAdapterPosition());
+            Menu.cart.remove(viewHolder.getAdapterPosition());
             carte_itemAdapter.notifyDataSetChanged();
         }
     };

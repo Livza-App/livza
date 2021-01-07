@@ -2,6 +2,7 @@ package com.example.livza;
 
 import android.app.Activity;
 import android.content.Context;
+import android.net.Uri;
 import android.net.sip.SipSession;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,12 @@ import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +52,29 @@ public class Carte_itemAdapter extends RecyclerView.Adapter<Carte_itemAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-            holder.item_icn.setImageResource(Cart_items.get(position).getImgid());
+        String imgPath = Cart_items.get(position).getImgid();
+        FirebaseStorage mStorage = FirebaseStorage.getInstance();
+        StorageReference storageRef = mStorage.getReference().child("/"+imgPath);
+        storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Glide.with(context)
+                        .load(uri)
+                        .into(holder.item_icn);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle any errors
+                Glide.with(context)
+                        .load(R.drawable.addtocart_cochetrue)
+                        .into(holder.item_icn);
+            }
+        });
+
+
+
+
             holder.item_name.setText(Cart_items.get(position).getItm_name());
             holder.item_price.setText(Cart_items.get(position).getItem_price());
             holder.item_qte.setText(Cart_items.get(position).getItm_qte());
