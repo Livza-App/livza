@@ -1,5 +1,6 @@
 package com.example.livza;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -13,10 +14,20 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 
@@ -24,16 +35,18 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Profile_User extends AppCompatActivity {
 
-
-    private TextView Save, Cancel;
-    private FirebaseAuth firebaseAuth;
-    private DatabaseReference databaseReference;
+    //view
+    private TextView Save, Cancel,UserNameEdit,user_name,phone_num;
     private Uri imageUri;
-    private String myUri = "";
-    private StorageTask uploadtask;
-    private StorageReference storageProfilePicReference;
+    private CardView profile_img;
+    private CircleImageView User_Image;
 
     private static final int PICK_IMAGE = 1;
+
+    //Firebase var
+    private FirebaseUser mAuth;
+    private FirebaseStorage mStorage;
+    private DatabaseReference mRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,9 +54,12 @@ public class Profile_User extends AppCompatActivity {
         setContentView(R.layout.activity_profile__user);
         getWindow().setStatusBarColor(getResources().getColor(R.color.pink));
 
+        init();
 
-        //edit profil img
-        CardView profile_img=findViewById(R.id.cardUser);
+        //reload data
+        reloadData();
+
+        //edit profile img
         profile_img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -51,8 +67,7 @@ public class Profile_User extends AppCompatActivity {
             }
         });
 
-        //Edit the UserName && Phonen Number
-        TextView UserNameEdit=findViewById(R.id.user_name);
+        //Edit the UserName && Phone Number
         UserNameEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -71,6 +86,56 @@ public class Profile_User extends AppCompatActivity {
             }
         });
 
+
+    }
+
+    private void init() {
+        //init View
+        profile_img=findViewById(R.id.cardUser);
+        UserNameEdit=findViewById(R.id.user_name);
+        user_name=findViewById(R.id.user_name);
+        phone_num=findViewById(R.id.phone_num);
+        User_Image=findViewById(R.id.profile_img);
+
+        //init FireBase
+        mAuth=FirebaseAuth.getInstance().getCurrentUser();
+        mRef= FirebaseDatabase.getInstance().getReference();
+        mStorage = FirebaseStorage.getInstance();
+
+    }
+
+    private void reloadData() {
+        mRef.child("Users").child(mAuth.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User user=snapshot.getValue(User.class);
+                user_name.setText(user.getUsername());
+                phone_num.setText(user.getPhone());
+                StorageReference mStorageRef=mStorage.getReference().child("/Users").child("/"+user.getImageID());
+                mStorageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        Glide.with(getApplicationContext())
+                                .load(uri)
+                                .into(User_Image);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        // Handle any errors
+                        Glide.with(getApplicationContext())
+                                .load(R.drawable.addtocart_cochetrue)
+                                .into(User_Image);
+                    }
+                });
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
     }
 

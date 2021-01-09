@@ -66,6 +66,11 @@ public class Log_In extends AppCompatActivity  {
 
         init();
 
+        if(mAuth.getCurrentUser()!=null){
+            Intent intent=new Intent(Log_In.this,Menu.class);
+            startActivity(intent);
+            finish();
+        }
         //Sign_up btn
         Sign_up.setOnClickListener(new View.OnClickListener() {
             @Override

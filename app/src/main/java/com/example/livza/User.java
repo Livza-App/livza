@@ -3,20 +3,20 @@ package com.example.livza;
 import android.widget.ImageView;
 
 public class User {
-    private String User_name,Phone_number;
+    private String username,phone,ImageID;
     private int id_user,id_Profile_img;
 
     //Constrectors
     public User(){}
     public User(int id_user,String User_name,String Phone_number){
         this.id_user=id_user;
-        this.User_name=User_name;
-        this.Phone_number=Phone_number;
+        this.username=User_name;
+        this.phone=Phone_number;
     }
     public User(int id_user,String User_name,String Phone_number,int id_Profile_img){
         this.id_user=id_user;
-        this.User_name=User_name;
-        this.Phone_number=Phone_number;
+        this.username=User_name;
+        this.phone=Phone_number;
         this.id_Profile_img=id_Profile_img;
     }
 
@@ -27,28 +27,36 @@ public class User {
         return id_user;
     }
 
-    public String getUser_name() {
-        return User_name;
+    public String getUsername() {
+        return username;
     }
 
-    public String getPhone_number() {
-        return Phone_number;
+    public String getPhone() {
+        return phone;
     }
 
     public int getProfile_img() {
         return id_Profile_img;
     }
 
-    //Sters
-    public void setUser_name(String user_name) {
-        User_name = user_name;
+    public String getImageID(){
+        return ImageID;
     }
 
-    public void setPhone_number(String phone_number) {
-        Phone_number = phone_number;
+    //Sters
+    public void setUsername(String user_name) {
+        username = user_name;
+    }
+
+    public void setPhone(String phone_number) {
+        phone = phone_number;
     }
 
     public void setProfile_img(int id_Profile_img) {
         id_Profile_img = id_Profile_img;
+    }
+
+    public void setImageID(String imageID){
+        ImageID=imageID;
     }
 }

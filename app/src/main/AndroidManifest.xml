@@ -16,14 +16,15 @@
         <activity android:name=".Carte_order" />
         <activity android:name=".Frame_2" />
         <activity android:name=".Sign_Up" />
-        <activity android:name=".Log_In" />
-        <activity android:name=".Menu">
+        <activity android:name=".Log_In" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".Menu"/>
+
         <activity android:name=".Profile_User" />
         <activity android:name=".Add_to_cart"/>
     </application>

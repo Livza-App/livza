@@ -190,6 +190,7 @@ public class Sign_Up extends AppCompatActivity {
         Log.i("sign_up","savedata");
         mReference.child("Users").child(mAuth.getCurrentUser().getUid()).child("username").setValue(UserName);
         mReference.child("Users").child(mAuth.getCurrentUser().getUid()).child("phone").setValue(PhoneNumber);
+        mReference.child("Users").child(mAuth.getCurrentUser().getUid()).child("ImageID").setValue("Default.png");
 
     }
 
