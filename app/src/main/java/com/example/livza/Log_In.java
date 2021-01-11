@@ -15,6 +15,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -44,6 +47,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Log_In extends AppCompatActivity  {
 
+
     //view
     private ImageView Logbtn;
     private EditText Phone_Number;
@@ -57,7 +61,8 @@ public class Log_In extends AppCompatActivity  {
     private PhoneAuthCredential credential;
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
 
-
+    //Animation
+    private Animation fadeIn, leftAnim,rightAnim,outleft,outright;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,6 +102,28 @@ public class Log_In extends AppCompatActivity  {
                 startActivity(i);
             }
         });
+
+        //Animation
+        fadeIn= AnimationUtils.loadAnimation(this,R.anim.anim_fade_in);
+        fadeIn.setInterpolator(new DecelerateInterpolator());
+        leftAnim= AnimationUtils.loadAnimation(this,R.anim.anim_slaide_in_left);
+        rightAnim=AnimationUtils.loadAnimation(this,R.anim.anim_slide_in_right);
+        outleft=AnimationUtils.loadAnimation(this,R.anim.anim_slide_out_left);
+        outright=AnimationUtils.loadAnimation(this,R.anim.anim_slide_out_right);
+
+        ImageView logo=findViewById(R.id.icon);
+        logo.setAnimation(fadeIn);
+        TextView livzatxt=findViewById(R.id.txt1);
+        livzatxt.setAnimation(leftAnim);
+        TextView loginUptxt=findViewById(R.id.loginUptxt);
+        loginUptxt.setAnimation(rightAnim);
+        TextView PhoneNumberTxt=findViewById(R.id.PhoneNumberTxt);
+        PhoneNumberTxt.setAnimation(leftAnim);
+        EditText PhoneNumber=findViewById(R.id.PhoneNumber);
+        PhoneNumber.setAnimation(rightAnim);
+        TextView textView4=findViewById(R.id.textView4);
+        textView4.setAnimation(fadeIn);
+        Sign_up.setAnimation(fadeIn);
 
     }
 

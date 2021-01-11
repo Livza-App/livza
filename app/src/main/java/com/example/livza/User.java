@@ -20,7 +20,6 @@ public class User {
         this.id_Profile_img=id_Profile_img;
     }
 
-
     //Geters
 
     public int getId_user() {
