@@ -45,12 +45,11 @@ public class Frame_2 extends AppCompatActivity {
 
         //Animation
         upIn= AnimationUtils.loadAnimation(this,R.anim.anim_push_up_in);
-        ImageView logo=findViewById(R.id.logo);
-        TextView txt=findViewById(R.id.textView7);
-        logo.setAnimation(upIn);
+        ImageView logo=findViewById(R.id.logo);logo.setAnimation(upIn);
+        TextView txt=findViewById(R.id.textView7); txt.setAnimation(upIn);
         log_in.setAnimation(upIn);
         Sign_Up.setAnimation(upIn);
-        txt.setAnimation(upIn);
+
 
 
         //TESTTTTTTTT brkk

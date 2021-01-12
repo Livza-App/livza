@@ -111,18 +111,12 @@ public class Log_In extends AppCompatActivity  {
         outleft=AnimationUtils.loadAnimation(this,R.anim.anim_slide_out_left);
         outright=AnimationUtils.loadAnimation(this,R.anim.anim_slide_out_right);
 
-        ImageView logo=findViewById(R.id.icon);
-        logo.setAnimation(fadeIn);
-        TextView livzatxt=findViewById(R.id.txt1);
-        livzatxt.setAnimation(leftAnim);
-        TextView loginUptxt=findViewById(R.id.loginUptxt);
-        loginUptxt.setAnimation(rightAnim);
-        TextView PhoneNumberTxt=findViewById(R.id.PhoneNumberTxt);
-        PhoneNumberTxt.setAnimation(leftAnim);
-        EditText PhoneNumber=findViewById(R.id.PhoneNumber);
-        PhoneNumber.setAnimation(rightAnim);
-        TextView textView4=findViewById(R.id.textView4);
-        textView4.setAnimation(fadeIn);
+        ImageView logo=findViewById(R.id.icon);logo.setAnimation(fadeIn);
+        TextView livzatxt=findViewById(R.id.txt1);livzatxt.setAnimation(leftAnim);
+        TextView loginUptxt=findViewById(R.id.loginUptxt);loginUptxt.setAnimation(rightAnim);
+        TextView PhoneNumberTxt=findViewById(R.id.PhoneNumberTxt);PhoneNumberTxt.setAnimation(leftAnim);
+        EditText PhoneNumber=findViewById(R.id.PhoneNumber);PhoneNumber.setAnimation(rightAnim);
+        TextView textView4=findViewById(R.id.textView4);textView4.setAnimation(fadeIn);
         Sign_up.setAnimation(fadeIn);
 
     }

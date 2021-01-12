@@ -7,9 +7,14 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.DecelerateInterpolator;
+import android.view.animation.LinearInterpolator;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -49,6 +54,7 @@ public class Add_to_cart extends AppCompatActivity {
         back();
         opencartactivity();
         addclick();
+        animate();
 
     }
 
@@ -224,5 +230,16 @@ public class Add_to_cart extends AppCompatActivity {
         }else{
             return ingredient;
         }
+    }
+
+    //this function to make animation for our View
+    public void animate(){
+        Animation fadeIn,move;
+        fadeIn= AnimationUtils.loadAnimation(this,R.anim.anim_fade_in);
+        move=AnimationUtils.loadAnimation(this,R.anim.anim_move);move.setInterpolator(new LinearInterpolator());
+        LinearLayout price=findViewById(R.id.imageView4);price.setAnimation(fadeIn);
+        TextView title=findViewById(R.id.addtocart_title);title.setAnimation(fadeIn);
+        TextView qte=findViewById(R.id.addtocart_quantity);qte.setAnimation(move);
+
     }
 }

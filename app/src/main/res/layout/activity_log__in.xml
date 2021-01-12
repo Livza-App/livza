@@ -22,6 +22,7 @@
             android:layout_marginTop="20dp"
             app:layout_constraintBottom_toTopOf="@+id/txt1"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
@@ -46,10 +47,11 @@
             android:layout_width="327dp"
             android:layout_height="355dp"
             android:background="@drawable/shape_3"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt1">
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.608">
 
             <TextView
                 android:id="@+id/loginUptxt"
@@ -106,6 +108,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
+            android:id="@+id/linearLayout3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
