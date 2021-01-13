@@ -17,17 +17,24 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/header_image"
-            android:layout_width="130dp"
-            android:layout_height="130dp"
-            android:background="@drawable/photo_user"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="65dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.08"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.26"></de.hdodenhof.circleimageview.CircleImageView>
+            app:layout_constraintVertical_bias="0.26">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/header_image"
+                android:layout_width="130dp"
+                android:layout_height="130dp" />
+
+        </androidx.cardview.widget.CardView>
 
         <TextView
             android:id="@+id/header_username"
@@ -39,8 +46,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/header_image"
-            app:layout_constraintTop_toTopOf="@+id/header_image"
+            app:layout_constraintStart_toEndOf="@+id/card_view"
+            app:layout_constraintTop_toTopOf="@+id/card_view"
             app:layout_constraintVertical_bias="0.437" />
 
         <TextView
