@@ -110,9 +110,9 @@ public class Carte_order extends AppCompatActivity implements Carte_itemAdapter.
         //Total_summ
         Calcule_TotalSum(Menu.cart,cart_pos);
 
-        //testtt
-        Button f=findViewById(R.id.send_order);
-        f.setOnClickListener(new View.OnClickListener() {
+        //btn_back
+        Button btn_back=findViewById(R.id.btn_back);
+        btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(Carte_order.this,Menu.class));

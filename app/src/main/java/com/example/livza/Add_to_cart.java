@@ -2,14 +2,16 @@ package com.example.livza;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.animation.DecelerateInterpolator;
+import android.view.animation.BounceInterpolator;
 import android.view.animation.LinearInterpolator;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -39,6 +41,8 @@ public class Add_to_cart extends AppCompatActivity {
     private TextView tprice,ttitle,ttime,quantity;
     private Button gotocart,goback,add;
     private ImageView minusbtn,plusbtn;
+   private  Animation scaleup=AnimationUtils.loadAnimation(this,R.anim.anime_scale_up);
+    private Animation scaledwon=AnimationUtils.loadAnimation(this,R.anim.anim_scale_down);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,57 +151,95 @@ public class Add_to_cart extends AppCompatActivity {
         });
     }
     public void plusclick(){
-
-        plusbtn.setOnClickListener(new View.OnClickListener() {
+        plusbtn.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
-                int i=Integer.parseInt(quantity.getText().toString());
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    plusbtn.startAnimation(scaleup);
+                } else if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                    plusbtn.startAnimation(scaledwon);
+                }
+                int i = Integer.parseInt(quantity.getText().toString());
                 i++;
                 quantity.setText(String.valueOf(i));
+                return true;
             }
+
         });
 
     }
+
     public void minusclick(){
-        minusbtn.setOnClickListener(new View.OnClickListener() {
+        minusbtn.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    minusbtn.startAnimation(scaleup);
+                } else if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                    minusbtn.startAnimation(scaledwon);
+                }
                 int i=Integer.parseInt(quantity.getText().toString());
                 i--;
                 if(i<=0){
                     quantity.setText("1");
                     Toast toast=Toast.makeText(getApplicationContext(),"you can't set quantity to zero value",Toast.LENGTH_SHORT);
-                    
+
                     toast.show();
                 }else {
                     quantity.setText(String.valueOf(i));
                 }
+                return true;
             }
+
         });
 
     }
+
+
     public void back(){
+        goback.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+
+                return true;
+            }
+        });
         goback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 finish();
             }
         });
     }
     public void opencartactivity(){
-        gotocart.setOnClickListener(new View.OnClickListener() {
+        gotocart.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction()==MotionEvent.ACTION_UP){
+                    gotocart.startAnimation(scaleup);
+                }else if (motionEvent.getAction()==MotionEvent.ACTION_DOWN){
+                    gotocart.startAnimation(scaledwon);
+                }
                 Intent intent= new Intent(getApplicationContext(),Carte_order.class);
                 startActivity(intent);
+                return true;
             }
         });
 
     }
     public void addclick(){
-        add.setOnClickListener(new View.OnClickListener() {
+        Animation scaleup=AnimationUtils.loadAnimation(this,R.anim.anime_scale_up);
+        Animation scaledwon=AnimationUtils.loadAnimation(this,R.anim.anim_scale_down);
+        add.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction()==MotionEvent.ACTION_UP){
+                    add.startAnimation(scaleup);
+                }else if (motionEvent.getAction()==MotionEvent.ACTION_DOWN){
+                    add.startAnimation(scaledwon);
+                }
+
                 //title,price,quantity,ingredient,imgid;
                 String ingredient=getingredients();
                 String qnt=quantity.getText().toString();
@@ -209,6 +251,7 @@ public class Add_to_cart extends AppCompatActivity {
 
                 //Toast toast=Toast.makeText(getApplicationContext(),ingredient,Toast.LENGTH_SHORT);
                 //toast.show();
+                return true;
             }
         });
     }
@@ -234,12 +277,13 @@ public class Add_to_cart extends AppCompatActivity {
 
     //this function to make animation for our View
     public void animate(){
-        Animation fadeIn,move;
+        Animation fadeIn,bonce;
         fadeIn= AnimationUtils.loadAnimation(this,R.anim.anim_fade_in);
-        move=AnimationUtils.loadAnimation(this,R.anim.anim_move);move.setInterpolator(new LinearInterpolator());
-        LinearLayout price=findViewById(R.id.imageView4);price.setAnimation(fadeIn);
-        TextView title=findViewById(R.id.addtocart_title);title.setAnimation(fadeIn);
-        TextView qte=findViewById(R.id.addtocart_quantity);qte.setAnimation(move);
+        bonce=AnimationUtils.loadAnimation(this,R.anim.anim_bonce);bonce.setInterpolator(new BounceInterpolator());
 
+        LinearLayout price=findViewById(R.id.imageView4);price.setAnimation(bonce);
+        TextView title=findViewById(R.id.addtocart_title);title.setAnimation(fadeIn);
+        TextView time=findViewById(R.id.addtocart_time);time.setAnimation(bonce);
+        CardView card=findViewById(R.id.cardView3);card.setAnimation(bonce);
     }
 }

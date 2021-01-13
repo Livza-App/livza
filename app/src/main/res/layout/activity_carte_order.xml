@@ -92,11 +92,9 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"
-                android:layout_width="322dp"
-                android:layout_height="376dp"
-                android:layout_marginStart="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="460dp"
                 android:layout_marginTop="50dp"
-                android:layout_marginEnd="25dp"
                 android:layout_marginBottom="75dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -110,22 +108,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
+                android:layout_marginBottom="92dp"
                 android:text="Total="
                 android:textColor="@android:color/darker_gray"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintHorizontal_bias="0.019"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/recyclerView"
-                app:layout_constraintVertical_bias="0.1" />
+                app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
 
             <TextView
                 android:id="@+id/total_num"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="25dp"
+                android:layout_marginBottom="92dp"
                 android:text="2500 DA"
                 android:textColor="@color/black"
                 android:textSize="24sp"
@@ -134,28 +133,28 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/recyclerView"
-                app:layout_constraintVertical_bias="0.1" />
+                app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
 
             <View
                 android:id="@+id/divider"
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
-                android:layout_marginTop="10dp"
+
+
+                android:layout_marginBottom="23dp"
                 android:background="?android:attr/listDivider"
-
-
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/send_order"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/total_txt"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintTop_toBottomOf="@+id/total_txt" />
 
             <Button
                 android:id="@+id/send_order"
                 android:layout_width="176dp"
                 android:layout_height="53dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="96dp"
+                android:layout_marginBottom="16dp"
                 android:background="@drawable/qte"
                 android:text="Send Order"
                 android:textColor="#FFFFFF"
@@ -165,8 +164,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.497"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/divider"
-                app:layout_constraintVertical_bias="0.359" />
+                app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

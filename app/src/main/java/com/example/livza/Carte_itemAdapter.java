@@ -7,6 +7,8 @@ import android.net.sip.SipSession;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -34,6 +36,7 @@ public class Carte_itemAdapter extends RecyclerView.Adapter<Carte_itemAdapter.Vi
     private Activity context;
     private ArrayList<Carte_item> Cart_items;
     private OncartItemlistner oncartItemlistner;
+    private int lastPosition=-1;
 
     public Carte_itemAdapter(Activity context, ArrayList<Carte_item> cart_items, OncartItemlistner oncartItemlistner) {
         this.context = context;
@@ -51,7 +54,15 @@ public class Carte_itemAdapter extends RecyclerView.Adapter<Carte_itemAdapter.Vi
     //this method is responsable of displaying data into screen
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        if (holder instanceof  Carte_itemAdapter.ViewHolder){
 
+                while (holder.getAdapterPosition()>lastPosition){
+                    Animation slideleft= AnimationUtils.loadAnimation(context,R.anim.anim_slaide_in_left);
+                    holder.itemView.startAnimation(slideleft);
+                    lastPosition=holder.getAdapterPosition();
+                }
+            lastPosition=-1;
+        }
         String imgPath = Cart_items.get(position).getImgid();
         FirebaseStorage mStorage = FirebaseStorage.getInstance();
         StorageReference storageRef = mStorage.getReference().child("/"+imgPath);
