@@ -41,8 +41,7 @@ public class Add_to_cart extends AppCompatActivity {
     private TextView tprice,ttitle,ttime,quantity;
     private Button gotocart,goback,add;
     private ImageView minusbtn,plusbtn;
-   private  Animation scaleup=AnimationUtils.loadAnimation(this,R.anim.anime_scale_up);
-    private Animation scaledwon=AnimationUtils.loadAnimation(this,R.anim.anim_scale_down);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -151,6 +150,8 @@ public class Add_to_cart extends AppCompatActivity {
         });
     }
     public void plusclick(){
+        Animation scaleup=AnimationUtils.loadAnimation(this,R.anim.anime_scale_up);
+        Animation scaledwon=AnimationUtils.loadAnimation(this,R.anim.anim_scale_down);
         plusbtn.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -170,6 +171,8 @@ public class Add_to_cart extends AppCompatActivity {
     }
 
     public void minusclick(){
+        Animation scaleup=AnimationUtils.loadAnimation(this,R.anim.anime_scale_up);
+        Animation scaledwon=AnimationUtils.loadAnimation(this,R.anim.anim_scale_down);
         minusbtn.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -197,22 +200,24 @@ public class Add_to_cart extends AppCompatActivity {
 
 
     public void back(){
+        Animation scaleup=AnimationUtils.loadAnimation(this,R.anim.anime_scale_up);
+        Animation scaledwon=AnimationUtils.loadAnimation(this,R.anim.anim_scale_down);
         goback.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-
-                return true;
-            }
-        });
-        goback.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
+                if (motionEvent.getAction()==MotionEvent.ACTION_UP){
+                    goback.startAnimation(scaleup);
+                }else if (motionEvent.getAction()==MotionEvent.ACTION_DOWN){
+                    goback.startAnimation(scaledwon);
+                }
                 finish();
+                return true;
             }
         });
     }
     public void opencartactivity(){
+        Animation scaleup=AnimationUtils.loadAnimation(this,R.anim.anime_scale_up);
+        Animation scaledwon=AnimationUtils.loadAnimation(this,R.anim.anim_scale_down);
         gotocart.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
