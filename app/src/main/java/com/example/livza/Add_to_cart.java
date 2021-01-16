@@ -173,7 +173,13 @@ public class Add_to_cart extends AppCompatActivity {
     public void minusclick(){
         Animation scaleup=AnimationUtils.loadAnimation(this,R.anim.anime_scale_up);
         Animation scaledwon=AnimationUtils.loadAnimation(this,R.anim.anim_scale_down);
-        minusbtn.setOnTouchListener(new View.OnTouchListener() {
+        minusbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+       /*minusbtn.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
@@ -194,7 +200,7 @@ public class Add_to_cart extends AppCompatActivity {
                 return true;
             }
 
-        });
+        });*/
 
     }
 
