@@ -10,20 +10,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.livza.Adapters.Carte_itemAdapter;
+import com.example.livza.FireClasses.Carte_item;
 
 import java.util.ArrayList;
 
 public class Carte_order extends AppCompatActivity implements Carte_itemAdapter.OncartItemlistner {
 
     private RecyclerView Cart;
-
     public static int cart_pos=0;
-    public static int add=0,delete=0;
     private Carte_itemAdapter carte_itemAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -150,7 +149,7 @@ public class Carte_order extends AppCompatActivity implements Carte_itemAdapter.
 
 
     //Total sum
-    public void Calcule_TotalSum(ArrayList<Carte_item> carte_items,int cart_pos){
+    public void Calcule_TotalSum(ArrayList<Carte_item> carte_items, int cart_pos){
         float Total= 0;
         TextView Total_num=findViewById(R.id.total_num);
         if (carte_items.isEmpty()){

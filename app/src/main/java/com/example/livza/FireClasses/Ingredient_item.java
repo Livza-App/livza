@@ -1,4 +1,4 @@
-package com.example.livza;
+package com.example.livza.FireClasses;
 
 public class Ingredient_item {
     private int checkbox;

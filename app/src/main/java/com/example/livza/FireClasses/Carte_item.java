@@ -1,4 +1,4 @@
-package com.example.livza;
+package com.example.livza.FireClasses;
 //This class for items on the Cart layout "activity_cart_order"
 public class Carte_item {
     private String imgid;

@@ -4,8 +4,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.ListFragment;
+import androidx.viewpager.widget.ViewPager;
 
 import android.app.Dialog;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -15,11 +20,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TableLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.livza.Adapters.ViewPagerAdapter;
+import com.example.livza.FireClasses.User;
+import com.example.livza.Fragments.MyAdressesFragment;
+import com.example.livza.Fragments.OrederHistoryFragment;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -29,7 +40,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.StorageTask;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -38,8 +48,12 @@ public class Profile_User extends AppCompatActivity {
     //view
     private TextView Save, Cancel,UserNameEdit,user_name,phone_num;
     private Uri imageUri;
-    private CardView profile_img;
-    private CircleImageView User_Image;
+    private ImageView profile_img;
+    private CardView cardUser;
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
+    private ViewPagerAdapter viewPagerAdapter;
+
 
     private static final int PICK_IMAGE = 1;
 
@@ -54,13 +68,20 @@ public class Profile_User extends AppCompatActivity {
         setContentView(R.layout.activity_profile__user);
         getWindow().setStatusBarColor(getResources().getColor(R.color.pink));
 
+
+        /*if (savedInstanceState  !=  null){
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.container, new OrederHistoryFragment()).commitNow();
+        }*/
+
         init();
 
         //reload data
         reloadData();
 
         //edit profile img
-        profile_img.setOnClickListener(new View.OnClickListener() {
+        cardUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Edit_Profil_img();
@@ -68,12 +89,12 @@ public class Profile_User extends AppCompatActivity {
         });
 
         //Edit the UserName && Phone Number
-        UserNameEdit.setOnClickListener(new View.OnClickListener() {
+        /*UserNameEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Edit_UserName();
             }
-        });
+        });*/
 
 
         //Back btn
@@ -91,11 +112,18 @@ public class Profile_User extends AppCompatActivity {
 
     private void init() {
         //init View
-        profile_img=findViewById(R.id.cardUser);
-        UserNameEdit=findViewById(R.id.user_name);
+        cardUser=findViewById(R.id.cardUser);
+        //UserNameEdit=findViewById(R.id.user_name);
         user_name=findViewById(R.id.user_name);
-        phone_num=findViewById(R.id.phone_num);
-        User_Image=findViewById(R.id.profile_img);
+        phone_num=findViewById(R.id.user_phone);
+        profile_img=findViewById(R.id.user_profil_img);
+
+        //TO inisialize the OrderHistory_fragments
+        tabLayout=findViewById(R.id.tabLayout);
+        viewPager=findViewById(R.id.viewpager);
+        viewPagerAdapter=new ViewPagerAdapter(getSupportFragmentManager());
+        viewPager.setAdapter(viewPagerAdapter);
+        tabLayout.setupWithViewPager(viewPager);
 
         //init FireBase
         mAuth=FirebaseAuth.getInstance().getCurrentUser();
@@ -117,7 +145,7 @@ public class Profile_User extends AppCompatActivity {
                     public void onSuccess(Uri uri) {
                         Glide.with(getApplicationContext())
                                 .load(uri)
-                                .into(User_Image);
+                                .into(profile_img);
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -125,7 +153,7 @@ public class Profile_User extends AppCompatActivity {
                         // Handle any errors
                         Glide.with(getApplicationContext())
                                 .load(R.drawable.addtocart_cochetrue)
-                                .into(User_Image);
+                                .into(profile_img);
                     }
                 });
 
@@ -167,7 +195,7 @@ public class Profile_User extends AppCompatActivity {
 
                 //set the Phone number **Ghanou hna tedi Phone num t3awd dirlo update f user firebase table**
                 EditText phone_number_edit = findViewById(R.id.editTextPhone);
-                TextView Phone_number = findViewById(R.id.num);
+                TextView Phone_number = findViewById(R.id.user_phone);
                 Phone_number.setText(phone_number_edit.getText());
 
                 Edit_Profile_Dialog.hide();
@@ -191,7 +219,7 @@ public class Profile_User extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PICK_IMAGE && resultCode == RESULT_OK && data != null) {
             imageUri = data.getData();
-            CircleImageView profile_img = findViewById(R.id.profile_img);
+            ImageView profile_img = findViewById(R.id.user_profil_img);
             profile_img.setImageURI(imageUri);
 
             //this cmnt to crop the image if we need it futerlly *_____*

@@ -6,4 +6,8 @@
         <item name="android:listDivider">@color/navigation_color</item>
         <item name="android:dividerHeight">1dp</item>
     </style>
+
+    <style name="CustomTabStyle" parent="Widget.Design.TabLayout">
+        <item name="android:textSize">20sp</item>
+    </style>
 </resources>

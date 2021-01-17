@@ -1,7 +1,6 @@
-package com.example.livza;
+package com.example.livza.Adapters;
 
 import android.app.Activity;
-import android.content.Context;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +12,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import com.bumptech.glide.Glide;
+import com.example.livza.FireClasses.Fooditem;
+import com.example.livza.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -26,7 +27,7 @@ public class MenuitemAdapter extends ArrayAdapter<Fooditem> {
 
     //constructor
     public MenuitemAdapter(Activity context, ArrayList<Fooditem> food) {
-        super(context,R.layout.menu_item,food);
+        super(context, R.layout.menu_item,food);
         this.context=context;
         this.food=food;
 

@@ -7,12 +7,10 @@ import androidx.cardview.widget.CardView;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.BounceInterpolator;
-import android.view.animation.LinearInterpolator;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -22,6 +20,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.livza.Adapters.Ingredient_item_Adapter;
+import com.example.livza.FireClasses.Carte_item;
+import com.example.livza.FireClasses.Ingredient_item;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.imageview.ShapeableImageView;
@@ -58,7 +59,6 @@ public class Add_to_cart extends AppCompatActivity {
         opencartactivity();
         addclick();
         animate();
-
     }
 
     private void loaddata() {
@@ -150,43 +150,21 @@ public class Add_to_cart extends AppCompatActivity {
         });
     }
     public void plusclick(){
-        Animation scaleup=AnimationUtils.loadAnimation(this,R.anim.anime_scale_up);
-        Animation scaledwon=AnimationUtils.loadAnimation(this,R.anim.anim_scale_down);
-        plusbtn.setOnTouchListener(new View.OnTouchListener() {
+        plusbtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    plusbtn.startAnimation(scaleup);
-                } else if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                    plusbtn.startAnimation(scaledwon);
-                }
+            public void onClick(View view) {
                 int i = Integer.parseInt(quantity.getText().toString());
                 i++;
                 quantity.setText(String.valueOf(i));
-                return true;
             }
-
         });
 
     }
 
     public void minusclick(){
-        Animation scaleup=AnimationUtils.loadAnimation(this,R.anim.anime_scale_up);
-        Animation scaledwon=AnimationUtils.loadAnimation(this,R.anim.anim_scale_down);
         minusbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-            }
-        });
-       /*minusbtn.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    minusbtn.startAnimation(scaleup);
-                } else if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                    minusbtn.startAnimation(scaledwon);
-                }
                 int i=Integer.parseInt(quantity.getText().toString());
                 i--;
                 if(i<=0){
@@ -197,60 +175,35 @@ public class Add_to_cart extends AppCompatActivity {
                 }else {
                     quantity.setText(String.valueOf(i));
                 }
-                return true;
             }
-
-        });*/
-
-    }
+        });
+          }
 
 
     public void back(){
-        Animation scaleup=AnimationUtils.loadAnimation(this,R.anim.anime_scale_up);
-        Animation scaledwon=AnimationUtils.loadAnimation(this,R.anim.anim_scale_down);
-        goback.setOnTouchListener(new View.OnTouchListener() {
+        goback.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction()==MotionEvent.ACTION_UP){
-                    goback.startAnimation(scaleup);
-                }else if (motionEvent.getAction()==MotionEvent.ACTION_DOWN){
-                    goback.startAnimation(scaledwon);
-                }
+            public void onClick(View view) {
                 finish();
-                return true;
             }
         });
     }
     public void opencartactivity(){
         Animation scaleup=AnimationUtils.loadAnimation(this,R.anim.anime_scale_up);
         Animation scaledwon=AnimationUtils.loadAnimation(this,R.anim.anim_scale_down);
-        gotocart.setOnTouchListener(new View.OnTouchListener() {
+        gotocart.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction()==MotionEvent.ACTION_UP){
-                    gotocart.startAnimation(scaleup);
-                }else if (motionEvent.getAction()==MotionEvent.ACTION_DOWN){
-                    gotocart.startAnimation(scaledwon);
-                }
+            public void onClick(View view) {
                 Intent intent= new Intent(getApplicationContext(),Carte_order.class);
                 startActivity(intent);
-                return true;
             }
         });
 
     }
     public void addclick(){
-        Animation scaleup=AnimationUtils.loadAnimation(this,R.anim.anime_scale_up);
-        Animation scaledwon=AnimationUtils.loadAnimation(this,R.anim.anim_scale_down);
-        add.setOnTouchListener(new View.OnTouchListener() {
+        add.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction()==MotionEvent.ACTION_UP){
-                    add.startAnimation(scaleup);
-                }else if (motionEvent.getAction()==MotionEvent.ACTION_DOWN){
-                    add.startAnimation(scaledwon);
-                }
-
+            public void onClick(View view) {
                 //title,price,quantity,ingredient,imgid;
                 String ingredient=getingredients();
                 String qnt=quantity.getText().toString();
@@ -262,7 +215,6 @@ public class Add_to_cart extends AppCompatActivity {
 
                 //Toast toast=Toast.makeText(getApplicationContext(),ingredient,Toast.LENGTH_SHORT);
                 //toast.show();
-                return true;
             }
         });
     }

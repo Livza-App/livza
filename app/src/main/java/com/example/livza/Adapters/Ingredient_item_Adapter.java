@@ -1,8 +1,6 @@
-package com.example.livza;
+package com.example.livza.Adapters;
 
 import android.app.Activity;
-import android.content.Context;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,13 +8,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-
-import com.bumptech.glide.Glide;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
+import com.example.livza.FireClasses.Ingredient_item;
+import com.example.livza.R;
 
 import java.util.ArrayList;
 //this class is adapter for menuitems listview of activity_menu.xml
@@ -26,7 +19,7 @@ public class Ingredient_item_Adapter extends ArrayAdapter<Ingredient_item> {
 
     //constructor
     public Ingredient_item_Adapter(Activity context, ArrayList<Ingredient_item> ingredient_item) {
-        super(context,R.layout.ingredient_item,ingredient_item);
+        super(context, R.layout.ingredient_item,ingredient_item);
         this.context=context;
         this.ingredient_item=ingredient_item;
 
