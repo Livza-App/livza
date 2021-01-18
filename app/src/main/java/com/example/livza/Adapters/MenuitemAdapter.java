@@ -46,7 +46,7 @@ public class MenuitemAdapter extends ArrayAdapter<Fooditem> {
         ImageView foodimg=rowView.findViewById(R.id.food_image);
         String imgPath = food.get(position).getImgid();
         FirebaseStorage mStorage = FirebaseStorage.getInstance();
-        StorageReference storageRef = mStorage.getReference().child("/"+imgPath);
+        StorageReference storageRef = mStorage.getReference().child("/Food/"+imgPath);
         storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {

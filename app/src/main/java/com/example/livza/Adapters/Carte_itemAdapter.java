@@ -59,7 +59,7 @@ public class Carte_itemAdapter extends RecyclerView.Adapter<Carte_itemAdapter.Vi
         }
         String imgPath = Cart_items.get(position).getImgid();
         FirebaseStorage mStorage = FirebaseStorage.getInstance();
-        StorageReference storageRef = mStorage.getReference().child("/"+imgPath);
+        StorageReference storageRef = mStorage.getReference().child("/Categorie/"+imgPath);
         storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {

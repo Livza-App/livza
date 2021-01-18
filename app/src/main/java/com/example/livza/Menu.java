@@ -87,7 +87,7 @@ public class Menu extends AppCompatActivity implements CatitemAdapter.Oncategori
         //show Drawer Menu
         button_drawer_menu();
         //for the drawer menu listner
-       drawer_item_click();
+        drawer_item_click();
 
 
         //intent to the card Actyvity
@@ -252,6 +252,7 @@ public class Menu extends AppCompatActivity implements CatitemAdapter.Oncategori
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+                //TODO: nsagamha
                 Log.i("addeve","count= "+snapshot.getKey());
                 String Key=snapshot.getKey();
                 for(int i=0;i<categories.size();i++){
@@ -327,6 +328,7 @@ public class Menu extends AppCompatActivity implements CatitemAdapter.Oncategori
         //remove old listner
         mReference.child("categorie").child(categories.get(cat_pos).getKey()).removeEventListener(foodEvent);
         foods.clear();
+        food_key.clear();
 
         //add new listner
         cat_pos=position;
@@ -382,6 +384,7 @@ public void menuclick(){
                 Intent intent= new Intent(getApplicationContext(),Add_to_cart.class);
                 ArrayList<String> ingredient;
                 ingredient=foods.get(position).ingredientsArray();
+                intent.putExtra("catImg",categories.get(cat_pos).getImageid());
                 intent.putExtra("ingredients",ingredient);
                 intent.putExtra("image",foods.get(position).getImgid());
                 intent.putExtra("price",foods.get(position).getPrice());
