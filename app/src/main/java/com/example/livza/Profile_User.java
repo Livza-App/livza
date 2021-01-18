@@ -96,14 +96,14 @@ public class Profile_User extends AppCompatActivity {
 
         //Back btn
         Button back = findViewById(R.id.btn_back);
-        back.setOnClickListener(new View.OnClickListener() {
+        /*back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 /*Intent b = new Intent(Profile_User.this, Menu.class);
-                startActivity(b);*/
+                startActivity(b);
                 finish();
             }
-        });
+        });*/
 
 
     }
