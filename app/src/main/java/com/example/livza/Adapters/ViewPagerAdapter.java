@@ -3,40 +3,40 @@ package com.example.livza.Adapters;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
+
+import com.example.livza.Fragments.MyAdressesFragment;
+import com.example.livza.Fragments.OrederHistoryFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ViewPagerAdapter extends FragmentPagerAdapter {
-    private ArrayList<Fragment> fragments;
-    public ViewPagerAdapter(FragmentManager fm,ArrayList<Fragment> fragments) {
-        super(fm);
-        this.fragments=fragments;
+public class ViewPagerAdapter extends FragmentStateAdapter {
+    public ViewPagerAdapter(@NonNull FragmentActivity fragmentActivity) {
+        super(fragmentActivity);
     }
-    @Override
-    public Fragment getItem(int position) {
-        Fragment fragment = fragments.get(position);
 
+    @NonNull
+    @Override
+    public Fragment createFragment(int position) {
+        Fragment fragment = new Fragment();
+        switch (position){
+            case 0:
+                fragment=new OrederHistoryFragment();
+                break;
+            case 1:
+                fragment=new MyAdressesFragment();
+                break;
+        }
         return fragment;
     }
+
     @Override
-    public int getCount() {
-        // Show 3 total pages.
-        return fragments.size();
-    }
-    @Override
-    public CharSequence getPageTitle(int position) {
-        /*switch (position) {
-            case 0:
-                return "Fragment 1";
-            case 1:
-                return "Fragment 2";
-            case 2:
-                return "Fragment 3";
-        }*/
-        return null;
+    public int getItemCount() {
+        return 2;
     }
 }
 
