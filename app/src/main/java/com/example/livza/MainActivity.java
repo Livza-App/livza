@@ -30,9 +30,6 @@ public class MainActivity extends AppCompatActivity {
         ImageView logo=findViewById(R.id.moto);
         logo.setAnimation(rightAnim);
 
-        TextView Livza=findViewById(R.id.textLivza);
-        Livza.setAnimation(leftAnim);
-
 
         mHandler.postDelayed(new Runnable() {
             public void run() {

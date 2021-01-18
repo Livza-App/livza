@@ -37,14 +37,14 @@ public class HistoryItemAdapter extends  RecyclerView.Adapter<HistoryItemAdapter
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        //slide to delet
         /*if (holder instanceof  HistoryItemAdapter.ViewHolder){
-
-            while (holder.getAdapterPosition()>lastPosition){
+            if(holder.getAdapterPosition()>lastPosition){
                 Animation slideleft= AnimationUtils.loadAnimation(context,R.anim.anim_slaide_in_left);
                 holder.itemView.startAnimation(slideleft);
                 lastPosition=holder.getAdapterPosition();
             }
-            lastPosition=-1;
+           // lastPosition=-1;
         }*/
         holder.id_order.setText(Order_Items.get(position).getId());
         holder.order_stat.setText(Order_Items.get(position).getStatus());

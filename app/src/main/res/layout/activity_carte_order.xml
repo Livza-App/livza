@@ -23,15 +23,15 @@
 
     <Button
         android:id="@+id/trush_btn"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:background="@drawable/trush"
         app:layout_constraintBottom_toTopOf="@+id/card_layout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.827"
+        app:layout_constraintHorizontal_bias="0.829"
         app:layout_constraintStart_toEndOf="@+id/title_card"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.266" />
+        app:layout_constraintVertical_bias="0.228" />
 
     <TextView
         android:id="@+id/title_card"
@@ -44,12 +44,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.632" />
+        app:layout_constraintVertical_bias="0.787" />
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/card_layout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="391dp"
+        android:layout_height="724dp"
         android:layout_marginTop="100dp"
         android:background="@drawable/carte_layout"
         android:fillViewport="true"
@@ -67,14 +67,14 @@
 
             <ImageView
                 android:id="@+id/imageView3"
-                android:layout_width="46dp"
-                android:layout_height="45dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 app:layout_constraintBottom_toTopOf="@+id/recyclerView"
                 app:layout_constraintEnd_toStartOf="@+id/textView"
-                app:layout_constraintHorizontal_bias="0.846"
+                app:layout_constraintHorizontal_bias="0.91"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.423"
+                app:layout_constraintVertical_bias="0.119"
                 app:srcCompat="@drawable/swip" />
 
             <TextView
@@ -85,23 +85,22 @@
                 android:textColor="#6D000000"
                 app:layout_constraintBottom_toTopOf="@+id/recyclerView"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.61"
+                app:layout_constraintHorizontal_bias="0.62"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.458" />
+                app:layout_constraintVertical_bias="0.484" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="460dp"
-                android:layout_marginTop="50dp"
+                android:layout_width="392dp"
+                android:layout_height="465dp"
                 android:layout_marginBottom="75dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.476"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.262" />
+                app:layout_constraintVertical_bias="0.282" />
 
             <TextView
                 android:id="@+id/total_txt"
@@ -147,7 +146,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/total_txt" />
+                app:layout_constraintTop_toBottomOf="@+id/total_txt"
+                app:layout_constraintVertical_bias="0.526" />
 
             <Button
                 android:id="@+id/send_order"

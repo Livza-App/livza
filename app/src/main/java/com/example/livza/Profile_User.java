@@ -72,13 +72,6 @@ public class Profile_User extends AppCompatActivity {
         setContentView(R.layout.activity_profile__user);
         getWindow().setStatusBarColor(getResources().getColor(R.color.pink));
 
-
-        /*if (savedInstanceState  !=  null){
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.container, new OrederHistoryFragment()).commitNow();
-        }*/
-
         init();
 
         //reload data
@@ -103,13 +96,14 @@ public class Profile_User extends AppCompatActivity {
 
         //Back btn
         Button back = findViewById(R.id.btn_back);
-        /*back.setOnClickListener(new View.OnClickListener() {
+        back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent b = new Intent(Profile_User.this, Menu.class);
-                startActivity(b);
+                /*Intent b = new Intent(Profile_User.this, Menu.class);
+                startActivity(b);*/
+                finish();
             }
-        });*/
+        });
 
 
     }

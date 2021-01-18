@@ -8,7 +8,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/history_item"
         android:layout_width="380dp"
-        android:layout_height="150dp"
+        android:layout_height="120dp"
         android:background="@drawable/history_item"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

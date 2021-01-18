@@ -32,29 +32,32 @@
             android:text="Menu "
             android:textColor="#03041D"
             android:textSize="36sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/categories"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="399dp"
+            android:layout_height="120dp"
             android:orientation="horizontal"
             app:layout_constraintBottom_toTopOf="@+id/menuitems"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/item_txt"
-            app:layout_constraintVertical_bias="0.7" />
+            app:layout_constraintTop_toTopOf="@+id/item_txt"
+            app:layout_constraintVertical_bias="1.0" />
 
         <ListView
             android:id="@+id/menuitems"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_width="395dp"
+            android:layout_height="584dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/categories" />
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <Button
             android:id="@+id/menu_drawer_btn"
@@ -63,9 +66,10 @@
             android:background="@drawable/toolbar"
             app:layout_constraintBottom_toTopOf="@+id/categories"
             app:layout_constraintEnd_toStartOf="@+id/item_txt"
-            app:layout_constraintHorizontal_bias="0.16"
+            app:layout_constraintHorizontal_bias="0.136"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.205" />
 
         <Button
             android:id="@+id/card_btn"
@@ -74,9 +78,23 @@
             android:background="@drawable/sela"
             app:layout_constraintBottom_toTopOf="@+id/categories"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.86"
+            app:layout_constraintHorizontal_bias="0.862"
             app:layout_constraintStart_toEndOf="@+id/item_txt"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.205" />
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Categories"
+            android:textColor="#03041D"
+            android:textSize="25sp"
+            app:layout_constraintBottom_toTopOf="@+id/categories"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/item_txt" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.navigation.NavigationView
@@ -86,7 +104,7 @@
         android:layout_gravity="start"
         android:theme="@style/PopupMenuListView"
         android:verticalScrollbarPosition="right"
-        android:visibility="visible"
+        android:visibility="gone"
         app:headerLayout="@layout/hader_menu"
         app:menu="@menu/main_menu" />
 
