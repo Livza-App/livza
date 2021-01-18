@@ -43,6 +43,8 @@ public class OrederHistoryFragment extends Fragment {
         HistoryItemAdapter historyItemAdapter=new HistoryItemAdapter(getContext(),OrderItem,onHistoryItemlistner);
         OrderecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         OrderecyclerView.setAdapter(historyItemAdapter);
+        OrderecyclerView.setItemAnimator(new DefaultItemAnimator());
+
         /*
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         manager.setOrientation(LinearLayoutManager.VERTICAL);

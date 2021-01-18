@@ -4,13 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.ListFragment;
+
 import androidx.viewpager.widget.ViewPager;
 
 import android.app.Dialog;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -20,14 +17,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TableLayout;
+
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.livza.Adapters.ViewPagerAdapter;
 import com.example.livza.FireClasses.User;
-import com.example.livza.Fragments.MyAdressesFragment;
-import com.example.livza.Fragments.OrederHistoryFragment;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.tabs.TabLayout;
@@ -40,8 +35,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Profile_User extends AppCompatActivity {
 
