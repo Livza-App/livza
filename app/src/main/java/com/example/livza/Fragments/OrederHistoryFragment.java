@@ -48,17 +48,6 @@ public class OrederHistoryFragment extends Fragment {
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         OrderecyclerView.setLayoutManager(manager);
 
-
-        /*
-
-        //RecyclerView.LayoutManager layoutManager= new LinearLayoutManager(view.getContext());
-
-
-        OrderItem=new ArrayList<OrderItem>();
-        com.example.livza.FireClasses.OrderItem itm0=new OrderItem("125485","152"+"DA","11/25/2021","Received");OrderItem.add(itm0);
-        com.example.livza.FireClasses.OrderItem itm1=new OrderItem("125485","152"+"DA","11/25/2021","Received");OrderItem.add(itm1);
-        com.example.livza.FireClasses.OrderItem itm2=new OrderItem("125485","152"+"DA","11/25/2021","Received");OrderItem.add(itm2);
-        historyItemAdapter.notifyDataSetChanged();*/
         return view;
 
     }

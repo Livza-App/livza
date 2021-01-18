@@ -29,9 +29,11 @@
             android:id="@+id/item_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="serif"
             android:text="Menu "
             android:textColor="#03041D"
             android:textSize="36sp"
+            android:textStyle="bold|italic"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
@@ -87,15 +89,17 @@
             android:id="@+id/textView8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="serif"
             android:text="Categories"
             android:textColor="#03041D"
             android:textSize="25sp"
+            android:textStyle="bold|italic"
             app:layout_constraintBottom_toTopOf="@+id/categories"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.091"
+            app:layout_constraintHorizontal_bias="0.064"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintVertical_bias="0.893" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.navigation.NavigationView
@@ -105,7 +109,7 @@
         android:layout_gravity="start"
         android:theme="@style/PopupMenuListView"
         android:verticalScrollbarPosition="right"
-        android:visibility="gone"
+        android:visibility="visible"
         app:headerLayout="@layout/hader_menu"
         app:menu="@menu/main_menu" />
 

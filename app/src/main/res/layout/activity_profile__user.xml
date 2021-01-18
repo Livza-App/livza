@@ -283,7 +283,7 @@
             android:layout_height="wrap_content"
             android:hapticFeedbackEnabled="false"
             android:icon="@drawable/order_history"
-            android:keepScreenOn="true"
+            android:keepScreenOn="false"
             android:text="Order history" />
 
         <com.google.android.material.tabs.TabItem
