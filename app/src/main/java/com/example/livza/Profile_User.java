@@ -41,6 +41,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.ArrayList;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Profile_User extends AppCompatActivity {
@@ -121,7 +123,12 @@ public class Profile_User extends AppCompatActivity {
         //TO inisialize the OrderHistory_fragments
         tabLayout=findViewById(R.id.tabLayout);
         viewPager=findViewById(R.id.viewpager);
-        viewPagerAdapter=new ViewPagerAdapter(getSupportFragmentManager());
+        Fragment history= new OrederHistoryFragment();
+        Fragment addresses= new MyAdressesFragment();
+        ArrayList<Fragment> fragments=new ArrayList<>();
+        fragments.add(history);
+        fragments.add(addresses);
+        viewPagerAdapter=new ViewPagerAdapter(getSupportFragmentManager(),fragments);
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
 

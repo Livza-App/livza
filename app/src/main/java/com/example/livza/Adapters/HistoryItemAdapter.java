@@ -19,12 +19,10 @@ import java.util.ArrayList;
 
 public class HistoryItemAdapter extends  RecyclerView.Adapter<HistoryItemAdapter.ViewHolder> {
     private ArrayList<OrderItem> Order_Items;
-    private Context context;
     private OnHistoryItemlistner onHistoryItemlistner ;
     private int lastPosition=-1;
 
-    public HistoryItemAdapter(Context context ,ArrayList<OrderItem> Order_Items, OnHistoryItemlistner onHistoryItemlistner){
-        this.context=context;
+    public HistoryItemAdapter(ArrayList<OrderItem> Order_Items, OnHistoryItemlistner onHistoryItemlistner){
         this.Order_Items=Order_Items;
         this.onHistoryItemlistner=onHistoryItemlistner;
         }
