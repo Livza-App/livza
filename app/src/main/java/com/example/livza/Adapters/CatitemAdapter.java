@@ -58,7 +58,7 @@ public class CatitemAdapter extends RecyclerView.Adapter<CatitemAdapter.ViewHold
         }
         String imgPath = cat.get(position).getImageid();
         FirebaseStorage mStorage = FirebaseStorage.getInstance();
-        StorageReference storageRef = mStorage.getReference().child("/"+imgPath);
+        StorageReference storageRef = mStorage.getReference().child("/Categorie/"+imgPath);
         storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {

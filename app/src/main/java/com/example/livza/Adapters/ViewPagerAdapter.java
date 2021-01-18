@@ -3,42 +3,40 @@ package com.example.livza.Adapters;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
+
+import com.example.livza.Fragments.MyAdressesFragment;
+import com.example.livza.Fragments.OrederHistoryFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ViewPagerAdapter extends FragmentPagerAdapter {
-
-    private final List<Fragment> lisFragment=new ArrayList<>();
-    private final List<String> listTitle=new ArrayList<>();
-
-    public ViewPagerAdapter(@NonNull FragmentManager fm) {
-        super(fm);
+public class ViewPagerAdapter extends FragmentStateAdapter {
+    public ViewPagerAdapter(@NonNull FragmentActivity fragmentActivity) {
+        super(fragmentActivity);
     }
 
     @NonNull
     @Override
-    public Fragment getItem(int position) {
-        return lisFragment.get(position);
+    public Fragment createFragment(int position) {
+        Fragment fragment = new Fragment();
+        switch (position){
+            case 0:
+                fragment=new OrederHistoryFragment();
+                break;
+            case 1:
+                fragment=new MyAdressesFragment();
+                break;
+        }
+        return fragment;
     }
 
     @Override
-    public int getCount() {
-        return listTitle.size();
+    public int getItemCount() {
+        return 2;
     }
-
-    @Nullable
-    @Override
-    public CharSequence getPageTitle(int position) {
-        return listTitle.get(position);
-    }
-
-
-    public void AddFragment(Fragment fragment,String title){
-        lisFragment.add(fragment);
-        listTitle.add(title);
-    }
-
 }
+

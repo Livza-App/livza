@@ -4,10 +4,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
-
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.ListFragment;
 import androidx.viewpager.widget.ViewPager;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.app.Dialog;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -17,15 +21,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-
+import android.widget.TableLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.livza.Adapters.ViewPagerAdapter;
 import com.example.livza.FireClasses.User;
+import com.example.livza.Fragments.MyAdressesFragment;
+import com.example.livza.Fragments.OrederHistoryFragment;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -36,6 +43,10 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.ArrayList;
+
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class Profile_User extends AppCompatActivity {
 
     //view
@@ -44,7 +55,7 @@ public class Profile_User extends AppCompatActivity {
     private ImageView profile_img;
     private CardView cardUser;
     private TabLayout tabLayout;
-    private ViewPager viewPager;
+    private ViewPager2 viewPager;
     private ViewPagerAdapter viewPagerAdapter;
 
 
@@ -92,13 +103,13 @@ public class Profile_User extends AppCompatActivity {
 
         //Back btn
         Button back = findViewById(R.id.btn_back);
-        back.setOnClickListener(new View.OnClickListener() {
+        /*back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent b = new Intent(Profile_User.this, Menu.class);
                 startActivity(b);
             }
-        });
+        });*/
 
 
     }
@@ -114,9 +125,13 @@ public class Profile_User extends AppCompatActivity {
         //TO inisialize the OrderHistory_fragments
         tabLayout=findViewById(R.id.tabLayout);
         viewPager=findViewById(R.id.viewpager);
-        viewPagerAdapter=new ViewPagerAdapter(getSupportFragmentManager());
+        viewPagerAdapter=new ViewPagerAdapter(this);
         viewPager.setAdapter(viewPagerAdapter);
-        tabLayout.setupWithViewPager(viewPager);
+        new TabLayoutMediator(tabLayout, viewPager,
+                new TabLayoutMediator.TabConfigurationStrategy() {
+                    @Override public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
+                    }
+                }).attach();
 
         //init FireBase
         mAuth=FirebaseAuth.getInstance().getCurrentUser();

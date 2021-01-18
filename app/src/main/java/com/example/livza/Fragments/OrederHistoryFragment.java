@@ -40,17 +40,19 @@ public class OrederHistoryFragment extends Fragment {
         View view= inflater.inflate(R.layout.fragment_oreder_history, container, false);
 
         OrderecyclerView=view.findViewById(R.id.history_orders);
-        HistoryItemAdapter historyItemAdapter=new HistoryItemAdapter(getContext(),OrderItem,onHistoryItemlistner);
-        OrderecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        HistoryItemAdapter historyItemAdapter=new HistoryItemAdapter(OrderItem,onHistoryItemlistner);
+        //OrderecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         OrderecyclerView.setAdapter(historyItemAdapter);
         OrderecyclerView.setItemAnimator(new DefaultItemAnimator());
-
-        /*
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         manager.setOrientation(LinearLayoutManager.VERTICAL);
-        //RecyclerView.LayoutManager layoutManager= new LinearLayoutManager(view.getContext());
         OrderecyclerView.setLayoutManager(manager);
-        OrderecyclerView.setItemAnimator(new DefaultItemAnimator());
+
+
+        /*
+
+        //RecyclerView.LayoutManager layoutManager= new LinearLayoutManager(view.getContext());
+
 
         OrderItem=new ArrayList<OrderItem>();
         com.example.livza.FireClasses.OrderItem itm0=new OrderItem("125485","152"+"DA","11/25/2021","Received");OrderItem.add(itm0);

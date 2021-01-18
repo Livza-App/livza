@@ -37,7 +37,7 @@ public class Add_to_cart extends AppCompatActivity {
     private ArrayList<Ingredient_item> ingredient_items;
     private Ingredient_item_Adapter ing_adapter;
     private ListView ing_listview;
-    private String imgPath,price,title,time;
+    private String imgPath,price,title,time,catImg;
     private ArrayList<String> ingredients;
     private TextView tprice,ttitle,ttime,quantity;
     private Button gotocart,goback,add;
@@ -65,6 +65,7 @@ public class Add_to_cart extends AppCompatActivity {
         //getting intent info
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
+            catImg=extras.getString("catImg");
             imgPath = extras.getString("image");
             price = extras.getString("price");
             ingredients = extras.getStringArrayList("ingredients");
@@ -96,7 +97,7 @@ public class Add_to_cart extends AppCompatActivity {
     public void load_image(){
         //load image from firebase
         FirebaseStorage mStorage = FirebaseStorage.getInstance();
-        StorageReference storageRef = mStorage.getReference().child("/"+imgPath);
+        StorageReference storageRef = mStorage.getReference().child("/Food/"+imgPath);
         storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
@@ -210,7 +211,7 @@ public class Add_to_cart extends AppCompatActivity {
                 String basic_price=price.substring(0, price.length()-2).trim();
                 float qntxprice= Float.parseFloat(qnt)*Float.parseFloat(basic_price);
                 String totalprice=(int)qntxprice+" DA";
-                Carte_item item=new Carte_item(imgPath, title, totalprice, qnt, ingredient,basic_price);
+                Carte_item item=new Carte_item(catImg, title, totalprice, qnt, ingredient,basic_price);
                 Menu.cart.add(item);
 
                 //Toast toast=Toast.makeText(getApplicationContext(),ingredient,Toast.LENGTH_SHORT);
