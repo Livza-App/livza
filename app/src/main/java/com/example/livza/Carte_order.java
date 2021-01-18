@@ -59,6 +59,15 @@ public class Carte_order extends AppCompatActivity implements Carte_itemAdapter.
             }
         });
 
+        //btn_back
+        Button btn_back=findViewById(R.id.btn_back);
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //startActivity(new Intent(Carte_order.this,Menu.class));
+                finish();
+            }
+        });
 
         //add&dell_item_Qte
         carte_itemAdapter.setOnItemClickListener(new Carte_itemAdapter.OncartItemlistner() {
@@ -109,14 +118,7 @@ public class Carte_order extends AppCompatActivity implements Carte_itemAdapter.
         //Total_summ
         Calcule_TotalSum(Menu.cart,cart_pos);
 
-        //btn_back
-        Button btn_back=findViewById(R.id.btn_back);
-        btn_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(Carte_order.this,Menu.class));
-            }
-        });
+
     }
 
     public void initcomponents(){
