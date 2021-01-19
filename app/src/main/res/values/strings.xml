@@ -2,5 +2,9 @@
     <string name="app_name">LivZa</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="emptycart">
+        <font color ="#000000">Your cart is</font>
+        <font color ="#FF3660">Empty</font>
+    </string>
 
 </resources>

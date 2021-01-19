@@ -2,6 +2,7 @@ package com.example.livza;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -24,6 +25,8 @@ public class Carte_order extends AppCompatActivity implements Carte_itemAdapter.
     private RecyclerView Cart;
     public static int cart_pos=0;
     private Carte_itemAdapter carte_itemAdapter;
+    private ConstraintLayout empty,full;
+    private Button trush_btn,menu;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,8 +40,8 @@ public class Carte_order extends AppCompatActivity implements Carte_itemAdapter.
         Cart.setItemAnimator(new DefaultItemAnimator());
 
 
-        //ADD items to my cart function
-        To_Add_Cart_Item();
+        //switch between layouts
+        Switch_visibility();
 
         //putting arraylist inside the adapter and configure the adapter to the recycleview
         carte_itemAdapter=new Carte_itemAdapter(this,Menu.cart,this);
@@ -48,7 +51,6 @@ public class Carte_order extends AppCompatActivity implements Carte_itemAdapter.
 
 
         //Trush
-        Button trush_btn=findViewById(R.id.trush_btn);
         trush_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -121,17 +123,33 @@ public class Carte_order extends AppCompatActivity implements Carte_itemAdapter.
 
     }
 
+    private void Switch_visibility() {
+        if(Menu.cart.isEmpty()){
+            empty.setVisibility(View.VISIBLE);
+            full.setVisibility(View.GONE);
+            trush_btn.setEnabled(false);
+            menu.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    finish();
+                }
+            });
+        }else{
+            empty.setVisibility(View.GONE);
+            full.setVisibility(View.VISIBLE);
+            trush_btn.setEnabled(true);
+        }
+    }
+
     public void initcomponents(){
         Cart=findViewById(R.id.recyclerView);
+        empty=findViewById(R.id.carte_order_empty);
+        full=findViewById(R.id.carte_order_full);
+         trush_btn=findViewById(R.id.trush_btn);
+        menu = findViewById(R.id.carte_order_gotomenu);
+
     }
 
-    // here we add the item to or card from the layout of categories "Amine hna kol ma y3abezzz Add to card tb3atli name,photo,pric,w angraidiants"
-    public void To_Add_Cart_Item(){
-        //hna amine dir getExtras wla teaa intent w jibli les donnes mlhdak lyout
-
-        //hna kol ma t'ajouter item tajouter l price ta3o l total_sum
-        //Calcule_TotalSum();
-    }
 
     //Swipe on an item to delete
     ItemTouchHelper.SimpleCallback itemTouchelperCallbak =new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.RIGHT | ItemTouchHelper.LEFT) {

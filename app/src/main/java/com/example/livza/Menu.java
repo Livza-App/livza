@@ -390,6 +390,7 @@ public void menuclick(){
                 intent.putExtra("price",foods.get(position).getPrice());
                 intent.putExtra("title",foods.get(position).getTitle());
                 intent.putExtra("time",foods.get(position).getTime());
+                intent.putExtra("catimg",categories.get(cat_pos).getImageid());
                 startActivity(intent);
             }
         });
