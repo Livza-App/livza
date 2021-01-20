@@ -1,20 +1,39 @@
 package com.example.livza.FireClasses;
 //This class for items on the Cart layout "activity_cart_order"
 public class Carte_item {
-    private String imgid;
+    private String imgid,catID,foodID;
     private  String itm_name,item_price,itm_qte,ingredient,item_base_price;
 
 
-    public Carte_item(String imgid, String itm_name, String item_price, String itm_qte, String ingredient,String item_base_price) {
+    public Carte_item(String imgid, String itm_name, String item_price, String itm_qte, String ingredient,String item_base_price,String catID,String foodID) {
         this.imgid = imgid;
         this.itm_name = itm_name;
         this.item_price = item_price;
         this.itm_qte = itm_qte;
         this.ingredient=ingredient;
         this.item_base_price=item_base_price;
+        this.catID=catID;
+        this.foodID=foodID;
     }
 
     public Carte_item() {
+    }
+
+    public String getCatID() {
+        return catID;
+    }
+
+    public void setCatID(String catID) {
+        this.catID = catID;
+        this.catID = catID;
+    }
+
+    public String getFoodID() {
+        return foodID;
+    }
+
+    public void setFoodID(String foodID) {
+        this.foodID = foodID;
     }
 
     public String getImgid() {

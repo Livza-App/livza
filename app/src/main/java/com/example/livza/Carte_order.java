@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -17,6 +16,9 @@ import android.widget.Toast;
 
 import com.example.livza.Adapters.Carte_itemAdapter;
 import com.example.livza.FireClasses.Carte_item;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -26,7 +28,9 @@ public class Carte_order extends AppCompatActivity implements Carte_itemAdapter.
     public static int cart_pos=0;
     private Carte_itemAdapter carte_itemAdapter;
     private ConstraintLayout empty,full;
-    private Button trush_btn,menu;
+    private Button trush_btn,menu,send_order;
+    private FirebaseAuth mAuth;
+    private DatabaseReference mRef;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -120,8 +124,13 @@ public class Carte_order extends AppCompatActivity implements Carte_itemAdapter.
         //Total_summ
         Calcule_TotalSum(Menu.cart,cart_pos);
 
+        //sendorderButton
+        sendOrderButton();
+
 
     }
+
+
 
     private void Switch_visibility() {
         if(Menu.cart.isEmpty()){
@@ -145,8 +154,13 @@ public class Carte_order extends AppCompatActivity implements Carte_itemAdapter.
         Cart=findViewById(R.id.recyclerView);
         empty=findViewById(R.id.carte_order_empty);
         full=findViewById(R.id.carte_order_full);
-         trush_btn=findViewById(R.id.trush_btn);
+        trush_btn=findViewById(R.id.trush_btn);
         menu = findViewById(R.id.carte_order_gotomenu);
+        send_order=findViewById(R.id.send_order);
+
+        //Firebase
+        mAuth=FirebaseAuth.getInstance();
+        mRef=FirebaseDatabase.getInstance().getReference().child("Current_command");
 
     }
 
@@ -189,7 +203,24 @@ public class Carte_order extends AppCompatActivity implements Carte_itemAdapter.
     }
 
 
+    private void sendOrderButton(){
+        send_order.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatabaseReference Ref=mRef.child(mAuth.getCurrentUser().getUid()).push();
+                Ref.child("latitude").setValue(36.64355874646421);
+                Ref.child("longitude").setValue(2.7560528681428957);
+                Ref.child("state").setValue("order");
+                for(int i=0;i<Menu.cart.size();i++){
+                    Ref.child("element"+i).child("catID").setValue(Menu.cart.get(i).getCatID());
+                    Ref.child("element"+i).child("foodID").setValue(Menu.cart.get(i).getFoodID());
+                    Ref.child("element"+i).child("quantity").setValue(Menu.cart.get(i).getItm_qte());
+                    Ref.child("element"+i).child("ingredients").setValue(Menu.cart.get(i).getIngredient());
+                }
 
+            }
+        });
+    }
 
     @Override
     public void OncartItemlistner(int position) {

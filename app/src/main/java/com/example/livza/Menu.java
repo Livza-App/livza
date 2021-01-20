@@ -391,6 +391,8 @@ public void menuclick(){
                 intent.putExtra("title",foods.get(position).getTitle());
                 intent.putExtra("time",foods.get(position).getTime());
                 intent.putExtra("catimg",categories.get(cat_pos).getImageid());
+                intent.putExtra("catID",categories.get(cat_pos).getKey());
+                intent.putExtra("foodID",food_key.get(position));
                 startActivity(intent);
             }
         });

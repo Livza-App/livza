@@ -37,7 +37,7 @@ public class Add_to_cart extends AppCompatActivity {
     private ArrayList<Ingredient_item> ingredient_items;
     private Ingredient_item_Adapter ing_adapter;
     private ListView ing_listview;
-    private String imgPath,price,title,time,catImg;
+    private String imgPath,price,title,time,catImg,catID,foodID;
     private ArrayList<String> ingredients;
     private TextView tprice,ttitle,ttime,quantity;
     private Button gotocart,goback,add;
@@ -71,6 +71,8 @@ public class Add_to_cart extends AppCompatActivity {
             ingredients = extras.getStringArrayList("ingredients");
             time = extras.getString("time");
             title = extras.getString("title");
+            catID=extras.getString("catID");
+            foodID=extras.getString("foodID");
 
         }
 
@@ -211,7 +213,7 @@ public class Add_to_cart extends AppCompatActivity {
                 String basic_price=price.substring(0, price.length()-2).trim();
                 float qntxprice= Float.parseFloat(qnt)*Float.parseFloat(basic_price);
                 String totalprice=(int)qntxprice+" DA";
-                Carte_item item=new Carte_item(catImg, title, totalprice, qnt, ingredient,basic_price);
+                Carte_item item=new Carte_item(catImg, title, totalprice, qnt, ingredient,basic_price,catID,foodID);
                 Menu.cart.add(item);
 
                 //Toast toast=Toast.makeText(getApplicationContext(),ingredient,Toast.LENGTH_SHORT);
