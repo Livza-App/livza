@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#B9F2F2F4"
-    tools:context=".Menu"
     tools:openDrawer="start"
     android:fitsSystemWindows="true"
     >
@@ -17,11 +16,24 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="visible"
+        tools:context=".Menu"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+
+        <Button
+            android:id="@+id/menu_drawer_btn"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/toolbar"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="@+id/item_txt"
+            app:layout_constraintEnd_toStartOf="@+id/item_txt"
+            app:layout_constraintHorizontal_bias="0.05"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/item_txt" />
 
         <TextView
             android:id="@+id/item_txt"
@@ -32,6 +44,7 @@
             android:textColor="#03041D"
             android:textSize="36sp"
             android:textStyle="bold|italic"
+            android:visibility="visible"
             app:layout_constraintBottom_toTopOf="@+id/categories"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
@@ -39,41 +52,12 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.1" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/categories"
-            android:layout_width="match_parent"
-            android:layout_height="125dp"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toTopOf="@+id/menuitems"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.9" />
-
-        <ListView
-            android:id="@+id/menuitems"
-            android:layout_width="match_parent"
-            android:layout_height="500dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <Button
-            android:id="@+id/menu_drawer_btn"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:background="@drawable/toolbar"
-            app:layout_constraintBottom_toBottomOf="@+id/item_txt"
-            app:layout_constraintEnd_toStartOf="@+id/item_txt"
-            app:layout_constraintHorizontal_bias="0.05"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/item_txt" />
-
         <Button
             android:id="@+id/card_btn"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:background="@drawable/sela"
+            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="@+id/item_txt"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.95"
@@ -89,12 +73,35 @@
             android:textColor="#03041D"
             android:textSize="25sp"
             android:textStyle="bold|italic"
+            android:visibility="visible"
             app:layout_constraintBottom_toTopOf="@+id/categories"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.05"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/item_txt"
             app:layout_constraintVertical_bias="0.75" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/categories"
+            android:layout_width="match_parent"
+            android:layout_height="130dp"
+            android:orientation="horizontal"
+            android:visibility="visible"
+            app:layout_constraintBottom_toTopOf="@+id/menuitems"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <ListView
+            android:id="@+id/menuitems"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="250dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.navigation.NavigationView
@@ -104,7 +111,7 @@
         android:layout_gravity="start"
         android:theme="@style/PopupMenuListView"
         android:verticalScrollbarPosition="right"
-        android:visibility="visible"
+        android:visibility="gone"
         app:headerLayout="@layout/hader_menu"
         app:menu="@menu/main_menu" />
 
