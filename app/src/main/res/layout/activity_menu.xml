@@ -113,7 +113,7 @@
         android:layout_gravity="start"
         android:theme="@style/PopupMenuListView"
         android:verticalScrollbarPosition="right"
-        android:visibility="gone"
+        android:visibility="visible"
         app:headerLayout="@layout/hader_menu"
         app:menu="@menu/main_menu" />
 
