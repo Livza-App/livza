@@ -29,7 +29,7 @@
             android:background="@drawable/solidcircle"
             android:gravity="center"
             android:orientation="vertical"
-            android:padding="12dp">
+            android:padding="10dp">
 
             <ImageView
                 android:id="@+id/caticon"
