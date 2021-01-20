@@ -12,7 +12,6 @@
     >
 
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintlayout"
         android:layout_width="match_parent"
@@ -21,8 +20,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        >
+        app:layout_constraintTop_toTopOf="parent">
 
 
         <TextView
@@ -34,31 +32,30 @@
             android:textColor="#03041D"
             android:textSize="36sp"
             android:textStyle="bold|italic"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/categories"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.015" />
+            app:layout_constraintVertical_bias="0.1" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/categories"
             android:layout_width="match_parent"
-            android:layout_height="135dp"
+            android:layout_height="125dp"
             android:orientation="horizontal"
             app:layout_constraintBottom_toTopOf="@+id/menuitems"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/item_txt"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.9" />
 
         <ListView
             android:id="@+id/menuitems"
             android:layout_width="match_parent"
-            android:layout_height="584dp"
+            android:layout_height="500dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent" />
 
         <Button
@@ -66,24 +63,22 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:background="@drawable/toolbar"
-            app:layout_constraintBottom_toTopOf="@+id/categories"
+            app:layout_constraintBottom_toBottomOf="@+id/item_txt"
             app:layout_constraintEnd_toStartOf="@+id/item_txt"
-            app:layout_constraintHorizontal_bias="0.136"
+            app:layout_constraintHorizontal_bias="0.05"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.205" />
+            app:layout_constraintTop_toTopOf="@+id/item_txt" />
 
         <Button
             android:id="@+id/card_btn"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:background="@drawable/sela"
-            app:layout_constraintBottom_toTopOf="@+id/categories"
+            app:layout_constraintBottom_toBottomOf="@+id/item_txt"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.862"
+            app:layout_constraintHorizontal_bias="0.95"
             app:layout_constraintStart_toEndOf="@+id/item_txt"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.205" />
+            app:layout_constraintTop_toTopOf="@+id/item_txt" />
 
         <TextView
             android:id="@+id/textView8"
@@ -96,10 +91,10 @@
             android:textStyle="bold|italic"
             app:layout_constraintBottom_toTopOf="@+id/categories"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.064"
+            app:layout_constraintHorizontal_bias="0.05"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.893" />
+            app:layout_constraintTop_toBottomOf="@+id/item_txt"
+            app:layout_constraintVertical_bias="0.75" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.navigation.NavigationView
