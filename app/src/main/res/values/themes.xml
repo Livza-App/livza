@@ -10,4 +10,10 @@
     <style name="CustomTabStyle" parent="Widget.Design.TabLayout">
         <item name="android:textSize">20sp</item>
     </style>
+    <style name="Bottomsheettheme" parent="Theme.MaterialComponents.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/Bottomsheetstyle</item>
+    </style>
+    <style name="Bottomsheetstyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
 </resources>

@@ -3,10 +3,12 @@ package com.example.livza;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -25,6 +27,7 @@ import com.example.livza.FireClasses.Carte_item;
 import com.example.livza.FireClasses.Ingredient_item;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.shape.CornerFamily;
 import com.google.firebase.storage.FirebaseStorage;
@@ -215,13 +218,52 @@ public class Add_to_cart extends AppCompatActivity {
                 String totalprice=(int)qntxprice+" DA";
                 Carte_item item=new Carte_item(catImg, title, totalprice, qnt, ingredient,basic_price,catID,foodID);
                 Menu.cart.add(item);
+                showbottomsheet();
 
-                //Toast toast=Toast.makeText(getApplicationContext(),ingredient,Toast.LENGTH_SHORT);
-                //toast.show();
             }
         });
     }
-
+    public void showbottomsheet(){
+        //building new bottomsheet
+        BottomSheetDialog bottomSheetDialog=new BottomSheetDialog(Add_to_cart.this,R.style.Bottomsheettheme);
+        //getting layout of bottom sheet
+        View btview= LayoutInflater.from(getApplicationContext())
+                .inflate(R.layout.bottomsheet,(ConstraintLayout)findViewById(R.id.bt_container));
+        //onclick of go to checkout button
+        btview.findViewById(R.id.bt_checkout).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bottomSheetDialog.dismiss();
+                Intent intent=new Intent(getApplicationContext(),Carte_order.class);
+                startActivity(intent);
+            }
+        });
+        //onclick of Continue Shopping btn
+        btview.findViewById(R.id.bt_continue).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bottomSheetDialog.dismiss();
+                finish();
+            }
+        });
+        //calculing total price
+        String qnt=quantity.getText().toString();
+        String basic_price=price.substring(0, price.length()-2).trim();
+        float qntxprice= Float.parseFloat(qnt)*Float.parseFloat(basic_price);
+        String totalprice=(int)qntxprice+" DA";
+        //display infos
+        TextView text= btview.findViewById(R.id.bt_item);
+        text.setText(title);
+         text= btview.findViewById(R.id.bt_price);
+        text.setText(price);
+         text= btview.findViewById(R.id.bt_quantity);
+        text.setText(quantity.getText());
+         text= btview.findViewById(R.id.bt_total);
+        text.setText(totalprice);
+        //set the view to bottom sheet & showing the bottom sheet
+        bottomSheetDialog.setContentView(btview);
+        bottomSheetDialog.show();
+    }
     public String getingredients(){
         String ingredient="nothing";
         for(int i=0; i<ingredient_items.size();i++){
