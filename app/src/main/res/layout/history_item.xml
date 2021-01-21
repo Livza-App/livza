@@ -8,7 +8,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/history_item"
-        android:layout_width="380dp"
+        android:layout_width="match_parent"
         android:layout_height="120dp"
         android:background="@drawable/history_item"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -20,29 +20,26 @@
             android:id="@+id/order_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
             android:text="11/02/2021"
             android:textColor="#03041D"
             android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.382"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/txtdate"
+            app:layout_constraintStart_toEndOf="@+id/txtdate"
+            app:layout_constraintTop_toTopOf="@+id/txtdate"
             app:layout_constraintVertical_bias="0.873" />
 
         <TextView
             android:id="@+id/id_order"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
             android:text="#129889"
             android:textColor="#03041D"
             android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.235"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.126" />
+            app:layout_constraintBottom_toBottomOf="@+id/txtorder"
+            app:layout_constraintStart_toEndOf="@+id/txtorder"
+            app:layout_constraintTop_toTopOf="@+id/txtorder" />
 
         <TextView
             android:id="@+id/txtorder"
@@ -75,14 +72,13 @@
             android:id="@+id/order_stat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
             android:text="Received"
             android:textColor="#03041D"
             android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.283"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintBottom_toBottomOf="@+id/txtstatus"
+            app:layout_constraintStart_toEndOf="@+id/txtstatus"
+            app:layout_constraintTop_toTopOf="@+id/txtstatus" />
 
         <TextView
             android:id="@+id/txtdate"
@@ -102,11 +98,11 @@
             android:id="@+id/status_icon"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/order_stat"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.05"
             app:layout_constraintStart_toEndOf="@+id/order_stat"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/order_stat"
             app:srcCompat="@drawable/order_received" />
 
         <TextView
@@ -127,14 +123,13 @@
             android:id="@+id/txtda"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
             android:text="DA"
             android:textColor="#FF4236"
             android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.222"
+            app:layout_constraintBottom_toBottomOf="@+id/order_price"
             app:layout_constraintStart_toEndOf="@+id/order_price"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/order_price"
             app:layout_constraintVertical_bias="0.38" />
 
         <Button
@@ -148,10 +143,10 @@
             android:textColor="#FFFFFF"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.914"
+            app:layout_constraintHorizontal_bias="0.95"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.86" />
+            app:layout_constraintVertical_bias="0.95" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

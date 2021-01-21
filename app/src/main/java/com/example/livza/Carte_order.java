@@ -31,6 +31,7 @@ public class Carte_order extends AppCompatActivity implements Carte_itemAdapter.
     private Button trush_btn,menu,send_order;
     private FirebaseAuth mAuth;
     private DatabaseReference mRef;
+    private TextView Total_num;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -157,6 +158,7 @@ public class Carte_order extends AppCompatActivity implements Carte_itemAdapter.
         trush_btn=findViewById(R.id.trush_btn);
         menu = findViewById(R.id.carte_order_gotomenu);
         send_order=findViewById(R.id.send_order);
+        Total_num=findViewById(R.id.total_num);
 
         //Firebase
         mAuth=FirebaseAuth.getInstance();
@@ -185,7 +187,7 @@ public class Carte_order extends AppCompatActivity implements Carte_itemAdapter.
     //Total sum
     public void Calcule_TotalSum(ArrayList<Carte_item> carte_items, int cart_pos){
         float Total= 0;
-        TextView Total_num=findViewById(R.id.total_num);
+
         if (carte_items.isEmpty()){
             Total_num.setText(" 0 DA");
         }else{
@@ -211,6 +213,8 @@ public class Carte_order extends AppCompatActivity implements Carte_itemAdapter.
                 Ref.child("latitude").setValue(36.64355874646421);
                 Ref.child("longitude").setValue(2.7560528681428957);
                 Ref.child("state").setValue("order");
+                Ref.child("price").setValue(Total_num.getText().toString());
+                Ref.child("date").setValue("21/01/2021 (15:11)");
                 for(int i=0;i<Menu.cart.size();i++){
                     Ref.child("element"+i).child("catID").setValue(Menu.cart.get(i).getCatID());
                     Ref.child("element"+i).child("foodID").setValue(Menu.cart.get(i).getFoodID());

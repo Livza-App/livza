@@ -2,6 +2,7 @@ package com.example.livza.Fragments;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -14,13 +15,22 @@ import android.view.ViewGroup;
 import com.example.livza.Adapters.HistoryItemAdapter;
 import com.example.livza.FireClasses.OrderItem;
 import com.example.livza.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
 public class OrederHistoryFragment extends Fragment {
 
     private RecyclerView OrderecyclerView;
-    private ArrayList<OrderItem> OrderItem;
+    private ArrayList<OrderItem> OrderItems;
+    private FirebaseAuth mAuth;
+    private DatabaseReference mRef;
+    private HistoryItemAdapter historyItemAdapter;
 
     public static int cart_pos=0;
     private HistoryItemAdapter.OnHistoryItemlistner onHistoryItemlistner;
@@ -28,20 +38,49 @@ public class OrederHistoryFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        OrderItem=new ArrayList<>();
-        OrderItem.add(new OrderItem("12589","5985Da","received","received"));
-        OrderItem.add(new OrderItem("12589","5985Da","received","received"));
-        OrderItem.add(new OrderItem("12589","5985Da","received","received"));
+    }
+
+    private void init(){
+        OrderItems=new ArrayList<>();
+        historyItemAdapter=new HistoryItemAdapter(OrderItems,onHistoryItemlistner);
+
+        //Firebase
+        mAuth=FirebaseAuth.getInstance();
+        mRef= FirebaseDatabase.getInstance().getReference().child("Historique").child(mAuth.getCurrentUser().getUid());
+    }
+
+    private void readHistorique(){
+        mRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String id,price,date,status;
+                for (DataSnapshot ds: snapshot.getChildren()){
+                    id=ds.getKey();
+                    price=ds.child("price").getValue(String.class);
+                    price=price.substring(0, price.length()-2).trim();
+                    date=ds.child("date").getValue(String.class);
+                    status=ds.child("state").getValue(String.class);
+                    OrderItems.add(new OrderItem(id,price,date,status));
+                }
+                historyItemAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_oreder_history, container, false);
-
         OrderecyclerView=view.findViewById(R.id.history_orders);
-        HistoryItemAdapter historyItemAdapter=new HistoryItemAdapter(OrderItem,onHistoryItemlistner);
         //OrderecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        init();
+        readHistorique();
         OrderecyclerView.setAdapter(historyItemAdapter);
         OrderecyclerView.setItemAnimator(new DefaultItemAnimator());
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
