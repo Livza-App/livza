@@ -27,6 +27,7 @@ import com.example.livza.FireClasses.Carte_item;
 import com.example.livza.FireClasses.Ingredient_item;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.shape.CornerFamily;
@@ -263,6 +264,8 @@ public class Add_to_cart extends AppCompatActivity {
         //set the view to bottom sheet & showing the bottom sheet
         bottomSheetDialog.setContentView(btview);
         bottomSheetDialog.show();
+        BottomSheetBehavior mBehavior = BottomSheetBehavior.from((View) btview.getParent());
+        mBehavior.setPeekHeight(btview.getHeight());
     }
     public String getingredients(){
         String ingredient="nothing";
