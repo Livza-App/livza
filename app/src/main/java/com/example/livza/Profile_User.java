@@ -2,6 +2,7 @@ package com.example.livza;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
@@ -12,12 +13,16 @@ import androidx.viewpager2.widget.ViewPager2;
 import android.app.Dialog;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -35,6 +40,7 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -42,6 +48,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.WriterException;
+import com.google.zxing.common.BitMatrix;
+import com.journeyapps.barcodescanner.BarcodeEncoder;
 
 import java.util.ArrayList;
 
@@ -57,6 +68,7 @@ public class Profile_User extends AppCompatActivity {
     private TabLayout tabLayout;
     private ViewPager2 viewPager;
     private ViewPagerAdapter viewPagerAdapter;
+    private Button editProfile;
 
 
     private static final int PICK_IMAGE = 1;
@@ -73,7 +85,7 @@ public class Profile_User extends AppCompatActivity {
         getWindow().setStatusBarColor(getResources().getColor(R.color.pink));
 
         init();
-
+        initOnClick();
         //reload data
         reloadData();
 
@@ -111,6 +123,13 @@ public class Profile_User extends AppCompatActivity {
     private void init() {
         //init View
         cardUser=findViewById(R.id.cardUser);
+        editProfile=findViewById(R.id.edit_profile);
+        editProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
         //UserNameEdit=findViewById(R.id.user_name);
         user_name=findViewById(R.id.user_name);
         phone_num=findViewById(R.id.user_phone);
@@ -132,6 +151,30 @@ public class Profile_User extends AppCompatActivity {
         mRef= FirebaseDatabase.getInstance().getReference();
         mStorage = FirebaseStorage.getInstance();
 
+    }
+
+    private void initOnClick(){
+        editProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder=new AlertDialog.Builder(Profile_User.this);
+                final View mView=getLayoutInflater().inflate(R.layout.code_qr,null);
+                builder.setView(mView);
+                AlertDialog alertDialog = builder.create();
+                ImageView qrCode=mView.findViewById(R.id.qr_image);
+                MultiFormatWriter writer=new MultiFormatWriter();
+                try {
+                    BitMatrix matrix=writer.encode(mAuth.getUid(), BarcodeFormat.QR_CODE,200,200);
+                    BarcodeEncoder encoder=new BarcodeEncoder();
+                    Bitmap bitmap=encoder.createBitmap(matrix);
+                    qrCode.setImageBitmap(bitmap);
+                    //InputMethodManager methodManager=(InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                } catch (WriterException e) {
+                    e.printStackTrace();
+                }
+                alertDialog.show();
+            }
+        });
     }
 
     private void reloadData() {
