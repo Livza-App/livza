@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,6 +27,7 @@ import android.widget.Toolbar;
 import com.bumptech.glide.Glide;
 import com.example.livza.Adapters.CatitemAdapter;
 import com.example.livza.Adapters.MenuitemAdapter;
+import com.example.livza.CheckConnection.NetworkChangeListener;
 import com.example.livza.FireClasses.Carte_item;
 import com.example.livza.FireClasses.Categorieitem;
 import com.example.livza.FireClasses.Fooditem;
@@ -70,6 +73,7 @@ public class Menu extends AppCompatActivity implements CatitemAdapter.Oncategori
     private ImageView headerImage;
     private TextView headerUsername,headerPhone;
     public static ArrayList<Carte_item> cart;
+    private NetworkChangeListener networkChangeListener=new NetworkChangeListener();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -398,4 +402,16 @@ public void menuclick(){
         });
 }
 
+    @Override
+    protected void onStart() {
+        IntentFilter filter=new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(networkChangeListener,filter);
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        unregisterReceiver(networkChangeListener);
+        super.onStop();
+    }
 }

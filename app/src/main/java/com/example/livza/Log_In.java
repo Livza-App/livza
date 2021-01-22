@@ -52,7 +52,7 @@ public class Log_In extends AppCompatActivity  {
     private ImageView Logbtn;
     private EditText Phone_Number;
     private TextView Sign_up;
-    private AlertDialog alertDialog;
+    private Dialog dialog;
     private String PhoneNumber;
 
     //Firebase
@@ -172,28 +172,26 @@ public class Log_In extends AppCompatActivity  {
     //This function to show the Dialog of the Confirmation Code to
     private void verificationDialog(String code) {
         Log.i("sign_up","dialog show");
-        AlertDialog.Builder builder=new AlertDialog.Builder(Log_In.this);
-        final View mView=getLayoutInflater().inflate(R.layout.custom_confirmation_code_dialog,null);
-        builder.setView(mView);
-        alertDialog=builder.create();
-        mView.findViewById(R.id.Confirme).setOnClickListener(new View.OnClickListener() {
+         dialog = new Dialog(Log_In.this);
+        dialog.setContentView(R.layout.custom_confirmation_code_dialog);
+        dialog.findViewById(R.id.Confirme).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.i("sign_up","confirme");
-                String enterCode=((EditText)mView.findViewById(R.id.confimation_code)).getText().toString();
+                String enterCode=((EditText)dialog.findViewById(R.id.confimation_code)).getText().toString();
                 Log.i("sign_up","code:"+code+"  enter code:"+enterCode);
                 credential = PhoneAuthProvider.getCredential(code, enterCode);
                 signUp(credential);
-                alertDialog.dismiss();
+                dialog.dismiss();
             }
         });
-        mView.findViewById(R.id.cancel).setOnClickListener(new View.OnClickListener() {
+        dialog.findViewById(R.id.cancel).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                alertDialog.dismiss();
+                dialog.dismiss();
             }
         });
-        alertDialog.show();
+        dialog.show();
 
     }
 
