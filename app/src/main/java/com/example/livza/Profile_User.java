@@ -223,7 +223,7 @@ public class Profile_User extends AppCompatActivity {
 
     //this function run when the user want to edit UserName && Phone Number
     public void Edit_UserName(){
-        Dialog Edit_Profile_Dialog = new Dialog(this);
+        /*Dialog Edit_Profile_Dialog = new Dialog(this);
         Edit_Profile_Dialog.setContentView(R.layout.custom_edit_profile_dialog);
         Edit_Profile_Dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         Edit_Profile_Dialog.show();
@@ -243,7 +243,7 @@ public class Profile_User extends AppCompatActivity {
                 TextView Phone_number = findViewById(R.id.user_phone);
                 Phone_number.setText(phone_number_edit.getText());
 
-                Edit_Profile_Dialog.hide();
+                Edit_Profile_Dialog.hide()
             }
         });
 
@@ -254,7 +254,7 @@ public class Profile_User extends AppCompatActivity {
             public void onClick(View view) {
                 Edit_Profile_Dialog.hide();
             }
-        });
+        });*/
 
     }
 
