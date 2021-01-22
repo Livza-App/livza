@@ -157,11 +157,9 @@ public class Profile_User extends AppCompatActivity {
         editProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder=new AlertDialog.Builder(Profile_User.this);
-                final View mView=getLayoutInflater().inflate(R.layout.code_qr,null);
-                builder.setView(mView);
-                AlertDialog alertDialog = builder.create();
-                ImageView qrCode=mView.findViewById(R.id.qr_image);
+                Dialog dialog = new Dialog(Profile_User.this);
+                dialog.setContentView(R.layout.code_qr);
+                ImageView qrCode=dialog.findViewById(R.id.qr_image);
                 MultiFormatWriter writer=new MultiFormatWriter();
                 try {
                     BitMatrix matrix=writer.encode(mAuth.getUid(), BarcodeFormat.QR_CODE,200,200);
@@ -172,7 +170,7 @@ public class Profile_User extends AppCompatActivity {
                 } catch (WriterException e) {
                     e.printStackTrace();
                 }
-                alertDialog.show();
+                dialog.show();
             }
         });
     }
