@@ -61,18 +61,13 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class Profile_User extends AppCompatActivity {
 
     //view
-    private TextView Save, Cancel,UserNameEdit,user_name,phone_num;
-    private Uri imageUri;
+    private TextView user_name,phone_num;
     private ImageView profile_img;
     private CardView cardUser;
     private TabLayout tabLayout;
     private ViewPager2 viewPager;
     private ViewPagerAdapter viewPagerAdapter;
     private Button editProfile;
-
-
-    private static final int PICK_IMAGE = 1;
-
     //Firebase var
     private FirebaseUser mAuth;
     private FirebaseStorage mStorage;
@@ -85,37 +80,14 @@ public class Profile_User extends AppCompatActivity {
         getWindow().setStatusBarColor(getResources().getColor(R.color.pink));
 
         init();
-        initOnClick();
+
+        //initOnClick();  hadi ida ma ts7a9hach supp ghano
+
         //reload data
         reloadData();
 
-        //edit profile img
-        cardUser.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Edit_Profil_img();
-            }
-        });
+        Onback();
 
-        //Edit the UserName && Phone Number
-        /*UserNameEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Edit_UserName();
-            }
-        });*/
-
-
-        //Back btn
-        Button back = findViewById(R.id.btn_back);
-        /*back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                /*Intent b = new Intent(Profile_User.this, Menu.class);
-                startActivity(b);
-                finish();
-            }
-        });*/
 
 
     }
@@ -124,13 +96,14 @@ public class Profile_User extends AppCompatActivity {
         //init View
         cardUser=findViewById(R.id.cardUser);
         editProfile=findViewById(R.id.edit_profile);
+        //edit profile
         editProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent u=new Intent(Profile_User.this,Profile_Edit.class);
+                startActivity(u);
             }
         });
-        //UserNameEdit=findViewById(R.id.user_name);
         user_name=findViewById(R.id.user_name);
         phone_num=findViewById(R.id.user_phone);
         profile_img=findViewById(R.id.user_profil_img);
@@ -153,7 +126,20 @@ public class Profile_User extends AppCompatActivity {
 
     }
 
-    private void initOnClick(){
+    public void  Onback(){
+
+        Button back_btn=findViewById(R.id.back_btn);
+        back_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               // finish();
+            }
+        });
+
+    }
+
+    //hadi teaa Qr Code ida ma ts7a9hach ghnou supp
+   /* private void initOnClick(){
         editProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -173,7 +159,7 @@ public class Profile_User extends AppCompatActivity {
                 dialog.show();
             }
         });
-    }
+    }*/
 
     private void reloadData() {
         mRef.child("Users").child(mAuth.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -211,84 +197,5 @@ public class Profile_User extends AppCompatActivity {
     }
 
 
-    //this function to Edit the image profile
-    public void Edit_Profil_img(){
-        Intent Gallery=new Intent();
-        Gallery.setType("image/*");
-        Gallery.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(Gallery, "Select your profil Image"), PICK_IMAGE );
-    }
 
-    //this function run when the user want to edit UserName && Phone Number
-    public void Edit_UserName(){
-        /*Dialog Edit_Profile_Dialog = new Dialog(this);
-        Edit_Profile_Dialog.setContentView(R.layout.custom_edit_profile_dialog);
-        Edit_Profile_Dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        Edit_Profile_Dialog.show();
-
-        //Save the modifications
-        TextView Save_btn = Edit_Profile_Dialog.findViewById(R.id.Save);
-        Save_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //set The User Name **Ghanou hna tedi user name t3awd dirlo update f user firebase table**
-                EditText user_name_edit = Edit_Profile_Dialog.findViewById(R.id.PersonName);
-                TextView User_name = findViewById(R.id.user_name);
-                User_name.setText(user_name_edit.getText().toString());
-
-                //set the Phone number **Ghanou hna tedi Phone num t3awd dirlo update f user firebase table**
-                EditText phone_number_edit = findViewById(R.id.editTextPhone);
-                TextView Phone_number = findViewById(R.id.user_phone);
-                Phone_number.setText(phone_number_edit.getText());
-
-                Edit_Profile_Dialog.hide()
-            }
-        });
-
-        //Dont save the modifications
-        TextView Cancel_btn = Edit_Profile_Dialog.findViewById(R.id.Cancel);
-        Cancel_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Edit_Profile_Dialog.hide();
-            }
-        });*/
-
-    }
-
-    //this function to get profil image from the external storage
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == PICK_IMAGE && resultCode == RESULT_OK && data != null) {
-            imageUri = data.getData();
-            ImageView profile_img = findViewById(R.id.user_profil_img);
-            profile_img.setImageURI(imageUri);
-
-            //this cmnt to crop the image if we need it futerlly *_____*
-            /*CropImage.activity()
-                    .setGuidelines(CropImageView.Guidelines.ON)
-                    .setAspectRatio(1, 1)
-                    .start(this);*/
-        }
-       /*if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
-            CropImage.ActivityResult result = CropImage.getActivityResult(data);
-            if (requestCode == RESULT_OK) {
-                Uri resultUri = result.getUri();
-
-               // ImageView profile_img2 = findViewById(R.id.profile_img2);
-                CircleImageView profile_img = findViewById(R.id.profile_img);
-                try {
-                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), resultUri);
-                    //profile_img2.setImageBitmap(bitmap);
-                    profile_img.setImageBitmap(bitmap);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    //Intent just for test
-                    Intent o=new Intent(Profile_User.this,Menu.class);
-                    startActivity(o);
-                }
-            }
-        }*/
-    }
 }
