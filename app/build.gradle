@@ -15,6 +15,15 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        Properties properties = new Properties()
+        if (rootProject.file("local.properties").exists()) {
+            properties.load(rootProject.file("local.properties").newDataInputStream())
+        }
+
+        // Inject the Maps API key into the manifest
+        manifestPlaceholders = [ mapsApiKey : properties.getProperty("MAPS_API_KEY", "") ]
+
     }
 
     buildTypes {
@@ -49,6 +58,8 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:3.0.0'
     implementation 'com.google.android.material:material:1.2.1'
     implementation 'com.journeyapps:zxing-android-embedded:3.4.0'
+    implementation "com.google.android.gms:play-services-location:17.1.0"
+
 
 
 
