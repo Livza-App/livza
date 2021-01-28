@@ -5,7 +5,9 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
+import android.app.Dialog;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.ColorDrawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -14,6 +16,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -40,6 +43,9 @@ import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 
 import java.io.IOException;
@@ -50,12 +56,14 @@ import java.util.List;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private EditText mSearchText;
-
+    private Button save;
     private GoogleMap mMap;
     private View mapView;
     public static String TAG = "Maps";
     private FusedLocationProviderClient mFusedLocationClient;
     private LatLng markerPos;
+    private DatabaseReference mRef;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +92,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         init();
-
+        saveAdressDialoge();
         View locationButton = ((View) mapView.findViewById(Integer.parseInt("1")).getParent()).findViewById(Integer.parseInt("2"));
         RelativeLayout.LayoutParams rlp = (RelativeLayout.LayoutParams) locationButton.getLayoutParams();
         // position on right bottom
@@ -132,10 +140,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     private void init() {
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-
         //view
         mSearchText = findViewById(R.id.activity_maps_searchadresse);
+        save=findViewById(R.id.activity_maps_saveadresse);
+
+
+        //Firebase
+        mRef= FirebaseDatabase.getInstance().getReference();
+        mAuth=FirebaseAuth.getInstance();
+
+
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         mSearchText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -184,6 +199,37 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.clear();
         mMap.addMarker(markerOptions);
 
+    }
+
+    private void saveAdressDialoge(){
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Dialog dialog = new Dialog(MapsActivity.this);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+                dialog.setContentView(R.layout.add_adresse);
+                dialog.setCancelable(false);
+                EditText addName=dialog.findViewById(R.id.add_adresse_edit_adresse);
+                dialog.findViewById(R.id.add_adresse_confirm).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        DatabaseReference addressesRef=mRef.child("addresses").child(mAuth.getCurrentUser().getUid()).push();
+                        addressesRef.child("latitude").setValue(markerPos.latitude);
+                        addressesRef.child("longitude").setValue(markerPos.longitude);
+                        addressesRef.child("name").setValue(addName.getText().toString());
+                        finish();
+                    }
+                });
+                dialog.findViewById(R.id.add_adresse_cancel).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+                dialog.setCanceledOnTouchOutside(false);
+                dialog.show();
+            }
+        });
     }
 
 }
