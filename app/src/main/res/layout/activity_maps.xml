@@ -51,7 +51,8 @@
                 android:hint="Search here.."
                 android:inputType="textPersonName"
                 android:textColor="@color/black"
-                android:textSize="15sp" />
+                android:textSize="15sp"
+                android:imeOptions="actionSearch"/>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

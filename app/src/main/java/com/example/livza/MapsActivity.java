@@ -3,8 +3,14 @@ package com.example.livza;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.Status;
@@ -26,61 +32,27 @@ import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+
+    private EditText mSearchText;
 
     private GoogleMap mMap;
     private PlaceAutocompleteFragment placeAutoComplete;
     private AutocompleteSupportFragment autocompleteFragment;
     private String apiKey;
     private PlacesClient placesClient;
-    public static String TAG="Maps";
+    public static String TAG = "Maps";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         apiKey = getString(R.string.google_maps_key);
-
-        /**
-         * Initialize Places. For simplicity, the API key is hard-coded. In a production
-         * environment we recommend using a secure mechanism to manage API keys.
-         */
-        if (!Places.isInitialized()) {
-            Places.initialize(getApplicationContext(), apiKey);
-        }
-
-// Create a new Places client instance.
-        placesClient = Places.createClient(this);
-
-        // Initialize the AutocompleteSupportFragment.
-        AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment)
-                getSupportFragmentManager().findFragmentById(R.id.place_autocomplete);
-
-        //autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME));
-        autocompleteFragment.setTypeFilter(TypeFilter.ADDRESS);
-        autocompleteFragment.setLocationBias(RectangularBounds.newInstance(
-                new LatLng(-33.880490,151.184363),
-                new LatLng(-33.858754,151.229596)
-        ));
-        autocompleteFragment.setCountries("IN");
-        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID,Place.Field.NAME));
-
-        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
-            @Override
-            public void onPlaceSelected(@NonNull Place place) {
-                Toast t=Toast.makeText(getApplicationContext(),"place:"+place,Toast.LENGTH_LONG);
-                t.show();
-            }
-
-            @Override
-            public void onError(@NonNull Status status) {
-                Toast t=Toast.makeText(getApplicationContext(),"error:"+status,Toast.LENGTH_LONG);
-                t.show();
-            }
-        });
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -100,11 +72,43 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        init();
+    }
 
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+    private void init() {
+        mSearchText = findViewById(R.id.activity_maps_searchadresse);
+        mSearchText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH
+                        || actionId == EditorInfo.IME_ACTION_DONE
+                        || event.getAction() == KeyEvent.ACTION_DOWN
+                        || event.getAction() == KeyEvent.KEYCODE_ENTER) {
+                    search();
+
+                }
+                return false;
+            }
+        });
+    }
+
+    private void search() {
+        String searchText=mSearchText.getText().toString();
+        Geocoder geocoder=new Geocoder(MapsActivity.this);
+        List<Address> list=new ArrayList<>();
+        try {
+            list=geocoder.getFromLocationName(searchText,1);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if(list.size()>0){
+            Address address=list.get(0);
+            moveCamera(address);
+        }
+    }
+
+    private void moveCamera(Address address){
+
     }
 
 }
