@@ -6,5 +6,6 @@
         <font color="#000000">Your cart is</font>
         <font color="#FF3660">Empty</font>
     </string>
+    <string name="title_activity_maps">Map</string>
 
 </resources>

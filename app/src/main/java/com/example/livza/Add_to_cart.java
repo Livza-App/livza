@@ -264,8 +264,8 @@ public class Add_to_cart extends AppCompatActivity {
         //set the view to bottom sheet & showing the bottom sheet
         bottomSheetDialog.setContentView(btview);
         bottomSheetDialog.show();
-        BottomSheetBehavior mBehavior = BottomSheetBehavior.from((View) btview.getParent());
-        mBehavior.setPeekHeight(btview.getHeight());
+       // BottomSheetBehavior mBehavior = BottomSheetBehavior.from((View) btview.getParent());
+       // mBehavior.setPeekHeight(btview.getHeight());
     }
     public String getingredients(){
         String ingredient="nothing";

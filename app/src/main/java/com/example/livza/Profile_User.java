@@ -266,8 +266,7 @@ public class Profile_User extends AppCompatActivity {
                                     }
                                     if (addresses != null) {
                                         String city = addresses.get(0).getLocality();
-                                        String state = addresses.get(0).getAdminArea();
-                                        current_location.setText(city + " " + state);
+                                        current_location.setText(city);
                                     }
                                 } else {
                                     Log.i("profilesActivity", "lastLocation: location null");
