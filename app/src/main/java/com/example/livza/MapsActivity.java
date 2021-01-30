@@ -52,6 +52,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -111,6 +112,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 markerOptions.title("you choosed this position");
                 mMap.clear();
                 mMap.addMarker(markerOptions);
+                save.setEnabled(true);
             }
         });
 
@@ -143,6 +145,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //view
         mSearchText = findViewById(R.id.activity_maps_searchadresse);
         save=findViewById(R.id.activity_maps_saveadresse);
+        save.setEnabled(false);
 
 
         //Firebase
@@ -183,6 +186,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     private void moveCamera(Address addressSearch) {
+        save.setEnabled(true);
         LatLng adresse = new LatLng(addressSearch.getLatitude(), addressSearch.getLongitude());
         markerPos=adresse;
         CameraPosition cameraPosition = new CameraPosition.Builder()
@@ -210,6 +214,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 dialog.setContentView(R.layout.add_adresse);
                 dialog.setCancelable(false);
                 EditText addName=dialog.findViewById(R.id.add_adresse_edit_adresse);
+                List<Address> addresses = null;
+                try {
+
+                    Geocoder geocoder = new Geocoder(MapsActivity.this, Locale.getDefault());
+                    addresses = geocoder.getFromLocation(markerPos.latitude, markerPos.longitude, 1);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                if (addresses != null) {
+                    String city = addresses.get(0).getLocality();
+                    addName.setText(city);
+                }
                 dialog.findViewById(R.id.add_adresse_confirm).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -217,6 +233,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         addressesRef.child("latitude").setValue(markerPos.latitude);
                         addressesRef.child("longitude").setValue(markerPos.longitude);
                         addressesRef.child("name").setValue(addName.getText().toString());
+                        dialog.dismiss();
                         finish();
                     }
                 });

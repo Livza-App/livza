@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(MainActivity.this, Frame_2.class);
                 startActivity(intent);
+                finish();
 
             }
         }, 2000);// 2 seconds

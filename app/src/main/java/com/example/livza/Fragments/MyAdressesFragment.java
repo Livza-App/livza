@@ -3,6 +3,7 @@ package com.example.livza.Fragments;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -18,6 +19,12 @@ import com.example.livza.FireClasses.Adresse;
 import com.example.livza.MapsActivity;
 import com.example.livza.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -28,7 +35,8 @@ public class MyAdressesFragment extends Fragment {
     private ListView adresses_list;
     private AdressesAdapter adressesAdapter;
     private ArrayList<Adresse> adresses;
-    private static final int PICK_ADRESSE = 1;
+    private DatabaseReference mRef;
+    private FirebaseAuth mAuth;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -42,8 +50,9 @@ public class MyAdressesFragment extends Fragment {
         //init vars
         add_new_adresses = view.findViewById(R.id.my_adresses_add);
         adresses_list = view.findViewById(R.id.my_adresses_list);
-        init();
         add_new_adresses = view.findViewById(R.id.my_adresses_add);
+        init();
+        readData();
         addnewadresse();
         return view;
 
@@ -60,20 +69,34 @@ public class MyAdressesFragment extends Fragment {
         });
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == PICK_ADRESSE && resultCode == RESULT_OK && data != null) {
-
-        }
-    }
 
     public void init() {
         adresses = new ArrayList<>();
-        adresses.add(new Adresse("Home1"));
-        adresses.add(new Adresse("Home2"));
-        adresses.add(new Adresse("Work"));
         adressesAdapter = new AdressesAdapter(getActivity(), adresses);
         adresses_list.setAdapter(adressesAdapter);
+
+        //firebase
+        mRef= FirebaseDatabase.getInstance().getReference();
+        mAuth= FirebaseAuth.getInstance();
+    }
+
+    private void readData(){
+        mRef.child("addresses").child(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                adresses.clear();
+                String name;
+                for (DataSnapshot ds:snapshot.getChildren()){
+                    name=ds.child("name").getValue(String.class);
+                    adresses.add(new Adresse(name));
+                }
+                adressesAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }
