@@ -92,7 +92,7 @@ public class Profile_User extends AppCompatActivity {
     private DatabaseReference mRef;
 
     //
-    private FusedLocationProviderClient fusedLocationClient;
+    private FusedLocationProviderClient  fusedLocationClient;
     private Location location;
 
     @Override
