@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class Frame_2 extends AppCompatActivity {
 
     Animation upIn;
@@ -20,7 +22,7 @@ public class Frame_2 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_frame_2);
         getWindow().setStatusBarColor(getResources().getColor(R.color.pink));
-
+        skip();
         Button log_in=findViewById(R.id.login_btn);
         log_in.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,23 +54,15 @@ public class Frame_2 extends AppCompatActivity {
 
 
 
-        //TESTTTTTTTT brkk
-        logo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-               Intent p=new Intent(Frame_2.this,Profile_User.class);
-               startActivity(p);
-            }
-        });
 
-        //testtt
-        TextView r=findViewById(R.id.textView7);
-        r.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent u=new Intent(Frame_2.this,Menu.class);
-                startActivity(u);
-            }
-        });
+    }
+
+    private void skip(){
+        FirebaseAuth mAuth=FirebaseAuth.getInstance();
+        if(mAuth.getCurrentUser()!=null){
+            Intent intent=new Intent(Frame_2.this,Menu.class);
+            startActivity(intent);
+            finish();
+        }
     }
 }

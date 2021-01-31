@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentActivity;
 import android.Manifest;
 import android.app.Dialog;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.graphics.drawable.ColorDrawable;
 import android.location.Address;
 import android.location.Geocoder;
@@ -32,6 +33,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.libraries.places.api.Places;
@@ -52,11 +54,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private EditText mSearchText;
-    private Button save;
+    private TextView save,cancel;
     private GoogleMap mMap;
     private View mapView;
     public static String TAG = "Maps";
@@ -91,6 +94,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        try {
+            // Customise the styling of the base map using a JSON object defined
+            // in a raw resource file.
+            boolean success = googleMap.setMapStyle(
+                    MapStyleOptions.loadRawResourceStyle(
+                            this, R.raw.mapstyle));
+
+            if (!success) {
+                Log.e(TAG, "Style parsing failed.");
+            }
+        } catch (Resources.NotFoundException e) {
+            Log.e(TAG, "Can't find style. Error: ", e);
+        }
         init();
         saveAdressDialoge();
         View locationButton = ((View) mapView.findViewById(Integer.parseInt("1")).getParent()).findViewById(Integer.parseInt("2"));
@@ -111,6 +127,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 markerOptions.title("you choosed this position");
                 mMap.clear();
                 mMap.addMarker(markerOptions);
+                save.setEnabled(true);
             }
         });
 
@@ -142,7 +159,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private void init() {
         //view
         mSearchText = findViewById(R.id.activity_maps_searchadresse);
+        cancel=findViewById(R.id.activity_maps_cancel);
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         save=findViewById(R.id.activity_maps_saveadresse);
+        save.setEnabled(false);
 
 
         //Firebase
@@ -183,6 +208,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     private void moveCamera(Address addressSearch) {
+        save.setEnabled(true);
         LatLng adresse = new LatLng(addressSearch.getLatitude(), addressSearch.getLongitude());
         markerPos=adresse;
         CameraPosition cameraPosition = new CameraPosition.Builder()
@@ -210,6 +236,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 dialog.setContentView(R.layout.add_adresse);
                 dialog.setCancelable(false);
                 EditText addName=dialog.findViewById(R.id.add_adresse_edit_adresse);
+                List<Address> addresses = null;
+                try {
+
+                    Geocoder geocoder = new Geocoder(MapsActivity.this, Locale.getDefault());
+                    addresses = geocoder.getFromLocation(markerPos.latitude, markerPos.longitude, 1);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                if (addresses != null) {
+                    String city = addresses.get(0).getLocality();
+                    addName.setText(city);
+                }
                 dialog.findViewById(R.id.add_adresse_confirm).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -217,6 +255,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         addressesRef.child("latitude").setValue(markerPos.latitude);
                         addressesRef.child("longitude").setValue(markerPos.longitude);
                         addressesRef.child("name").setValue(addName.getText().toString());
+                        dialog.dismiss();
                         finish();
                     }
                 });
