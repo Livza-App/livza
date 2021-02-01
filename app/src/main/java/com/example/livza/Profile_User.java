@@ -18,6 +18,9 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentSender;
+import android.content.pm.ActivityInfo;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -28,6 +31,7 @@ import android.location.Location;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -44,8 +48,15 @@ import com.example.livza.Fragments.MyAdressesFragment;
 import com.example.livza.Fragments.OrederHistoryFragment;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.common.api.ResolvableApiException;
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.LocationSettingsResponse;
+import com.google.android.gms.location.LocationSettingsStatusCodes;
+import com.google.android.gms.location.SettingsClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -94,6 +105,8 @@ public class Profile_User extends AppCompatActivity {
     //
     private FusedLocationProviderClient fusedLocationClient;
     private Location location;
+    private final int REQUEST_CHECK_CODE = 106;
+    private LocationSettingsRequest.Builder builder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,6 +124,110 @@ public class Profile_User extends AppCompatActivity {
 
 
     }
+
+    private boolean canToggleGPS() {
+        PackageManager pacman = getPackageManager();
+        PackageInfo pacInfo = null;
+
+        try {
+            pacInfo = pacman.getPackageInfo("com.android.settings", PackageManager.GET_RECEIVERS);
+        } catch (PackageManager.NameNotFoundException e) {
+            return false; //package not found
+        }
+
+        if (pacInfo != null) {
+            for (ActivityInfo actInfo : pacInfo.receivers) {
+                //test if recevier is exported. if so, we can toggle GPS.
+                if (actInfo.name.equals("com.android.settings.widget.SettingsAppWidgetProvider") && actInfo.exported) {
+                    return true;
+                }
+            }
+        }
+
+        return false; //default
+    }
+
+    private void turnGPSOn() {
+        startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+    }
+
+    protected void createLocationRequest() {
+        LocationRequest locationRequest = LocationRequest.create();
+        locationRequest.setInterval(10000);
+        locationRequest.setFastestInterval(5000);
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        builder = new LocationSettingsRequest.Builder()
+                .addLocationRequest(locationRequest);
+
+        SettingsClient client = LocationServices.getSettingsClient(this);
+        Task<LocationSettingsResponse> result = client.checkLocationSettings(builder.build());
+        result.addOnCompleteListener(new OnCompleteListener<LocationSettingsResponse>() {
+            @Override
+            public void onComplete(@NonNull Task<LocationSettingsResponse> task) {
+                try {
+                    task.getResult(ApiException.class);
+
+                    fusedLocationClient = LocationServices.getFusedLocationProviderClient(Profile_User.this);
+                    if (ActivityCompat.checkSelfPermission(Profile_User.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(Profile_User.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                        fusedLocationClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Location> task) {
+                                // Got last known location. In some rare situations this can be null.
+                                Log.i("profilesActivity", "lastLocation: success");
+
+                                if (task.isSuccessful()) {
+                                    // Logic to handle location object
+                                    Geocoder geocoder = new Geocoder(Profile_User.this, Locale.getDefault());
+                                    List<Address> addresses = null;
+                                    location = task.getResult();
+                                    if (location == null) {
+                                        Log.i("profilesActivity", "location null");
+
+                                    } else {
+                                        Log.i("profilesActivity", "location not null");
+                                        try {
+                                            addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+                                            String city = addresses.get(0).getLocality();
+                                            current_location.setText(city);
+                                        } catch (IOException e) {
+                                            //e.printStackTrace();
+                                            current_location.setText("erreur");
+                                        }
+                                    }
+                                } else {
+                                    Log.i("profilesActivity", "fused provider cant get location");
+
+                                }
+
+                            }
+                        });
+
+
+                        return;
+                    }
+
+                } catch (ApiException e) {
+                    switch (e.getStatusCode()){
+                        case LocationSettingsStatusCodes
+                                .RESOLUTION_REQUIRED:
+                            try {
+                                ResolvableApiException resolvableApiException= (ResolvableApiException) e;
+                                resolvableApiException.startResolutionForResult(Profile_User.this,REQUEST_CHECK_CODE);
+                            } catch (IntentSender.SendIntentException sendIntentException) {
+                                sendIntentException.printStackTrace();
+                            } catch (ClassCastException ex){
+
+                            }
+                            break;
+                        case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE: {
+                            break;
+                        }
+                    }
+                }
+            }
+        });
+    }
+
 
     private void init() {
         //init View
@@ -239,43 +356,6 @@ public class Profile_User extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= 23) {
             if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && checkSelfPermission(android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                 Log.i("profilesActivity", "checkPermission: granted");
-                fusedLocationClient = LocationServices.getFusedLocationProviderClient(Profile_User.this);
-                fusedLocationClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Location> task) {
-                                // Got last known location. In some rare situations this can be null.
-                                Log.i("profilesActivity", "lastLocation: success");
-
-                                if (task.isSuccessful()) {
-                                    // Logic to handle location object
-                                    Geocoder geocoder = new Geocoder(Profile_User.this, Locale.getDefault());
-                                    List<Address> addresses = null;
-                                    location = task.getResult();
-                                    if (location == null) {
-                                        Log.i("profilesActivity", "location null");
-
-                                    } else {
-                                        Log.i("profilesActivity", "location not null");
-
-                                    }
-                                    try {
-
-                                        addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
-                                    } catch (IOException e) {
-                                        e.printStackTrace();
-                                    }
-                                    if (addresses != null) {
-                                        String city = addresses.get(0).getLocality();
-                                        current_location.setText(city);
-                                    }
-                                } else {
-                                    Log.i("profilesActivity", "lastLocation: location null");
-
-                                }
-
-                            }
-                        });
-
 
             } else {
                 Log.i("profilesActivity", "checkPermission:not granted");
