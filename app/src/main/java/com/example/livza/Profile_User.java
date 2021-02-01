@@ -276,6 +276,11 @@ public class Profile_User extends AppCompatActivity {
                     }
                 }).attach();
 
+        //add tab items with title..
+        tabLayout.addTab(tabLayout.newTab().setText("Order history").setIcon(R.drawable.order_history));
+        tabLayout.addTab(tabLayout.newTab().setText("My adresses ").setIcon(R.drawable.distance_1));
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
         //init FireBase
         mAuth = FirebaseAuth.getInstance().getCurrentUser();
         mRef = FirebaseDatabase.getInstance().getReference();

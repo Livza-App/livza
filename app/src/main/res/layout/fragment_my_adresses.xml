@@ -4,16 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.MyAdressesFragment" >
+    android:background="@drawable/map"
+    tools:context=".Fragments.MyAdressesFragment">
 
     <ListView
         android:id="@+id/my_adresses_list"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_width="393dp"
+        android:layout_height="639dp"
         app:layout_constraintBottom_toTopOf="@+id/my_adresses_add"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.153" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/my_adresses_add"
@@ -25,9 +28,9 @@
         app:backgroundTint="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.99"
+        app:layout_constraintHorizontal_bias="0.952"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.99" />
+        app:layout_constraintVertical_bias="0.961" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -21,9 +21,9 @@ public class Profile_Edit extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile__edit);
 
-        Edit_Profil_img();
-        Save();
-        Cancel();
+        //Edit_Profil_img();
+       // Save();
+        //Cancel();
     }
 
 
@@ -49,7 +49,7 @@ public class Profile_Edit extends AppCompatActivity {
         Save_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Ghanou hna dir update l user name w phone number f fire base brk
+                //Ghanou hna dir update l user name w phone number f fire base brk w profil user
 
 
             }
@@ -74,7 +74,7 @@ public class Profile_Edit extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PICK_IMAGE && resultCode == RESULT_OK && data != null) {
             imageUri = data.getData();
-            ImageView profile_img = findViewById(R.id.user_profil_img);
+            ImageView profile_img = findViewById(R.id.user_profile_img);
             profile_img.setImageURI(imageUri);
             //Ghanou hna dir update l userprofile f fire base brk
 

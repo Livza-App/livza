@@ -265,7 +265,7 @@
         android:layout_height="35dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/order_status_frame"
         app:layout_constraintVertical_bias="0.036"
@@ -276,25 +276,7 @@
         app:tabRippleColor="#FFFFFF"
         app:tabSelectedTextColor="#FFFFFF"
         app:tabTextAppearance="@style/CustomTabStyle"
-        app:tabTextColor="#9CF2F2F4">
-
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/order_history"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hapticFeedbackEnabled="false"
-            android:icon="@drawable/order_history"
-            android:keepScreenOn="false"
-            android:text="Order history" />
-
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/my_adresses"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:icon="@drawable/distance_1"
-            android:text="My adresses" />
-
-    </com.google.android.material.tabs.TabLayout>
+        app:tabTextColor="#9CF2F2F4"/>
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewpager"

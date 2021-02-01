@@ -5,32 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <LinearLayout
-        android:id="@+id/linearLayout5"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:orientation="horizontal"
-        android:padding="10dp"
+    <TextView
+        android:id="@+id/adresse_item_text"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="Adresse Name"
+        android:textAlignment="center"
+        android:textColor="@color/pink"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/adresse_item_icon"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:scaleType="fitXY"
-            app:srcCompat="@drawable/position_icn" />
-
-        <TextView
-            android:id="@+id/adresse_item_text"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Adresse Name"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="18sp" />
-    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
