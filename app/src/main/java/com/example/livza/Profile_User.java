@@ -28,6 +28,8 @@ import android.graphics.drawable.ColorDrawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -107,6 +109,7 @@ public class Profile_User extends AppCompatActivity {
     private Location location;
     private final int REQUEST_CHECK_CODE = 106;
     private LocationSettingsRequest.Builder builder;
+    private LocationListener myLocationListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -164,11 +167,19 @@ public class Profile_User extends AppCompatActivity {
         result.addOnCompleteListener(new OnCompleteListener<LocationSettingsResponse>() {
             @Override
             public void onComplete(@NonNull Task<LocationSettingsResponse> task) {
+                Log.i("profilesActivity", "onComplete");
                 try {
-                    task.getResult(ApiException.class);
 
+                    task.getResult(ApiException.class);
                     fusedLocationClient = LocationServices.getFusedLocationProviderClient(Profile_User.this);
-                    if (ActivityCompat.checkSelfPermission(Profile_User.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(Profile_User.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    if (ActivityCompat.checkSelfPermission(Profile_User.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(Profile_User.this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+                        locationManager.requestLocationUpdates(
+                                LocationManager.NETWORK_PROVIDER,
+                                1000,
+                                5000,
+                                myLocationListener
+                        );
                         fusedLocationClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
                             @Override
                             public void onComplete(@NonNull Task<Location> task) {
@@ -207,22 +218,27 @@ public class Profile_User extends AppCompatActivity {
                     }
 
                 } catch (ApiException e) {
-                    switch (e.getStatusCode()){
+                    switch (e.getStatusCode()) {
                         case LocationSettingsStatusCodes
                                 .RESOLUTION_REQUIRED:
                             try {
-                                ResolvableApiException resolvableApiException= (ResolvableApiException) e;
-                                resolvableApiException.startResolutionForResult(Profile_User.this,REQUEST_CHECK_CODE);
+                                Log.i("profilesActivity", "RESOLUTION_REQUIRED");
+                                ResolvableApiException resolvableApiException = (ResolvableApiException) e;
+                                resolvableApiException.startResolutionForResult(Profile_User.this, REQUEST_CHECK_CODE);
                             } catch (IntentSender.SendIntentException sendIntentException) {
+                                Log.i("profilesActivity", "sendIntentException");
                                 sendIntentException.printStackTrace();
-                            } catch (ClassCastException ex){
-
+                            } catch (ClassCastException ex) {
+                                Log.i("profilesActivity", "ClassCastException");
                             }
                             break;
                         case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE: {
+                            Log.i("profilesActivity", "SETTINGS_CHANGE_UNAVAILABLE");
                             break;
                         }
                     }
+                }catch (Exception e){
+                    Log.i("profilesActivity", "Exception");
                 }
             }
         });
@@ -264,6 +280,17 @@ public class Profile_User extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance().getCurrentUser();
         mRef = FirebaseDatabase.getInstance().getReference();
         mStorage = FirebaseStorage.getInstance();
+
+        //
+        myLocationListener = new LocationListener() {
+
+            public void onLocationChanged(Location location) {
+
+            }
+            public void onProviderDisabled(String provider) {}
+            public void onProviderEnabled(String provider) {}
+            public void onStatusChanged(String provider, int status, Bundle extras) {}
+        };
 
     }
 
@@ -356,6 +383,7 @@ public class Profile_User extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= 23) {
             if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && checkSelfPermission(android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                 Log.i("profilesActivity", "checkPermission: granted");
+                createLocationRequest();
 
             } else {
                 Log.i("profilesActivity", "checkPermission:not granted");
