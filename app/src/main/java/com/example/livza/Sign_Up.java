@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -143,6 +144,7 @@ public class Sign_Up extends AppCompatActivity {
     private void verificationDialog(String code) {
         Log.i("sign_up", "dialog show");
         dialog = new Dialog(Sign_Up.this);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog.setContentView(R.layout.custom_confirmation_code_dialog);
         dialog.findViewById(R.id.Confirme).setOnClickListener(new View.OnClickListener() {
             @Override

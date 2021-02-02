@@ -110,6 +110,7 @@ public class Profile_User extends AppCompatActivity {
     private final int REQUEST_CHECK_CODE = 106;
     private LocationSettingsRequest.Builder builder;
     private LocationListener myLocationListener;
+    private static final int codeEditProfile=1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -248,15 +249,15 @@ public class Profile_User extends AppCompatActivity {
     private void init() {
         //init View
         cardUser = findViewById(R.id.cardUser);
-        editProfile = findViewById(R.id.edit_profile);
+        editProfile = findViewById(R.id.Activity_Profile_edit_profile);
         current_location = findViewById(R.id.possition);
 
         //edit profile
         editProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent u = new Intent(Profile_User.this, Profile_Edit.class);
-                startActivity(u);
+                Intent EditeProfileActivity = new Intent(Profile_User.this, Profile_Edit.class);
+                startActivityForResult(EditeProfileActivity,codeEditProfile);
             }
         });
         user_name = findViewById(R.id.user_name);
@@ -297,6 +298,56 @@ public class Profile_User extends AppCompatActivity {
             public void onStatusChanged(String provider, int status, Bundle extras) {}
         };
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==codeEditProfile){
+            if(resultCode==Profile_Edit.codeSave){
+                Boolean userName=data.getBooleanExtra("userName",false);
+                Boolean phone=data.getBooleanExtra("phone",false);
+                Boolean image=data.getBooleanExtra("photo",false);
+                if(userName || phone || image){
+                    mRef.child("Users").child(mAuth.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if(userName){
+                                user_name.setText(snapshot.child("username").getValue(String.class));
+                            }
+                            if(phone){
+                                phone_num.setText(snapshot.child("phone").getValue(String.class));
+                            }
+                            if(image){
+                                String imageID=snapshot.child("ImageID").getValue(String.class);
+                                StorageReference mStorageRef = mStorage.getReference().child("/Users").child("/" + imageID);
+                                mStorageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                    @Override
+                                    public void onSuccess(Uri uri) {
+                                        Glide.with(getApplicationContext())
+                                                .load(uri)
+                                                .into(profile_img);
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception exception) {
+                                        // Handle any errors
+                                        Glide.with(getApplicationContext())
+                                                .load(R.drawable.addtocart_cochetrue)
+                                                .into(profile_img);
+                                    }
+                                });
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+                }
+            }
+        }
     }
 
     public void Onback() {

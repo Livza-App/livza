@@ -66,7 +66,7 @@
         app:layout_constraintVertical_bias="0.033" />
 
     <Button
-        android:id="@+id/edit_profile"
+        android:id="@+id/Activity_Profile_edit_profile"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:background="@drawable/edit_profile"

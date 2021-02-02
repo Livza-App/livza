@@ -53,6 +53,7 @@
         <activity android:name=".Menu" />
         <activity android:name=".Profile_User" />
         <activity android:name=".Add_to_cart" />
+        <activity android:name=".Profile_Edit" />
 
         <meta-data
             android:name="preloaded_fonts"
