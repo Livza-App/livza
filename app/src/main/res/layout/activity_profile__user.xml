@@ -261,7 +261,7 @@
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="35dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -276,15 +276,16 @@
         app:tabRippleColor="#FFFFFF"
         app:tabSelectedTextColor="#FFFFFF"
         app:tabTextAppearance="@style/CustomTabStyle"
-        app:tabTextColor="#9CF2F2F4"/>
+        app:tabTextColor="#9CF2F2F4" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewpager"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="391dp"
+        android:layout_height="323dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tabLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/tabLayout"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
